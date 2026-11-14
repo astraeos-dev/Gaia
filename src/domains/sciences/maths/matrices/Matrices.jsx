@@ -118,7 +118,7 @@ export default function Matrices() {
       </div>
       <div className="card card-pad">
         <p className="label">Résultat : {operation.label}</p>
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && <p className="text-sm text-alerte">{error}</p>}
         {result?.matrix && <Display matrix={result.matrix} />}
         {result?.scalar !== undefined && <p className="font-mono text-2xl font-bold text-accent-800 dark:text-accent-300">{smartNumber(result.scalar, 10)}</p>}
         {result?.list && (

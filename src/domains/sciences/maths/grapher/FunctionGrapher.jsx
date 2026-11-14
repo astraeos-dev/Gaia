@@ -2,10 +2,12 @@ import { useMemo, useRef, useState } from 'react'
 import { Maximize, Minus, Plus, Trash2 } from 'lucide-react'
 import { smartNumber } from '../../../../lib/format'
 import { compile } from '../../../pratique/calculator/expression'
+import { INVALID, SERIES } from '../../../../kit/charte'
 
 const W = 800
 const H = 500
-const COLORS = ['#f59e0b', '#38bdf8', '#a78bfa', '#34d399', '#f472b6', '#f87171']
+// Six fonctions au plus, dans les couleurs des séries de la charte
+const COLORS = SERIES.slice(0, 6)
 const DEFAULT_VIEW = { cx: 0, cy: 0, scale: 50 } // pixels par unité
 
 /** Pas de graduation lisible pour une échelle donnée. */
@@ -144,7 +146,7 @@ export default function FunctionGrapher() {
             )}
             <line x1="0" x2={W} y1={oy} y2={oy} className="stroke-night-500" strokeWidth="1.5" />
             <line y1="0" y2={H} x1={ox} x2={ox} className="stroke-night-500" strokeWidth="1.5" />
-            {paths.map((d, i) => d && <path key={i} d={d} fill="none" stroke={COLORS[i % COLORS.length]} strokeWidth="2.5" strokeLinejoin="round" />)}
+            {paths.map((d, i) => d && <path key={i} d={d} fill="none" style={{ stroke: COLORS[i % COLORS.length] }} strokeWidth="2.5" strokeLinejoin="round" />)}
             {hoverX !== null && (
               <>
                 <line x1={toScreen(hoverX, 0)[0]} x2={toScreen(hoverX, 0)[0]} y1="0" y2={H} className="stroke-night-400" strokeDasharray="3 3" />
@@ -153,7 +155,7 @@ export default function FunctionGrapher() {
                   const y = evalAt(c.fn, hoverX)
                   if (!Number.isFinite(y)) return null
                   const [sx, sy] = toScreen(hoverX, y)
-                  return <circle key={i} cx={sx} cy={sy} r="4.5" fill={COLORS[i % COLORS.length]} />
+                  return <circle key={i} cx={sx} cy={sy} r="4.5" style={{ fill: COLORS[i % COLORS.length] }} />
                 })}
               </>
             )}
@@ -180,17 +182,17 @@ export default function FunctionGrapher() {
             <div className="flex items-center gap-2">
               <span className="h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
               <input
-                className={`input font-mono ${compiled[i].error ? 'border-red-500' : ''}`}
+                className={`input font-mono ${compiled[i].error ? INVALID : ''}`}
                 value={f}
                 onChange={(e) => setFuncs(funcs.map((g, j) => (j === i ? e.target.value : g)))}
                 aria-label={`Fonction ${i + 1}`}
                 spellCheck={false}
               />
-              <button type="button" className="text-night-400 hover:text-red-500" onClick={() => setFuncs(funcs.filter((_, j) => j !== i))} aria-label="Supprimer">
+              <button type="button" className="text-night-400 hover:text-alerte" onClick={() => setFuncs(funcs.filter((_, j) => j !== i))} aria-label="Supprimer">
                 <Trash2 size={15} />
               </button>
             </div>
-            {compiled[i].error && <p className="mt-1 text-xs text-red-500">{compiled[i].error}</p>}
+            {compiled[i].error && <p className="mt-1 text-xs text-alerte">{compiled[i].error}</p>}
             {hoverX !== null && compiled[i].fn && (
               <p className="mt-1 font-mono text-xs text-night-500">
                 f({smartNumber(hoverX, 4)}) = {smartNumber(evalAt(compiled[i].fn, hoverX), 6)}

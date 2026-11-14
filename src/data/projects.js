@@ -11,6 +11,8 @@
  * tools    : identifiants (registry.js) des outils du site issus du projet
  * intro, features, install, links : le contenu de la section
  */
+import { TONE } from '../kit/charte'
+
 export const PROJECTS = [
   {
     id: 'celeste',
@@ -278,8 +280,8 @@ export const PROJECTS = [
 ]
 
 export const PROJECT_STATUS = {
-  actif: { label: 'Actif', className: 'border-ok/40 text-ok dark:border-ok/40 dark:text-ok' },
-  prototype: { label: 'En développement', className: 'border-sky-500/40 text-sky-600 dark:text-sky-400' },
+  actif: { label: 'Actif', className: TONE.ok },
+  prototype: { label: 'En développement', className: TONE.lune },
   'en-pause': { label: 'En pause', className: 'border-accent-500/40 text-accent-700 dark:text-accent-400' },
   termine: { label: 'Terminé', className: 'border-night-500/40 text-night-500' },
   archive: { label: 'Archivé', className: 'border-night-500/40 text-night-500' },

@@ -1,4 +1,5 @@
 import { ExternalLink } from 'lucide-react'
+import { TONE } from '../../../kit/charte'
 
 /** Bouton-filtre en forme de pastille, actif ou non. */
 export function ToggleChip({ active, onClick, children }) {
@@ -20,7 +21,7 @@ export function ToggleChip({ active, onClick, children }) {
 export function LogicBadge({ volts }) {
   const five = volts === 5
   return (
-    <span className={`chip ${five ? 'border-sky-500/40 text-sky-700 dark:text-sky-300' : 'border-emerald-500/40 text-emerald-700 dark:text-emerald-300'}`}>
+    <span className={`chip ${five ? TONE.lune : TONE.ok}`}>
       Logique {five ? '5 V' : '3,3 V'}
     </span>
   )

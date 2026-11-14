@@ -1,4 +1,5 @@
 import { formatSI, parseSI } from '../lib/si'
+import { INVALID } from './charte'
 
 /**
  * Champ numérique acceptant les préfixes SI (4k7, 10µ, 20m…), avec rappel de la valeur lue.
@@ -15,14 +16,14 @@ export function SIField({ id, label, unit, value, onChange, placeholder, optiona
       </label>
       <input
         id={id}
-        className={`input font-mono text-lg ${invalid ? 'border-red-500' : ''}`}
+        className={`input font-mono text-lg ${invalid ? INVALID : ''}`}
         inputMode="decimal"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         autoComplete="off"
       />
-      <p className={`mt-1 font-mono text-xs ${invalid ? 'text-red-500' : 'text-night-500'}`}>
+      <p className={`mt-1 font-mono text-xs ${invalid ? 'text-alerte' : 'text-night-500'}`}>
         {invalid ? 'Valeur non reconnue' : empty ? (optional ? 'facultatif' : '\u00a0') : `= ${formatSI(parsed, unit, 6)}`}
       </p>
     </div>

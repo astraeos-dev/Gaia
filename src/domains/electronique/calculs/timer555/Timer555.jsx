@@ -25,7 +25,7 @@ function Waveform({ duty: rawDuty }) {
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="Chronogramme de la sortie">
       <line x1="0" x2={W} y1={lo} y2={lo} className="stroke-night-300 dark:stroke-night-700" strokeDasharray="3 3" />
-      <path d={d} fill="none" stroke="#f59e0b" strokeWidth="2.5" strokeLinejoin="round" />
+      <path d={d} fill="none" className="stroke-or" strokeWidth="2.5" strokeLinejoin="round" />
       {duty != null && (
         <>
           <text x={10 + (duty * (W - 20)) / 4} y={hi - 5} textAnchor="middle" className="fill-night-500 font-mono text-[10px]">

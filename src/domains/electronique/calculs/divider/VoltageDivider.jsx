@@ -20,8 +20,8 @@ function Schematic({ withLoad }) {
         R1
       </text>
       <line x1="60" y1="84" x2="60" y2="130" stroke={stroke} strokeWidth="2" />
-      <circle cx="60" cy="107" r="3.5" fill="#f59e0b" />
-      <line x1="60" y1="107" x2={withLoad ? 140 : 110} y2="107" stroke="#f59e0b" strokeWidth="2" />
+      <circle cx="60" cy="107" r="3.5" className="fill-or" />
+      <line x1="60" y1="107" x2={withLoad ? 140 : 110} y2="107" className="stroke-or" strokeWidth="2" />
       <text x={withLoad ? 100 : 116} y={withLoad ? 100 : 111} textAnchor={withLoad ? 'middle' : 'start'} className="fill-accent-500 font-mono text-[12px] font-bold">
         Vout
       </text>

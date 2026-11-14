@@ -23,10 +23,10 @@ import {
  */
 
 const FAMILIES = [
-  { id: 'rh', label: 'Humidité relative', key: 'bg-[#2a78d6] dark:bg-[#3987e5]', stroke: 'stroke-[#2a78d6] dark:stroke-[#3987e5]' },
-  { id: 'tw', label: 'Température humide', key: 'bg-[#1baf7a] dark:bg-[#199e70]', stroke: 'stroke-[#1baf7a] dark:stroke-[#199e70]', dashed: true },
-  { id: 'h', label: 'Enthalpie', key: 'bg-[#eb6834] dark:bg-[#d95926]', stroke: 'stroke-[#eb6834] dark:stroke-[#d95926]' },
-  { id: 'v', label: 'Volume spécifique', key: 'bg-[#6250d6] dark:bg-[#9085e9]', stroke: 'stroke-[#6250d6] dark:stroke-[#9085e9]' },
+  { id: 'rh', label: 'Humidité relative', key: 'bg-lune', stroke: 'stroke-lune' },
+  { id: 'tw', label: 'Température humide', key: 'bg-ok', stroke: 'stroke-ok', dashed: true },
+  { id: 'h', label: 'Enthalpie', key: 'bg-or-alerte', stroke: 'stroke-or-alerte' },
+  { id: 'v', label: 'Volume spécifique', key: 'bg-lune-alerte', stroke: 'stroke-lune-alerte' },
 ]
 const ACCENT = 'fill-accent-500 dark:fill-accent-400'
 const ACCENT_STROKE = 'stroke-accent-500 dark:stroke-accent-400'

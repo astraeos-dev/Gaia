@@ -3,6 +3,7 @@ import { Moon, Plus, Radio, Sun, X } from 'lucide-react'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import { useNow } from '../../../hooks/useNow'
 import { ALL_ZONES, CITIES, CITY_NAMES, DEFAULT_ZONES, LOCAL, fromWallTime, wallTime, zoneName, zoneOffset } from './timezones'
+import { TONE } from '../../../kit/charte'
 
 const pad = (n) => String(n).padStart(2, '0')
 const toInput = (w) => `${w.year}-${pad(w.month)}-${pad(w.day)}T${pad(w.hour)}:${pad(w.minute)}`
@@ -20,7 +21,7 @@ const dayFmt = (zone) => new Intl.DateTimeFormat('fr-FR', { timeZone: zone, week
 
 function hourClass(h) {
   if (h >= 9 && h < 18) return 'bg-accent-400/30 text-night-900 dark:text-accent-100'
-  if (h >= 7 && h < 21) return 'bg-sky-400/15 text-night-700 dark:text-sky-100'
+  if (h >= 7 && h < 21) return 'bg-lune/15 text-night-700 dark:text-night-100'
   return 'bg-night-800/80 text-night-300 dark:bg-night-950'
 }
 
@@ -66,7 +67,7 @@ export default function TimeZones() {
             ))}
           </select>
         </label>
-        <button type="button" onClick={() => setFixed(null)} className={`btn ${fixed == null ? 'border-emerald-500/60 text-emerald-600 dark:text-emerald-400' : ''}`}>
+        <button type="button" onClick={() => setFixed(null)} className={`btn ${fixed == null ? TONE.ok : ''}`}>
           <Radio size={15} className={fixed == null ? 'animate-pulse' : ''} /> {fixed == null ? 'Temps réel' : 'Maintenant'}
         </button>
       </div>
@@ -80,14 +81,14 @@ export default function TimeZones() {
             <article key={zone} className="card relative p-4">
               <button
                 type="button"
-                className="absolute right-2 top-2 rounded p-1 text-night-400 hover:text-red-500"
+                className="absolute right-2 top-2 rounded p-1 text-night-400 hover:text-alerte"
                 onClick={() => setZones(zones.filter((z) => z !== zone))}
                 aria-label={`Retirer ${zoneName(zone)}`}
               >
                 <X size={14} />
               </button>
               <p className="flex items-center gap-1.5 pr-6 font-semibold">
-                {day ? <Sun size={14} className="text-accent-500" /> : <Moon size={14} className="text-sky-400" />}
+                {day ? <Sun size={14} className="text-accent-500" /> : <Moon size={14} className="text-lune" />}
                 {zoneName(zone)}
               </p>
               <p className="font-mono text-3xl font-semibold tabular-nums">
@@ -135,7 +136,7 @@ export default function TimeZones() {
       <section className="card overflow-hidden">
         <div className="border-b border-night-200 px-4 py-3 dark:border-night-800">
           <h2 className="font-display font-semibold">Planificateur sur 24 heures</h2>
-          <p className="text-xs text-night-500">Cliquez sur une colonne pour choisir l'heure. Ambre : heures de bureau (9 h – 18 h) ; bleu : journée ; sombre : nuit.</p>
+          <p className="text-xs text-night-500">Cliquez sur une colonne pour choisir l'heure. Doré : heures de bureau (9 h – 18 h) ; bleu : journée ; sombre : nuit.</p>
         </div>
         <div className="overflow-x-auto p-3">
           <table className="w-full border-separate border-spacing-0.5 text-center font-mono text-xs">

@@ -1,3 +1,4 @@
+import { LUNE } from '../../../../kit/charte'
 const WAVES = {
   sine: { label: 'Sinusoïdal', rms: 1 / Math.SQRT2, avg: 2 / Math.PI, shape: (t) => Math.sin(2 * Math.PI * t) },
   square: { label: 'Carré', rms: 1, avg: 1, shape: (t) => (t % 1 < 0.5 ? 1 : -1) },
@@ -40,7 +41,7 @@ export default {
         y: { label: 'Tension (V)' },
         series: [
           { name: 'Signal', points: ts.map((t) => [t, peak * w.shape(t)]) },
-          { name: 'Valeur efficace', color: '#60a5fa', dashed: true, points: [[0, peak * w.rms], [2, peak * w.rms]] },
+          { name: 'Valeur efficace', color: LUNE, dashed: true, points: [[0, peak * w.rms], [2, peak * w.rms]] },
         ],
       },
     }

@@ -212,7 +212,7 @@ export default function UnitConverter() {
               )}
               {rates.error && (
                 <>
-                  <span className="text-red-600 dark:text-red-400">
+                  <span className="text-alerte">
                     Impossible de récupérer les taux ({rates.error}){rates.data ? ' : derniers taux connus affichés.' : '.'}
                   </span>
                   <button type="button" className="btn py-0.5 text-xs" onClick={rates.retry}>
@@ -264,7 +264,7 @@ export default function UnitConverter() {
               </div>
               <p className="mt-4 font-mono text-xs text-night-500">
                 {state.value.trim() && !Number.isFinite(value) ? (
-                  <span className="text-red-500">Valeur non numérique.</span>
+                  <span className="text-alerte">Valeur non numérique.</span>
                 ) : from.toBase || to.toBase ? (
                   'Conversion non proportionnelle (formule affine ou inverse).'
                 ) : (
