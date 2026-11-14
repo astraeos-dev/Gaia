@@ -15,6 +15,7 @@
   "dependencies": {
     "astronomy-engine": "^2.1.19",
     "lucide-react": "^0.554.0",
+    "marked": "^16.4.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.18.4",
@@ -38,5 +39,5 @@
   "overrides": {
     "vite": "npm:rolldown-vite@7.2.5"
   },
-  "description": "Site personnel : projets, utilitaires et outils d'astronomie (React + Vite)"
+  "description": "Gaïa : les projets d'Astraeos, un par section, et leurs outils dans le navigateur (React + Vite)"
 }

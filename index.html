@@ -3,19 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Ganymede : calculateurs (électronique, maths, physique, santé), convertisseur d'unités et outils d'astronomie (carte du ciel, éphémérides, Soleil, Lune, planètes, passages de l'ISS) directement dans le navigateur." />
-    <meta name="theme-color" content="#0a0f21" />
+    <meta name="description" content="Gaïa réunit les projets d'Astraeos : Céleste, l'observatoire astronomique pour Windows ; Ganymède, ses calculateurs et ses outils dans le navigateur ; les intégrations Home Assistant Céleste, Helios et Météo & Confort ; la bibliothèque astraeos-astro." />
+    <meta name="theme-color" content="#0b0f17" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <title>Ganymede — calculateurs, conversions et astronomie</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>Gaïa — les projets d'Astraeos</title>
     <script>
-      // Applique le thème avant le premier rendu pour éviter un flash clair/sombre.
+      // Applique le thème (Jour, Nuit ou Observation) avant le premier rendu, pour éviter un flash.
       try {
         const stored = localStorage.getItem('theme');
-        const dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.classList.toggle('dark', dark);
+        const theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.classList.toggle('dark', theme !== 'light');
+        document.documentElement.classList.toggle('observation', theme === 'observation');
       } catch {
         document.documentElement.classList.add('dark');
       }

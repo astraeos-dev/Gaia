@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { SITE } from '../config/site'
+import { ACTIVE_PROJECTS } from '../data/projects'
 import { DOMAINS, TOOLS, rubriquePath } from '../registry'
 import { Logo } from './Brand'
 
@@ -14,6 +15,16 @@ export default function Footer() {
           <p className="mt-2 max-w-xs text-sm text-night-600 dark:text-night-400">
             {SITE.tagline}. {TOOLS.length} outils gratuits, sans compte ni publicité, qui fonctionnent dans le navigateur.
           </p>
+          <p className="label mt-5">Les projets</p>
+          <ul className="grid grid-cols-2 gap-0.5 text-sm">
+            {ACTIVE_PROJECTS.map((p) => (
+              <li key={p.id}>
+                <Link to={`/${p.id}`} className="text-night-600 hover:text-accent-700 dark:text-night-400 dark:hover:text-accent-300">
+                  {p.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="grid grid-cols-2 gap-x-4 gap-y-4 text-sm">
           {DOMAINS.map((d) => (

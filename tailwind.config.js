@@ -1,11 +1,13 @@
-import colors from 'tailwindcss/colors'
-
 /**
- * Thème du site : deux jetons de couleur seulement.
- *  - night  : bleus nuit (fonds, textes, bordures)
- *  - accent : couleur d'accentuation (ambre)
- * Changer de style = modifier ces deux palettes.
+ * Thème du site : la charte Astræos (celle de Céleste), en deux jetons de couleur.
+ *  - night  : les fonds, l'encre et les bordures (Jour en clair, Nuit en sombre)
+ *  - accent : l'or d'Astræos
+ * Les valeurs sont des variables CSS (src/index.css) : le thème Observation, rouge pour garder la vision
+ * de nuit, les remplace toutes sans toucher aux classes.
  */
+const scale = (name) =>
+  Object.fromEntries([50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map((k) => [k, `rgb(var(--${name}-${k}) / <alpha-value>)`]))
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
@@ -13,25 +15,15 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['"Space Grotesk"', 'Inter', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+        display: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
       },
       colors: {
-        accent: colors.amber,
-        night: {
-          50: '#f4f6fb',
-          100: '#e8ecf5',
-          200: '#d0d7e6',
-          300: '#aab5cd',
-          400: '#7e8cab',
-          500: '#5c6b8d',
-          600: '#475474',
-          700: '#36405d',
-          800: '#242c46',
-          900: '#161c33',
-          950: '#0a0f21',
-        },
+        accent: scale('accent'),
+        night: scale('night'),
+        // signal-ok de la charte : le vert de « Actif », rouge lui aussi en Observation
+        ok: 'rgb(var(--signal-ok) / <alpha-value>)',
       },
     },
   },

@@ -3,6 +3,73 @@
 @tailwind utilities;
 
 @layer base {
+  /*
+   * Jetons de couleur de la charte Astræos (tokens.json, ceux de Céleste), en canaux R G B.
+   * Une seule échelle sert les deux thèmes : le clair (Jour) prend le bas, le sombre (Nuit) le haut.
+   *   Jour : ciel-000 #f6f4ef (night-50), ciel-200 #e3dfd5 (night-200), encre #141a24 (night-900),
+   *          encre atténuée #5a6372 (night-500), or #8f5c00 (accent-700)
+   *   Nuit : ciel-000 #0b0f17 (night-950), ciel-100 #131a26 (night-900), ciel-200 #1f2a3b (night-800),
+   *          encre #e8ecf2 (night-100), encre atténuée #9aa6b8 (night-400), or #f2b84b (accent-400)
+   */
+  :root {
+    --night-50: 246 244 239;
+    --night-100: 232 236 242;
+    --night-200: 227 223 213;
+    --night-300: 195 201 211;
+    --night-400: 154 166 184;
+    --night-500: 90 99 114;
+    --night-600: 71 82 102;
+    --night-700: 44 58 80;
+    --night-800: 31 42 59;
+    --night-900: 19 26 38;
+    --night-950: 11 15 23;
+    --accent-50: 253 246 231;
+    --accent-100: 251 235 198;
+    --accent-200: 248 217 143;
+    --accent-300: 245 200 107;
+    --accent-400: 242 184 75;
+    --accent-500: 220 157 39;
+    --accent-600: 179 122 12;
+    --accent-700: 143 92 0;
+    --accent-800: 111 71 0;
+    --accent-900: 82 52 0;
+    --accent-950: 46 29 0;
+    --signal-ok: 31 122 72;
+  }
+  :root.dark {
+    --signal-ok: 92 201 138;
+  }
+  /* Observation : tout en rouge, pour garder la vision de nuit (ciel-000 #0a0000, encre #ff5a46, or #ff8a5c) */
+  :root.observation {
+    --night-50: 255 110 92;
+    --night-100: 255 90 70;
+    --night-200: 240 85 64;
+    --night-300: 232 80 60;
+    --night-400: 218 71 51;
+    --night-500: 138 36 24;
+    --night-600: 92 20 16;
+    --night-700: 61 11 11;
+    --night-800: 42 7 7;
+    --night-900: 22 3 3;
+    --night-950: 10 0 0;
+    --accent-50: 255 190 160;
+    --accent-100: 255 172 138;
+    --accent-200: 255 160 120;
+    --accent-300: 255 150 106;
+    --accent-400: 255 138 92;
+    --accent-500: 240 116 70;
+    --accent-600: 214 96 56;
+    --accent-700: 184 74 40;
+    --accent-800: 140 52 26;
+    --accent-900: 92 32 16;
+    --accent-950: 50 16 8;
+    --signal-ok: 232 96 74;
+  }
+  :root.observation img,
+  :root.observation canvas,
+  :root.observation svg image {
+    filter: grayscale(1) sepia(1) hue-rotate(-50deg) saturate(5) brightness(0.75);
+  }
   html {
     -webkit-tap-highlight-color: transparent;
   }
@@ -62,6 +129,75 @@
   }
   .table-data tbody tr {
     @apply transition-colors hover:bg-night-50 dark:hover:bg-night-800/30;
+  }
+}
+
+@layer components {
+  /* Les documents Markdown (pages de Céleste, wiki, historique) aux couleurs de la charte */
+  .prose-gaia {
+    @apply max-w-3xl text-[15px] leading-7 text-night-800 dark:text-night-200;
+  }
+  .prose-gaia > * + * {
+    @apply mt-4;
+  }
+  .prose-gaia h1 {
+    @apply text-3xl font-bold tracking-tight text-night-950 dark:text-night-50;
+  }
+  .prose-gaia h2 {
+    @apply mt-10 border-b border-night-200 pb-2 text-2xl font-semibold tracking-tight text-night-950 dark:border-night-800 dark:text-night-50;
+  }
+  .prose-gaia h3 {
+    @apply mt-8 text-lg font-semibold text-night-950 dark:text-night-50;
+  }
+  .prose-gaia a {
+    @apply font-medium text-accent-700 underline decoration-accent-500/40 underline-offset-2 hover:decoration-accent-500 dark:text-accent-400;
+  }
+  .prose-gaia strong {
+    @apply font-semibold text-night-950 dark:text-night-50;
+  }
+  .prose-gaia ul {
+    @apply list-disc space-y-1.5 pl-6 marker:text-accent-600;
+  }
+  .prose-gaia ol {
+    @apply list-decimal space-y-1.5 pl-6 marker:text-night-500;
+  }
+  .prose-gaia li > ul,
+  .prose-gaia li > ol {
+    @apply mt-1.5;
+  }
+  .prose-gaia li:has(> input[type='checkbox']) {
+    @apply list-none -ml-6;
+  }
+  .prose-gaia input[type='checkbox'] {
+    @apply mr-2 accent-accent-500;
+  }
+  .prose-gaia code {
+    @apply rounded bg-night-100 px-1 py-0.5 font-mono text-[0.85em] text-night-900 dark:bg-night-800 dark:text-night-100;
+  }
+  .prose-gaia pre {
+    @apply overflow-x-auto rounded-xl border border-night-200 bg-white p-4 text-sm leading-6 dark:border-night-800 dark:bg-night-900;
+  }
+  .prose-gaia pre code {
+    @apply bg-transparent p-0 dark:bg-transparent;
+  }
+  .prose-gaia table {
+    @apply block w-full overflow-x-auto text-left text-sm;
+  }
+  .prose-gaia th {
+    @apply border-b border-night-300 px-3 py-2 align-bottom font-semibold text-night-900 dark:border-night-700 dark:text-night-100;
+  }
+  .prose-gaia td {
+    @apply border-b border-night-200 px-3 py-2 align-top dark:border-night-800;
+  }
+  .prose-gaia blockquote {
+    @apply border-l-4 border-accent-400/60 pl-4 text-night-600 dark:text-night-400;
+  }
+  .prose-gaia hr {
+    @apply my-8 border-night-200 dark:border-night-800;
+  }
+  /* L'historique : une version par bloc */
+  .changelog h2 {
+    @apply mt-8 border-none pb-0 text-xl;
   }
 }
 
