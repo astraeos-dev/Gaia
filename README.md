@@ -1,30 +1,43 @@
-# Ganymede — calculateurs, conversions et astronomie
+# Gaïa — les projets d'Astraeos
 
-Plus de quatre-vingts outils gratuits, rangés en quatre espaces (Astronomie, Électronique, Sciences,
-Pratique), qui fonctionnent entièrement dans le navigateur : calculateurs
-d'électronique, de maths, de physique et de santé, convertisseur d'unités et de devises, temps
-astronomique, et tout le nécessaire pour observer le ciel (dans l'esprit de
-[Heavens-Above](https://www.heavens-above.com) et des pages de [Don Cross](https://cosinekitty.com)).
+Le site qui réunit les projets d'Astraeos, **un projet par section** : Céleste (l'observatoire astronomique pour
+Windows), Ganymède (l'application Android de calcul et ses outils web), les intégrations Home Assistant Céleste,
+Helios et Météo & Confort, et la bibliothèque astraeos-astro. Dans la mythologie grecque, Gaïa est la Terre mère,
+ancêtre des Titans : Astraeos, le Titan des étoiles, est son petit-fils.
 
-**Site en ligne :** https://greg50100.github.io/personnal-site/
+Le site offre aussi plus de quatre-vingts outils qui fonctionnent entièrement dans le navigateur, rangés en quatre
+espaces : l'Astronomie vient de Céleste, l'Électronique, les Sciences et le Pratique de Ganymède.
 
-## Espaces et rubriques
+**Site en ligne :** https://astraeos-dev.github.io/personnal-site/
 
-Le site est découpé en quatre espaces, chacun en rubriques (`#/<espace>` liste ses rubriques,
-`#/<espace>/<outil>` ouvre un outil).
+## Les sections
 
-| Espace | Rubriques et outils |
+| Adresse | Section |
 | --- | --- |
-| **Astronomie** | *Ciel et observation* : Ce soir dans le ciel · Carte du ciel · Calendrier astronomique · Éclipses et passages · Jour et nuit sur la Terre · Heure et temps astronomique (UTC, TAI, TT, GPS, jour julien, temps sidéral, équation du temps)<br>*Soleil, Lune et planètes* : Calculateur du système solaire · Le Soleil · La Lune · Résumé des planètes<br>*Satellites* : Passages de l'ISS et satellites · Satellites brillants · Où est l'ISS ? |
-| **Électronique** | *Bases et réseaux* : Loi d'Ohm · Puissance · Série/parallèle · Pont diviseur · LED · Tolérances · Séries E · Wheatstone · Triangle-étoile<br>*Composants et codes* : Brochages de composants (transistors, régulateurs, 74HC, CMOS 4000…) · Codes des résistances (couleurs, CMS) et des condensateurs · Boîtiers · Symboles<br>*Cartes et modules* : Cartes de développement (Arduino, ESP8266, ESP32, Raspberry Pi Pico et Raspberry Pi), avec le brochage et la table des broches de chaque carte · Capteurs et modules (avec leur câblage type) · Vérifier un montage · Bus et niveaux logiques · Résistances de tirage I2C · Autonomie en veille profonde<br>*Câbles et connectique* : Brochages de connecteurs (USB, HDMI, RJ45, OBD-II…) · Fils AWG · Couleurs des conducteurs · Chute de tension · Section de câble · Largeur de piste (IPC-2221) · Résistivité et permittivité<br>*Alimentation et énergie* : Transformateur · LM317 · Condensateur de filtrage · Dissipateur · Autonomie d'une batterie · Piles et accumulateurs · Fusibles · Coût de l'énergie<br>*Alternatif et signaux* : Valeur efficace · Réactance · Impédance RLC · Résonance LC · Filtres passifs · Constante de temps · Bobine à air · Décibels · Atténuateur en T et en π<br>*Montages actifs* : 555 · AOP · Polarisation BJT · Zener |
-| **Sciences** | *Mathématiques* : Traceur de courbes · Second degré · Matrices · PGCD/PPCM · Complexes · Bases numériques<br>*Physique* : Chute libre · Projectile · Loi de Newton · Gaz parfaits · Bernoulli · Ondes<br>*Météo* : Air humide et diagramme psychrométrique · Confort thermique (formules de l'intégration Home Assistant Thermal Comfort) · Ressenti, pression et altitude<br>*Chimie* : Masse molaire |
-| **Pratique** | *Conversions et calcul* : Convertisseur (75 grandeurs, plus de 600 unités, devises BCE) · Calculatrice scientifique · Pourcentages<br>*Dates et heures* : Fuseaux horaires · Calcul de dates · Pâques et jours fériés<br>*Santé* : IMC · Métabolisme · Masse grasse |
+| `#/` | Accueil : les projets, les espaces d'outils, les outils à la une, les archives |
+| `#/celeste` | Céleste, en neuf pages : présentation, fonctionnalités, installation, dans le navigateur, versions, documentation (son wiki et ses documents de conception), confidentialité, références, feuille de route |
+| `#/ganymede`, `#/celeste-ha`, `#/helios`, `#/meteo-confort`, `#/astraeos-astro` | Les autres projets : présentation, fonctionnalités, installation, liens, et leurs outils sur le site |
+| `#/<espace>`, `#/<espace>/<outil>` | Les espaces d'outils et leurs outils |
 
-Les anciennes adresses (`#/materiel/esp32`, `#/maths`, `#/materiel/brochages`…) redirigent vers les nouvelles.
+## La charte Astræos
 
-Les outils d'astronomie partagent le **lieu d'observation** (sélecteur dans l'en-tête : villes,
-géolocalisation ou coordonnées), mémorisé dans le navigateur. Une page « À propos » présente les
-projets dont proviennent les outils (application Android Ganymede, dépôts d'astronomie et de conversion).
+Les couleurs, les polices et le logo sont ceux de Céleste : trois thèmes (Jour, Nuit, et Observation, rouge pour
+garder la vision de nuit), les polices IBM Plex, et un logo fait d'une lettre à l'encre et d'une étoile d'or. Les
+couleurs sont des variables CSS (`src/index.css`) que Tailwind lit (`tailwind.config.js`) ; le logo, le G de Gaïa
+et son étoile, est dessiné par `scripts/make-logo.py` (`public/favicon.svg`, `public/gaia.svg`).
+
+## Ajouter un projet
+
+Une entrée dans `src/data/projects.js` (identifiant, titre, description, statut, liens, fonctionnalités,
+installation) : l'accueil, l'en-tête, le pied de page et la section `#/<identifiant>` la prennent. Un projet aux
+pages plus riches a son dossier dans `src/projects/`, comme Céleste.
+
+La section Céleste reprend les documents de son dépôt (le wiki, les documents de conception, l'historique des
+versions) : après un changement de Céleste, les recopier avec
+
+```bash
+node scripts/sync-celeste.mjs ../Celeste_App
+```
 
 ## Démarrer
 
@@ -41,10 +54,11 @@ npm run check     # lint + tests + build, comme la CI
 
 ```
 src/
-├── App.jsx                  # routes : accueil, catalogue, #/<espace>, #/<espace>/<outil>, à propos
+├── App.jsx                  # routes : accueil, sections des projets, catalogue, #/<espace>, #/<espace>/<outil>, à propos
 ├── registry.js              # ⭐ REGISTRE DU SITE : rassemble les espaces, adresses, recherche, anciennes adresses
 ├── config/site.js           # nom du site, description, liens GitHub
-├── data/projects.js         # projets présentés sur la page « À propos »
+├── data/projects.js         # ⭐ LES PROJETS : un projet, une section (accueil, en-tête, #/<projet>)
+├── projects/celeste/        # la section Céleste : ses pages (content/), ses documents recopiés (docs/)
 ├── context/                 # thème clair/sombre et lieu d'observation partagés
 ├── components/              # en-tête, recherche (Ctrl K), pied de page, cartes, sélecteur de lieu…
 ├── pages/                   # accueil, catalogue, page d'espace, page d'outil, à propos

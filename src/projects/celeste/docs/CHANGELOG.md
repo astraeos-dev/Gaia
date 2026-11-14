@@ -1,0 +1,225 @@
+# Changelog
+
+What is new in each version of Céleste, the latest first.
+
+A version's section becomes, as it is, the note of its GitHub Release and the text the update window shows to users.
+Write for them: short sentences, as dashes, no bold or code (the window of versions 4.4 and earlier would show the
+markup as it is), about 800 characters at most (the window cuts the rest, GitHub does not). See the wiki page
+"Publier une version".
+
+## 4.24
+
+- The first stable version since 4.12, with everything since. New in Sky: a chart for each of the 88
+  constellations, as in the sky atlases, with its sheet to print; the novae and supernovae of the moment.
+- Tonight: how good the night is (the Moon, and the clouds when you ask for the forecast), the minima of Algol,
+  and the month's sky on a sheet to print.
+- Observe: an observation log, and the stars hidden by asteroids. Bodies: the asteroids passing near the Earth.
+- The sky map zooms and plays the night on a time bar. The Workshop's planisphere becomes a real one, its wheel
+  turning in a folded holder.
+- Five spaces instead of nine tabs, and Céleste's own logo.
+
+## 4.23
+
+- Workshop: the rotating chart becomes a real planisphere, like those of the shops: a star wheel with the dates on
+  its rim, turning in a holder folded in two whose window is your horizon, with the directions around it, the hours
+  of the night along its rounded edge facing the dates, and how to use it printed on the front.
+- The fold, the glue strips and the pin are marked, and the assembly sheet follows the new pieces.
+
+## 4.22
+
+- On a phone, the sky map follows the phone: tap the compass, hold the phone up to the sky, and the map turns and
+  moves to show the stars behind it, the sky above them up on the screen, a ring where the phone points. North is
+  the true north: Céleste corrects the compass by the magnetic declination of your place (World Magnetic Model
+  2025).
+- On a phone, Céleste finds your place by the phone's GPS when it starts, after asking your permission; refused,
+  the place stays as it is.
+
+## 4.21
+
+- New page in Sky, novae and supernovae: the new stars of the moment bright enough for your telescope, from David
+  Bishop's list of supernovae and Koji Mukai's list of novae, with their latest magnitude, where they are and when
+  to see them tonight from your place.
+- On the sky map they show as a red four-pointed star with their name, and the search finds them.
+- Tonight tells you when a bright one is up.
+- Céleste has a logo of its own: the C of Céleste, open like an orbit, and its star.
+
+## 4.20
+
+- New page in Bodies, near-Earth asteroids: those passing close to the Earth in the coming days, how near, how big
+  and how fast (CNEOS, NASA/JPL); for those you could catch in a telescope, their brightness and when to look from
+  your place.
+- New page in Observe, occultations: the stars hidden for a few seconds by an asteroid whose shadow passes near your
+  place (IOTA predictions), with where the band passes, how long the star disappears and the Moon.
+- Both in Tonight and in the calendar (two new filters).
+
+## 4.19
+
+- New month's sheet: one A4 page to print for your place, from the Tonight card or the month shown in the calendar,
+  with the sky map of the month (and when it shows), the Moon day by day and its phases, the planets and the
+  month's events, the minima of Algol included.
+- On a phone, the Calendar space's buttons fit in two columns.
+- Android (test version): pages and lists scroll with the finger, every window fits the screen and closes with
+  Back, the sky map zooms with two fingers, and no page runs off the screen any more.
+
+## 4.18
+
+- Sky map: a time bar under the map runs through the night, from sunset to sunrise; press play to watch the sky
+  turn, ten minutes a frame. Only the map moves; a button brings it back to your time.
+- Variable stars: the minima of Algol, the Demon Star, that you can watch from your place, in Tonight and in the
+  calendar (new filter), to within half an hour.
+- On a narrow window or a phone, the sky map's tools fit in three rows.
+- Android: the whole of Céleste now starts on Android, as a test version.
+
+## 4.17
+
+- New observation log, in Observer: what you saw, when and where, with your instrument, the seeing, the
+  transparency, your notes and the quality of the night computed by Céleste; export as a spreadsheet (CSV).
+- Log a target straight from the Targets list (right click).
+- Tonight: the quality of the next seven nights, to choose your night (calendar button); Targets shows tonight's.
+- Qt's own buttons and dialogs (Save, Cancel, Close…) now speak your language.
+
+## 4.16
+
+- Tonight: the quality of the night, from excellent to bad, with its best window and its hours in colour: how dark
+  it gets, the Moon and, if you turn it on, the clouds forecast by Open-Meteo.
+- Settings: the light pollution of your place on the Bortle scale, with the naked-eye limiting magnitude it means.
+
+## 4.15
+
+- On a narrow window, and soon on phones: a compact layout, with the date and the place in a drawer, the five spaces in
+  a bar at the bottom and larger touch targets.
+- Sky map: zoom with the wheel or the buttons, drag to move around, double-click for the whole sky.
+- Targets: on a narrow screen, the constraints have a page of their own.
+- Also since 4.12: the five spaces (Tonight, Sky, Bodies, Calendar, Observe), Céleste's icon in the taskbar, and Qt
+  for Python (PySide6) under the hood.
+
+## 4.14
+
+- Céleste now runs on Qt for Python (PySide6), the road to the Android version.
+- A first Android build, for testing.
+
+## 4.13
+
+- The interface in five spaces: Tonight, Sky, Bodies, Calendar and Observe; the pages of a space under a second row
+  of tabs.
+- The taskbar shows Céleste's icon while it runs.
+- Ready for a signed installer, so that Windows names its publisher.
+
+## 4.12
+
+- Workshop: a complete astrolabe and a nocturnal, with their own place, time zone and date.
+- New astronomical calendar (Events): every event of a period, filtered by kind, exported as .ics.
+- The moons of Mars, Saturn, Uranus, Neptune and Pluto; the passes of the naked-eye satellites.
+- Targets: the night's sky map as uptonight draws it, in Céleste's colours; larger charts; "select all" types.
+- Location: pick your place on an OpenStreetMap map. Eclipse maps drawn without steps.
+
+## 4.11
+
+- New Workshop, from the side panel: instruments to print at true scale, cut out and assemble, computed for your
+  place.
+- A planisphere of your sky, with its date ring set for your longitude.
+- An equatorial sundial and a horizontal sundial that read your time zone's hours, with the curves of the solstices
+  and the equinoxes.
+- Each comes with sheets in your language: how to assemble it, how to use it, the astronomy behind it, the table of
+  the equation of time and an example computed for the chosen date.
+
+## 4.10
+
+- New Targets tab: what to observe or photograph tonight from here, among the Messier, Caldwell or 12,700 NGC and
+  IC objects, with your constraints (altitude, airmass, size, time in the night, distance to the Moon), the Moon and
+  the planets, and the comets brighter than magnitude 12.
+- Your own targets, a to-do list and a done list; an altitude chart of the night; export as text, JSON or image.
+- Settings: the obstacles of your horizon (also drawn on the sky map), the temperature and the pressure.
+- The settings tab is now a gear icon, at the end of the tabs.
+
+## 4.9
+
+- Sky map: 8,400 stars down to magnitude 6.5 instead of 513, and the figures of all 88 constellations, each of which
+  can be found by its name.
+- The sky map now shows the sky as you see it: north up, east on the left.
+- The map of the Solar System has its own tab, and the Planets tab shows all the bodies at once.
+- Comet C/2025 A6 (Lemmon) joins the comets followed.
+
+## 4.8
+
+- History: the History button (Ctrl+H) lists your last calculations and brings one back in a click, with its date,
+  place and time zone.
+- Jupiter: its data window shows the four Galilean moons, with those passing in front of the planet, behind it or
+  in its shadow. Saturn: the tilt and the size of its rings.
+- Sky map: type the name of a star, a planet, a Messier object or a constellation to find it, circled in gold.
+- The preloaded favourites are named in your language (London, Londres…) and know their elevation.
+- A field reached with the keyboard is outlined in gold again.
+
+## 4.7.1
+
+- Updates hold up when GitHub answers badly (errors 503 or 504, as during its incidents): Céleste asks two ways,
+  through the GitHub API and through github.com, three times before giving up.
+- When an update cannot be downloaded, Céleste now says why, instead of closing the progress window without a word,
+  and offers the release page to install it by hand.
+
+## 4.7
+
+- Deep sky: the 110 Messier objects (nebulae, clusters, galaxies) on the sky map, with their card; a switch turns
+  them off.
+- Tonight lists the best deep-sky objects of the night and the visible passes of the space stations.
+- Satellite passes: the International Space Station, Tiangong and Hubble over the next 10 days, with the time they
+  appear, their highest point and when they vanish into the Earth's shadow. The orbits are downloaded every two days.
+- Release notes, code and documentation are now written in English; the interface stays in French, English,
+  Spanish and German.
+
+## 4.6
+
+- Place search: type the name of a city (34,000 cities, no connection needed); latitude, longitude and elevation
+  are filled in.
+- Tonight, at the top of the ephemeris: the dark night, the Moon, the visible planets and the next three events
+  visible from your place.
+- Monthly lunar calendar: the phase, rise and set of the Moon each day.
+- The orrery of the Planets tab is animated, from one day to one year per step.
+- Comets: C/2026 O1, 45P, C/2026 C1 and 19P, from 2025 to 2031, in the planets, the sky map and the events.
+
+## 4.5
+
+- Meteor showers in the Events tab: the peaks of the 13 major showers of the year (Quadrantids, Lyrids, Perseids,
+  Orionids, Leonids, Geminids…), from the calendar of the International Meteor Organization.
+- For each, the night of the peak seen from your place: best moment, height and direction of the radiant, meteors
+  per hour under a dark sky, and the Moon's interference.
+- A "Meteor showers" filter, and export to your calendar like the other events.
+- Release notes, like this one, are now in French.
+
+## 4.4
+
+- Lighter updates: 82 MB instead of 111. The JPL ephemeris (32 MB) is no longer in the installer; Céleste
+  downloads it once, at the first launch, and checks it.
+- An existing installation keeps its ephemeris: nothing is downloaded again.
+- Closed data windows and maps no longer stay in memory.
+
+## 4.3.1
+
+- Badges and a Buy Me a Coffee button on the repository page.
+- The silent update writes its log to %TEMP%\Celeste-update\install.log.
+
+## 4.3
+
+- Automatic update: Céleste looks for a new version at startup and installs it without a full reinstall
+  (Settings › About).
+- Sedna joins the minor planets, which carry their Minor Planet Center number: (136199) Eris.
+- Symbols for Eris, Haumea, Makemake and Sedna.
+- A wiki of how-to pages for changing Céleste.
+
+## 4.2
+
+- Events seen from your place: visible in the evening, the morning or all night, and occultations by the Moon.
+- Local circumstances of eclipses: contact times, magnitude, length of totality.
+- Minor planets: Ceres, Pallas, Juno, Vesta, Pluto, Eris, Haumea, Makemake.
+- Conjunctions of the Moon, perigees, apogees and supermoons; equinoxes, solstices, perihelion and aphelion.
+- Data window of a body, sorting in the Planets tab, links in the settings, safer geolocation, installer logo.
+
+## 4.1
+
+- JPL DE440 engine: positions within 0.07″ of JPL Horizons, rises and sets to the second, time zones and summer
+  time of the place.
+- Coordinates tab, stars brought to the date, true GPS position.
+- Conjunctions, oppositions and elongations to the minute, with their map; eclipses projected on the Earth.
+- Preferences and favourites in the user's folder; standalone Windows application.
+
+Earlier versions are described by the history of the repository.

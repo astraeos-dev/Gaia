@@ -1,21 +1,31 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { Menu, Moon, Search, Sun, X } from 'lucide-react'
-import { useTheme } from '../context/theme'
+import { Eye, Menu, Moon, Search, Sun, X } from 'lucide-react'
+import { THEME_LABELS, THEMES, useTheme } from '../context/theme'
+import { ACTIVE_PROJECTS } from '../data/projects'
 import { DOMAINS, rubriquePath, toolsOf } from '../registry'
 import Brand from './Brand'
 import CommandPalette from './CommandPalette'
 import { LocationButton } from './LocationPicker'
 
-const NAV = [...DOMAINS.map((d) => ({ to: `/${d.id}`, label: d.label })), { to: '/a-propos', label: 'À propos' }]
+// Un projet, une section ; puis le catalogue des outils et la page « À propos ».
+const NAV = [
+  ...ACTIVE_PROJECTS.map((p) => ({ to: `/${p.id}`, label: p.short ?? p.title })),
+  { to: '/outils', label: 'Outils' },
+  { to: '/a-propos', label: 'À propos' },
+]
+
+// Le bouton montre le thème suivant : Jour → Nuit → Observation → Jour.
+const THEME_ICONS = { light: Moon, dark: Eye, observation: Sun }
 
 const navClass = ({ isActive }) =>
-  `rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
-    isActive ? 'bg-accent-400/15 text-accent-800 dark:text-accent-300' : 'text-night-600 hover:text-night-950 dark:text-night-300 dark:hover:text-white'
+  `whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors ${
+    isActive ? 'bg-accent-400/15 text-accent-800 dark:text-accent-300' : 'text-night-600 hover:text-night-950 dark:text-night-300 dark:hover:text-night-50'
   }`
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme()
+  const ThemeIcon = THEME_ICONS[theme] ?? Moon
   const { pathname } = useLocation()
   // Le menu mobile se referme à chaque changement de page.
   const [menu, setMenu] = useState({ open: false, path: pathname })
@@ -45,7 +55,7 @@ export default function Header() {
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         <Brand />
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Navigation principale">
+        <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Navigation principale">
           {NAV.map((item) => (
             <NavLink key={item.to} to={item.to} className={navClass}>
               {item.label}
@@ -73,18 +83,19 @@ export default function Header() {
             type="button"
             onClick={toggleTheme}
             className="btn-icon"
-            aria-label={theme === 'dark' ? 'Activer le thème clair' : 'Activer le thème sombre'}
+            aria-label={`Thème ${THEME_LABELS[theme]} : passer au thème ${THEME_LABELS[THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length]]}`}
+            title={`Thème ${THEME_LABELS[theme]}`}
           >
-            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            <ThemeIcon size={16} />
           </button>
-          <button type="button" className="btn-icon lg:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Menu">
+          <button type="button" className="btn-icon xl:hidden" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-label="Menu">
             {menuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
 
       {menuOpen && (
-        <div className="max-h-[calc(100dvh-3.5rem)] overflow-y-auto border-t border-night-200 bg-night-50 px-4 pb-6 pt-3 dark:border-night-800 dark:bg-night-950 lg:hidden">
+        <div className="max-h-[calc(100dvh-3.5rem)] overflow-y-auto border-t border-night-200 bg-night-50 px-4 pb-6 pt-3 dark:border-night-800 dark:bg-night-950 xl:hidden">
           <nav className="grid grid-cols-2 gap-2" aria-label="Navigation mobile">
             {NAV.map((item) => (
               <NavLink key={item.to} to={item.to} className="btn justify-start">

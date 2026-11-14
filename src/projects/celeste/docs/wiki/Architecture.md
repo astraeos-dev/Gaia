@@ -1,0 +1,71 @@
+# Architecture
+
+Le projet suit le modèle **modèle-vue-contrôleur** : le moteur calcule, l'interface affiche.
+
+| Fichier | Rôle |
+|---|---|
+| [`engine.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/engine.py) | **Modèle** : `AstroEngine`, calculs purs (positions, levers, éclipses, évènements…), sans Qt |
+| [`gui.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/gui.py) | **Vue et contrôleur** : la fenêtre `AstroApp` (panneau latéral, lieu, date, calcul, historique), assemblée à partir des espaces de `ui/` |
+| [`ui/`](https://github.com/astraeos-dev/Celeste_App/tree/master/ui) | Un module par espace de l'interface : `tonight.py` (Ce soir), `sky.py` (Ciel), `bodies.py` (Astres), `calendar_tab.py` (Calendrier), `observe.py` (Observer, Atelier), `occultations_tab.py` (Observer › Occultations), `journal_tab.py` (Observer › Journal), `neo_tab.py` (Astres › Géocroiseurs), `transients_tab.py` (Ciel › Novae et supernovae), `constellations_tab.py` (Ciel › Constellations), `settings_tab.py` (Réglages), `touch.py` (le doigt sur un écran tactile), `phone.py` (sur un téléphone : la permission de lire la position, le capteur d'orientation) ; `common.py` réunit les composants Astræos, les formats et les widgets partagés |
+| [`qt.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/qt.py) | La bibliothèque Qt : PySide6, ou PyQt6 en secours (`CELESTE_QT=pyqt6`) ; tout le code importe Qt par `from qt.QtWidgets import …` |
+| [`charts.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/charts.py) | Graphiques matplotlib : trajectoires, carte du ciel (et ses images rapides pour la barre de temps : étoiles tournées par le temps sidéral, `turned_places` ; la carte tournée avec le téléphone, `turn_sky`), système solaire, cartes d'évènements ; `SYMBOL` |
+| [`locales/`](https://github.com/astraeos-dev/Celeste_App/tree/master/locales) | Textes de l'interface : `fr.json` (référence), `en.json`, `es.json`, `de.json` |
+| [`i18n.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/i18n.py) | `t("clé")`, `tf("clé", valeur=…)`, choix de la langue |
+| [`updater.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/updater.py) | Mises à jour : dernière Release GitHub, téléchargement vérifié (SHA-256), installation silencieuse |
+| [`places.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/places.py) | Recherche de lieu hors ligne : villes de GeoNames (`assets/cities.tsv.gz`), ville la plus proche d'un point |
+| [`journal.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/journal.py) | Journal d'observation : les observations dans `~/.celeste/journal.json`, export CSV ; sans Qt (l'interface : `ui/journal_tab.py`) |
+| [`night_quality.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/night_quality.py) | Qualité de la nuit : obscurité, Lune, nuages et humidité prévus par Open-Meteo (activés par l'utilisateur), classe de Bortle du lieu ; sans Qt |
+| [`month_sheet.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/month_sheet.py) | Fiche du mois à imprimer : une page A4 (PDF) pour le lieu, la carte du ciel du 15 à 22 h, la Lune jour par jour, les planètes, les évènements du mois ; sans Qt (boutons : carte Ce soir, mois affiché par le calendrier) |
+| [`variables.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/variables.py) | Étoiles variables : les minima d'Algol observables du lieu (éphéméride ajustée aux minima CCD de la base Lichtenknecker du BAV, temps de lumière compris), pour Ce soir et le calendrier ; sans Qt |
+| [`neo.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/neo.py) | Géocroiseurs : les passages à moins de 0,05 ua de la Terre (API Close-Approach Data du CNEOS, NASA/JPL, liste gardée 12 h dans `~/.celeste/neo_approaches.json`), taille d'après la magnitude absolue ; pour ceux qui pourraient dépasser la magnitude 16, les positions géocentriques de JPL Horizons (sans envoyer le lieu) ramenées au lieu par Céleste et les moments où ils sont hauts dans un ciel noir ; sans Qt |
+| [`occultations.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/occultations.py) | Occultations d'étoiles par des astéroïdes : les prédictions de l'IOTA (fichiers occelmnt d'Occult, `<année>-iota.zip` de asteroidoccultation.com, gardés un mois dans `~/.celeste/occultations/`), la bande d'ombre ramenée au lieu par ses éléments de Bessel : distance et direction de la ligne centrale au sol, largeur de la bande sur place, durée de l'occultation ; sans Qt |
+| [`transients.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/transients.py) | Novae et supernovae récentes : la liste des objets actifs de David Bishop (« Latest Supernovae », page faite pour être lue par des programmes, triée par éclat) et la liste des novae galactiques de Koji Mukai (NASA Goddard), réunies (une nova des deux listes une seule fois), gardées 12 h dans `~/.celeste/transients.json` ; les objets assez brillants, et l'heure où chacun est au plus haut dans un ciel noir depuis le lieu ; sans Qt |
+| [`constellation_chart.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/constellation_chart.py) | Ciel › Constellations : la carte d'une constellation comme dans les atlas (projection stéréographique centrée sur elle, l'est à gauche), ses limites officielles (`assets/constellation_bounds.json`, Delporte 1930 ramené à J2000, d'après d3-celestial), sa figure, ses étoiles jusqu'à la magnitude 6,5 avec leurs lettres grecques, ses objets du ciel profond, ses voisines, les noms qui se chevaucheraient passés de l'autre côté de leur point ou cachés (`declutter`, mesurés tels qu'ils sont dessinés, de nouveau quand la carte change de taille) ; sa surface, le mois où elle passe au plus haut à 22 h, si elle se lève depuis le lieu ; sa fiche A4 à imprimer (PDF) ; sans Qt |
+| [`orientation.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/orientation.py) | La carte du ciel qui suit le téléphone : des angles du capteur de rotation de Qt (`QRotationSensor`), la direction où pointe le dos du téléphone (hauteur, azimut) et l'angle dont tourner la carte pour que le haut de l'écran soit le haut du ciel ; lissage des lectures ; sans Qt |
+| [`geomag.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/geomag.py) | Déclinaison magnétique du lieu d'après le World Magnetic Model 2025 (NOAA, `assets/wmm2025.cof`) : le capteur donne le nord magnétique, la carte veut le nord vrai ; sans Qt |
+| [`planner.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/planner.py) | Onglet Cibles : cibles de la nuit selon les contraintes de l'observateur (d'après uptonight), masque d'horizon, rapport JSON |
+| [`instruments.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/instruments.py) | Atelier : géométrie des instruments (carte tournante, cadrans solaires, astrolabe), sans Qt |
+| [`workshop.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/workshop.py) | Atelier : pages PDF à l'échelle exacte et fiches d'explications ([fiche](Ajouter-un-instrument.md)) |
+| [`mpc.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/mpc.py) | Comètes du Minor Planet Center : téléchargement hebdomadaire de `CometEls.txt`, orbites à deux corps, magnitudes |
+| [`history.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/history.py) | Historique : les 20 derniers calculs (date, lieu, fuseau) dans `~/.celeste/history.json` |
+| [`satellites.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/satellites.py) | Orbites des satellites (TLE) : téléchargement CelesTrak ou AMSAT, sommes de contrôle, copie dans `~/.celeste` |
+| [`settings.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/settings.py) | Préférences enregistrées (`~/.celeste/settings.json`) et leurs valeurs par défaut |
+| [`config.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/config.py) | Couleurs des thèmes Astræos, polices, **`APP_VERSION`** |
+| [`star_catalog.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/star_catalog.py) | 8 404 étoiles jusqu'à la magnitude 6,5 (généré par `scripts/make_star_catalog.py`) |
+| [`constellations.py`](https://github.com/astraeos-dev/Celeste_App/blob/master/constellations.py) | Noms usuels des étoiles brillantes ; les tracés des 88 constellations sont dans `assets/constellations.json` (`scripts/make_constellations.py`, d'après d3-celestial) |
+| [`assets/minor_planets.npz`](https://github.com/astraeos-dev/Celeste_App/tree/master/assets) | Positions des planètes mineures (JPL Horizons, généré par `scripts/make_minor_planets.py`) |
+| [`fonts/`](https://github.com/astraeos-dev/Celeste_App/tree/master/fonts) | IBM Plex et *Astraeos Symboles* (symboles des astres) |
+| [`scripts/`](https://github.com/astraeos-dev/Celeste_App/tree/master/scripts) | Générateurs de données, construction de l'exécutable |
+| [`installer/celeste.iss`](https://github.com/astraeos-dev/Celeste_App/blob/master/installer/celeste.iss) | Programme d'installation Windows (Inno Setup) |
+| [`tests/`](https://github.com/astraeos-dev/Celeste_App/tree/master/tests) | Tests pytest : moteur, graphiques, interface, traductions |
+
+## D'où viennent les positions
+
+- **Soleil, Lune, planètes, Pluton** : éphéméride JPL DE440 (`de440s.bsp`, 1850–2149) lue par Skyfield. Elle est
+  cherchée dans `data/`, puis dans `~/.celeste`, et téléchargée au premier lancement (`download_ephemeris()`,
+  vérifiée par sa taille et son SHA-256). Elle n'est pas dans le programme d'installation, pour alléger les mises à jour.
+- **Planètes mineures** (Cérès … Sedna) : table de JPL Horizons, position et vitesse tous les 10 ou 60 jours,
+  interpolées par Hermite (`_TabulatedOrbit` dans `engine.py`).
+- **Comètes** (C/2026 O1, 45P, C/2026 C1, 19P) : table de JPL Horizons tous les 2 jours, de 2025 à 2031 seulement
+  (`assets/comets.npz`) ; hors de ces années, elles n'apparaissent pas ([fiche](Ajouter-une-comete.md)).
+- **Étoiles** : Yale Bright Star Catalogue, ramenées à la date (mouvement propre, précession, nutation, aberration).
+- **Objets de Messier** : `assets/messier.csv`, tiré d'OpenNGC (CC BY-SA 4.0) par `scripts/make_messier.py`, ramenés à
+  la date comme les étoiles.
+- **Satellites** : éléments orbitaux (TLE) téléchargés par `satellites.py`, propagés par SGP4 (Skyfield).
+- **Lunes de Jupiter** : méthode simplifiée de Meeus (chap. 44), à 0,15 rayon de Jupiter de JPL Horizons au pire (`galilean_moons`).
+  **Anneaux de Saturne** : pôle de Saturne de l'UAI et DE440 (`saturn_rings`), inclinaison à 0,0001° d'Horizons.
+- **Étoiles filantes** : liste de travail de l'IMO (`METEOR_SHOWERS`) ; le maximum est l'instant où le Soleil atteint
+  la longitude de la table, chaque année ([fiche](Ajouter-une-pluie-d-etoiles-filantes.md)).
+
+Toutes les positions passent par **`AstroEngine._target(nom)`**, qui rend l'objet Skyfield d'un astre : c'est le
+point d'entrée à connaître quand on ajoute un corps.
+
+## Un calcul, de la saisie à l'écran
+
+1. L'utilisateur saisit une date et un lieu ; `AstroApp.calculate()` (dans `gui.py`) lit les champs.
+2. Elle appelle le moteur : `AstroEngine.planet_position()`, `horizontal()`, `observations()`, `find_events()`…
+3. Les résultats sont rangés dans `self.sun_data`, `self.moon_data`, `self.planets`, `self.minor_planets`.
+4. Les tableaux (`_update_planet_table`, `_refresh_coordinates`) et les graphiques (`charts.draw_*`) les affichent.
+
+Les levers et couchers ne sont recalculés que si la date locale, le lieu ou le fuseau changent (cache
+`last_cache_key`) : le mode temps réel reste léger.

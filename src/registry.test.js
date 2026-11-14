@@ -2,7 +2,8 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { describe, expect, test } from 'vitest'
 import { DOMAINS, LEGACY_CATEGORIES, RUBRIQUES, TOOLS, TOOL_ALIASES, getDomain, getRubrique, getTool, resolveTool, searchTools, toolsOf } from './registry'
-import { PROJECTS } from './data/projects'
+import { ACTIVE_PROJECTS, PROJECTS } from './data/projects'
+import { PAGES as CELESTE_PAGES } from './projects/celeste/pages'
 
 // Pages fixes du site : un espace ne doit pas porter leur nom
 const PAGES = ['outils', 'a-propos', 'projets']
@@ -53,9 +54,17 @@ describe('registre des espaces', () => {
       [...readFileSync(file, 'utf8').matchAll(/\bto="(\/[^"?#]*)/g)].map((m) => ({ file, path: m[1] })),
     )
     expect(links.length).toBeGreaterThan(0)
+    const sections = new Set(ACTIVE_PROJECTS.map((p) => p.id))
     for (const { file, path } of links) {
       const [domain, tool, ...rest] = path.split('/').filter(Boolean)
       if (!domain || PAGES.includes(domain)) continue
+      if (sections.has(domain)) {
+        // une section de projet : #/<projet>, et pour Céleste #/celeste/<page>[/<document>]
+        if (tool) expect(domain, `${file} : ${path}`).toBe('celeste')
+        if (tool) expect(CELESTE_PAGES.some((page) => page.id === tool), `${file} : ${path}`).toBe(true)
+        if (rest.length) expect(tool === 'documentation' && rest.length === 1, `${file} : ${path}`).toBe(true)
+        continue
+      }
       expect(getDomain(domain), `${file} : ${path}`).toBeDefined()
       if (tool) expect(getTool(tool)?.domain, `${file} : ${path}`).toBe(domain)
       expect(rest, `${file} : ${path}`).toEqual([])

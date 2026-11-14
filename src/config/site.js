@@ -1,9 +1,10 @@
 /** Paramètres généraux du site : modifier ici le nom, la description, les liens… */
 export const SITE = {
-  name: 'Ganymede',
-  tagline: 'Calculateurs, conversions et astronomie',
+  // Gaïa, la Terre mère, ancêtre des Titans et grand-mère d'Astraeos : elle porte tous les projets.
+  name: 'Gaïa',
+  tagline: "Les projets d'Astraeos",
   description:
-    "Plus de quatre-vingts outils gratuits qui fonctionnent dans le navigateur : calculateurs d'électronique, de maths, de physique et de santé, convertisseur d'unités, et tout le nécessaire pour observer le ciel.",
-  repo: 'https://github.com/Greg50100/personnal-site',
-  github: 'https://github.com/Greg50100',
+    "Céleste, l'observatoire astronomique pour Windows ; Ganymède, ses calculateurs et ses outils dans le navigateur ; les intégrations Home Assistant ; une bibliothèque d'astronomie en Python. Chaque projet a sa section.",
+  repo: 'https://github.com/astraeos-dev/personnal-site',
+  github: 'https://github.com/astraeos-dev',
 }
