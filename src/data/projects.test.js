@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs'
 import { describe, expect, test } from 'vitest'
 import { ACTIVE_PROJECTS, PROJECTS, getProject, projectOfDomain } from './projects'
 import { DOMAINS, getTool } from '../registry'
@@ -15,7 +16,8 @@ describe('les projets', () => {
     for (const p of ACTIVE_PROJECTS) {
       expect(p.title && p.tagline && p.kind && p.description, p.id).toBeTruthy()
       expect(p.links?.length, p.id).toBeGreaterThan(0)
-      expect(p.logo || p.icon, p.id).toBeTruthy()
+      expect(p.logo, p.id).toMatch(/^projets\/[a-z-]+\.svg$/)
+      expect(existsSync(new URL(`../../public/${p.logo}`, import.meta.url)), p.logo).toBe(true)
     }
   })
 

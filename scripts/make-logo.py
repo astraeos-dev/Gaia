@@ -8,8 +8,9 @@ l'ouverture. Ni ombre, ni contour, ni dégradé, ni déformation ; l'interface
 remplace l'encre (#e8ecf2) et l'or (#f2b84b) par ceux du thème.
 
 Écrit public/favicon.svg (le symbole sur sa tuile Nuit), public/gaia.svg (le
-symbole seul) et src/components/gaia-mark.json (ses éléments, pour le
-composant Logo). Lancer : python scripts/make-logo.py
+symbole seul), src/components/gaia-mark.json (ses éléments, pour le
+composant Logo), et les logos des projets dans public/projets/, dessinés de la
+même façon. Lancer : python scripts/make-logo.py
 """
 import json
 import math
@@ -61,14 +62,53 @@ def svg(tile):
             f'<title>Gaïa</title>{back}{body}</svg>\n')
 
 
+# Les logos des projets, dans la même grammaire : la lettre de chacun en traits épais à l'encre (STROKE, bouts et
+# angles arrondis), une étoile d'or, la tuile Nuit. Céleste garde le sien, dessiné dans son dépôt.
+#   letters : les tracés de la lettre (chemins SVG, en traits) ; star : le centre de l'étoile
+PROJECT_LOGOS = {
+    # Ganymède : le gamma de Γανυμήδης (le G latin est celui de Gaïa), l'étoile sous sa barre
+    "ganymede": {"letters": ["M36 78 L36 24 L70 24"], "star": (64, 54)},
+    # Céleste pour Home Assistant : le C de Céleste et son étoile sous le toit de la maison
+    "celeste-ha": {"letters": ["M20 44 L50 18 L80 44", "M60.4 51.6 A17 17 0 1 0 60.4 72.4"], "star": (69.5, 62)},
+    # Helios : le H du Soleil, l'étoile levée à sa droite
+    "helios": {"letters": ["M26 26 L26 76", "M58 26 L58 76", "M26 51 L58 51"], "star": (78, 30)},
+    # Météo & Confort : le M, l'étoile à sa droite
+    "meteo-confort": {"letters": ["M20 76 L20 28 L41 58 L62 28 L62 76"], "star": (80, 30)},
+    # astraeos-astro : le A ouvert en haut, son étoile à la pointe
+    "astraeos-astro": {"letters": ["M24 80 L42.5 36", "M57.5 36 L76 80", "M33 62 L67 62"], "star": (50, 22)},
+}
+
+
+def _star(x, y, long=LONG, short=SHORT):
+    pts = []
+    for i in range(8):
+        a = math.radians(-90 + 45 * i)
+        r = long if i % 2 == 0 else short
+        pts.append(f"{_n(x + r * math.cos(a))},{_n(y + r * math.sin(a))}")
+    return " ".join(pts)
+
+
+def project_svg(name, logo):
+    body = "".join(f'<path fill="none" stroke="{INK}" stroke-width="{_n(STROKE)}" stroke-linecap="round" '
+                   f'stroke-linejoin="round" d="{d}"/>' for d in logo["letters"])
+    body += f'<polygon fill="{GOLD}" points="{_star(*logo["star"])}"/>'
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="{name}">'
+            f'<title>{name}</title><rect width="100" height="100" rx="22" fill="{NIGHT}"/>{body}</svg>\n')
+
+
 def main():
+    os.makedirs(os.path.join(ROOT, "public", "projets"), exist_ok=True)
+    for slug, logo in PROJECT_LOGOS.items():
+        with open(os.path.join(ROOT, "public", "projets", f"{slug}.svg"), "w", encoding="utf-8", newline="\n") as f:
+            f.write(project_svg(slug, logo))
     for name, tile in (("favicon.svg", True), ("gaia.svg", False)):
         with open(os.path.join(ROOT, "public", name), "w", encoding="utf-8", newline="\n") as f:
             f.write(svg(tile))
     with open(os.path.join(ROOT, "src", "components", "gaia-mark.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(mark(), f, ensure_ascii=False, indent=1)
         f.write("\n")
-    print("écrit : public/favicon.svg, public/gaia.svg, src/components/gaia-mark.json")
+    print("écrit : public/favicon.svg, public/gaia.svg, src/components/gaia-mark.json et "
+          + ", ".join(f"public/projets/{slug}.svg" for slug in PROJECT_LOGOS))
 
 
 if __name__ == "__main__":

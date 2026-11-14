@@ -73,7 +73,7 @@ export default function Home() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <section className="pt-14">
-          <SectionTitle kicker="Les projets" title="Un projet, une section">
+          <SectionTitle kicker="Les projets" title="Ce que fait Astraeos">
             Des applications, des intégrations Home Assistant et une bibliothèque, toutes open source, sous licence MIT.
           </SectionTitle>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

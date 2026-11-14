@@ -1,17 +1,16 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, ExternalLink } from 'lucide-react'
+import { Archive, ArrowRight, ExternalLink } from 'lucide-react'
 import { PROJECT_STATUS } from '../data/projects'
 import { SITE } from '../config/site'
 
-/** Le logo d'un projet (image de public/), ou son icône. */
+/** Le logo d'un projet (public/projets/, charte Astræos) ; un projet archivé, sans logo, a une marque discrète. */
 export function ProjectLogo({ project, size = 44 }) {
   if (project.logo) {
     return <img src={`${import.meta.env.BASE_URL}${project.logo}`} alt="" width={size} height={size} className="shrink-0 rounded-xl" />
   }
-  const Icon = project.icon
   return (
-    <span className="inline-flex shrink-0 items-center justify-center rounded-xl bg-accent-400/15 text-accent-700 dark:text-accent-300" style={{ width: size, height: size }}>
-      {Icon && <Icon size={Math.round(size * 0.5)} />}
+    <span className="inline-flex shrink-0 items-center justify-center rounded-xl border border-night-200 text-night-400 dark:border-night-800 dark:text-night-500" style={{ width: size, height: size }}>
+      <Archive size={Math.round(size * 0.45)} />
     </span>
   )
 }
