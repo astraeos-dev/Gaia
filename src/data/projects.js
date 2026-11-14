@@ -280,7 +280,7 @@ export const PROJECTS = [
 ]
 
 export const PROJECT_STATUS = {
-  actif: { label: 'Actif', className: 'border-ok/40 text-ok' },
+  actif: { label: 'Actif', className: 'border-ok/40 text-ok dark:border-ok/40 dark:text-ok' },
   prototype: { label: 'En développement', className: 'border-sky-500/40 text-sky-600 dark:text-sky-400' },
   'en-pause': { label: 'En pause', className: 'border-accent-500/40 text-accent-700 dark:text-accent-400' },
   termine: { label: 'Terminé', className: 'border-night-500/40 text-night-500' },
