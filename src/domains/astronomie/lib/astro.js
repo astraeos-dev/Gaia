@@ -4,23 +4,25 @@
  */
 import * as Astronomy from 'astronomy-engine'
 import CONSTELLATIONS from '../data/constellations.json'
+import { ENCRE, LUNE, OR } from '../../../kit/charte'
 
 export { Astronomy }
 
 export const DAY_MS = 86_400_000
 export const SYNODIC_MONTH = 29.530588853
 
+// Les couleurs de Céleste (charts.py) : le Soleil en or, la Lune en lune, les planètes à l'encre
 export const BODIES = [
-  { id: 'Sun', name: 'Soleil', symbol: '☉', color: '#facc15' },
-  { id: 'Moon', name: 'Lune', symbol: '☾', color: '#d4d4d8' },
-  { id: 'Mercury', name: 'Mercure', symbol: '☿', color: '#a8a29e', planet: true, inner: true, nakedEye: true },
-  { id: 'Venus', name: 'Vénus', symbol: '♀', color: '#fde68a', planet: true, inner: true, nakedEye: true },
-  { id: 'Mars', name: 'Mars', symbol: '♂', color: '#f87171', planet: true, nakedEye: true },
-  { id: 'Jupiter', name: 'Jupiter', symbol: '♃', color: '#fdba74', planet: true, nakedEye: true },
-  { id: 'Saturn', name: 'Saturne', symbol: '♄', color: '#c8a96b', planet: true, nakedEye: true },
-  { id: 'Uranus', name: 'Uranus', symbol: '⛢', color: '#67e8f9', planet: true },
-  { id: 'Neptune', name: 'Neptune', symbol: '♆', color: '#60a5fa', planet: true },
-  { id: 'Pluto', name: 'Pluton', symbol: '♇', color: '#c4b5fd', planet: true },
+  { id: 'Sun', name: 'Soleil', symbol: '☉', color: OR },
+  { id: 'Moon', name: 'Lune', symbol: '☾', color: LUNE },
+  { id: 'Mercury', name: 'Mercure', symbol: '☿', color: ENCRE, planet: true, inner: true, nakedEye: true },
+  { id: 'Venus', name: 'Vénus', symbol: '♀', color: ENCRE, planet: true, inner: true, nakedEye: true },
+  { id: 'Mars', name: 'Mars', symbol: '♂', color: ENCRE, planet: true, nakedEye: true },
+  { id: 'Jupiter', name: 'Jupiter', symbol: '♃', color: ENCRE, planet: true, nakedEye: true },
+  { id: 'Saturn', name: 'Saturne', symbol: '♄', color: ENCRE, planet: true, nakedEye: true },
+  { id: 'Uranus', name: 'Uranus', symbol: '⛢', color: ENCRE, planet: true },
+  { id: 'Neptune', name: 'Neptune', symbol: '♆', color: ENCRE, planet: true },
+  { id: 'Pluto', name: 'Pluton', symbol: '♇', color: ENCRE, planet: true },
 ]
 
 export const PLANETS = BODIES.filter((b) => b.planet)

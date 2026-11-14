@@ -7,15 +7,23 @@
  */
 const token = (name) => `rgb(var(--${name}))`
 
+export const CIEL_000 = token('ciel-000')
+export const CIEL_100 = token('ciel-100')
+export const CIEL_200 = token('ciel-200')
 export const OR = token('or')
 export const LUNE = token('lune')
 export const ENCRE = token('encre')
 export const ENCRE_ATTENUEE = token('encre-attenuee')
 export const OK = token('signal-ok')
 export const ALERTE = token('signal-alerte')
+// Mélanges à parts égales de deux jetons (config.mix de Céleste)
+export const OR_LUNE = token('or-lune')
+export const LUNE_OK = token('lune-ok')
+export const OR_ALERTE = token('or-alerte')
+export const LUNE_ALERTE = token('lune-alerte')
 
 /** Les couleurs des séries d'un graphique, dans l'ordre de ceux de Céleste (charts.py), puis répétées. */
-export const SERIES = [OR, LUNE, OK, ENCRE, token('or-lune'), ALERTE, token('lune-ok'), ENCRE_ATTENUEE]
+export const SERIES = [OR, LUNE, OK, ENCRE, OR_LUNE, ALERTE, LUNE_OK, ENCRE_ATTENUEE]
 
 export const seriesColor = (i) => SERIES[i % SERIES.length]
 
@@ -32,3 +40,21 @@ export const TONE = {
 
 /** Le cadre d'un champ dont la valeur n'est pas reconnue. */
 export const INVALID = 'border-alerte dark:border-alerte'
+
+/**
+ * Les jetons pour un canevas, qui ne lit pas les variables CSS : lus sur la page au moment du dessin, car ils
+ * changent avec le thème. palette.color('lune', 0.85) donne « rgba(143, 184, 232, 0.85) » ; palette.mix(a, b, poids)
+ * mêle deux jetons, le poids étant celui du premier (config.mix de Céleste).
+ */
+export function canvasPalette(root = document.documentElement) {
+  const style = getComputedStyle(root)
+  const rgb = (name) => style.getPropertyValue(`--${name}`).trim().split(/\s+/).map(Number)
+  const css = (channels, alpha) => `rgba(${channels.join(', ')}, ${alpha})`
+  return {
+    color: (name, alpha = 1) => css(rgb(name), alpha),
+    mix: (a, b, weight, alpha = 1) => {
+      const [first, second] = [rgb(a), rgb(b)]
+      return css(first.map((x, i) => Math.round(x * weight + second[i] * (1 - weight))), alpha)
+    },
+  }
+}

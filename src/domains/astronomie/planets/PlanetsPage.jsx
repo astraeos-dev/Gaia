@@ -6,9 +6,10 @@ import Segmented from '../../../components/Segmented'
 import { compass, fmt, fmtTime } from '../../../lib/format'
 import { Astronomy, PLANETS, bodyConstellation, bodyPosition, diameterArcsec, fmtDiameter, makeObserver, nightVisibility, riseTransitSet, startOfDay } from '../lib/astro'
 import TimeControls from '../components/TimeControls'
+import { CIEL_000, ENCRE, ENCRE_ATTENUEE, LUNE } from '../../../kit/charte'
 
 const DEG = Math.PI / 180
-const EARTH = { id: 'Earth', name: 'Terre', symbol: '⊕', color: '#60a5fa' }
+const EARTH = { id: 'Earth', name: 'Terre', symbol: '⊕', color: LUNE }
 const VIEWS = {
   inner: { label: 'Planètes intérieures', ids: ['Mercury', 'Venus', 'Earth', 'Mars'], scale: (r) => r / 1.7 },
   outer: { label: 'Planètes extérieures', ids: ['Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'], scale: (r) => Math.sqrt(r / 31) },
@@ -33,19 +34,19 @@ function Orrery({ date, view }) {
   })
   return (
     <svg viewBox={`0 0 ${S} ${S}`} className="mx-auto block h-auto w-full max-w-[420px]" role="img" aria-label="Vue de dessus du système solaire">
-      <rect width={S} height={S} rx="16" fill="#0a0f21" />
+      <rect width={S} height={S} rx="16" style={{ fill: CIEL_000 }} />
       {bodies.map((b) => (
-        <circle key={`o${b.id}`} cx={C} cy={C} r={b.a} fill="none" stroke="#94a3b8" strokeOpacity="0.25" />
+        <circle key={`o${b.id}`} cx={C} cy={C} r={b.a} fill="none" style={{ stroke: ENCRE_ATTENUEE }} strokeOpacity="0.35" />
       ))}
-      <line x1={C} y1={C} x2={S - 8} y2={C} stroke="#f59e0b" strokeOpacity="0.4" strokeDasharray="3 4" />
-      <text x={S - 12} y={C - 6} textAnchor="end" className="fill-accent-400 text-[12px]">
+      <line x1={C} y1={C} x2={S - 8} y2={C} className="stroke-or" strokeOpacity="0.5" strokeDasharray="3 4" />
+      <text x={S - 12} y={C - 6} textAnchor="end" className="fill-or text-[12px]">
         {'♈\uFE0E'}
       </text>
-      <circle cx={C} cy={C} r="7" fill="#facc15" />
+      <circle cx={C} cy={C} r="7" className="fill-or" />
       {bodies.map((b) => (
         <g key={b.id}>
-          <circle cx={b.x} cy={b.y} r={b.id === 'Earth' ? 5 : 4.5} fill={b.color} stroke="#0a0f21" strokeWidth="1.5" />
-          <text x={b.x + 7} y={b.y - 6} className="fill-night-200 text-[11px]">
+          <circle cx={b.x} cy={b.y} r={b.id === 'Earth' ? 5 : 4.5} style={{ fill: b.color, stroke: CIEL_000 }} strokeWidth="1.5" />
+          <text x={b.x + 7} y={b.y - 6} className="text-[11px]" style={{ fill: ENCRE }}>
             {b.name}
           </text>
         </g>

@@ -1,3 +1,4 @@
+import { ALERTE, CIEL_000, CIEL_200, ENCRE, ENCRE_ATTENUEE, OK, OR } from '../../../kit/charte'
 /** Tracé du passage dans le ciel (zénith au centre, nord en haut, est à gauche). */
 export default function PassTrack({ pass }) {
   const S = 240
@@ -16,9 +17,9 @@ export default function PassTrack({ pass }) {
   const [ex, ey] = p(pass.end.el, pass.end.az)
   return (
     <svg viewBox={`0 0 ${S} ${S}`} className="mx-auto h-auto w-full max-w-[280px]" role="img" aria-label="Trajectoire du passage">
-      <circle cx={S / 2} cy={S / 2} r={R} fill="#0a0f24" stroke="#f59e0b" strokeWidth="1.5" />
+      <circle cx={S / 2} cy={S / 2} r={R} style={{ fill: CIEL_000, stroke: ENCRE_ATTENUEE }} strokeWidth="1.2" />
       {[30, 60].map((el) => (
-        <circle key={el} cx={S / 2} cy={S / 2} r={((90 - el) / 90) * R} fill="none" stroke="#94a3b833" />
+        <circle key={el} cx={S / 2} cy={S / 2} r={((90 - el) / 90) * R} fill="none" style={{ stroke: CIEL_200 }} />
       ))}
       {[
         ['N', 0],
@@ -29,16 +30,16 @@ export default function PassTrack({ pass }) {
         const [x, y] = p(-8, az)
         const k = (R + 10) / R
         return (
-          <text key={l} x={S / 2 + (x - S / 2) * k} y={S / 2 + (y - S / 2) * k + 4} textAnchor="middle" className="fill-accent-500 font-mono text-[11px] font-bold">
+          <text key={l} x={S / 2 + (x - S / 2) * k} y={S / 2 + (y - S / 2) * k + 4} textAnchor="middle" className="font-mono text-[11px] font-semibold" style={{ fill: l === 'N' ? ENCRE : ENCRE_ATTENUEE }}>
             {l}
           </text>
         )
       })}
       {segs.map((s, i) => (
-        <line key={i} x1={s.from[0]} y1={s.from[1]} x2={s.to[0]} y2={s.to[1]} stroke={s.visible ? '#fde68a' : '#64748b'} strokeWidth={s.visible ? 3 : 1.5} strokeLinecap="round" />
+        <line key={i} x1={s.from[0]} y1={s.from[1]} x2={s.to[0]} y2={s.to[1]} style={{ stroke: s.visible ? OR : ENCRE_ATTENUEE }} strokeWidth={s.visible ? 3 : 1.5} strokeLinecap="round" />
       ))}
-      <circle cx={sx} cy={sy} r="4" fill="#34d399" />
-      <circle cx={ex} cy={ey} r="4" fill="#f87171" />
+      <circle cx={sx} cy={sy} r="4" style={{ fill: OK }} />
+      <circle cx={ex} cy={ey} r="4" style={{ fill: ALERTE }} />
     </svg>
   )
 }

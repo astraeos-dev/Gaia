@@ -4,18 +4,19 @@
  * oppositions, élongations, éclipses) et sur un balayage pour les rapprochements.
  */
 import { Astronomy, BODY, DAY_MS, QUARTER_NAMES, unitVector } from '../lib/astro'
+import { ALERTE, ENCRE, ENCRE_ATTENUEE, LUNE, LUNE_ALERTE, LUNE_OK, OK, OR, OR_ALERTE, OR_LUNE } from '../../../kit/charte'
 
 export const EVENT_TYPES = {
-  phase: { label: 'Phase de la Lune', color: '#a1a1aa' },
-  apsis: { label: 'Périgée / apogée', color: '#38bdf8' },
-  season: { label: 'Saison', color: '#34d399' },
-  eclipse: { label: 'Éclipse', color: '#f59e0b' },
-  opposition: { label: 'Opposition', color: '#f87171' },
-  conjunction: { label: 'Conjonction solaire', color: '#fbbf24' },
-  elongation: { label: 'Élongation maximale', color: '#a78bfa' },
-  approach: { label: 'Rapprochement', color: '#60a5fa' },
-  meteor: { label: "Pluie d'étoiles filantes", color: '#f472b6' },
-  brightness: { label: 'Éclat maximal', color: '#facc15' },
+  phase: { label: 'Phase de la Lune', color: LUNE },
+  apsis: { label: 'Périgée / apogée', color: LUNE_OK },
+  season: { label: 'Saison', color: OK },
+  eclipse: { label: 'Éclipse', color: OR },
+  opposition: { label: 'Opposition', color: ALERTE },
+  conjunction: { label: 'Conjonction solaire', color: ENCRE_ATTENUEE },
+  elongation: { label: 'Élongation maximale', color: OR_LUNE },
+  approach: { label: 'Rapprochement', color: ENCRE },
+  meteor: { label: "Pluie d'étoiles filantes", color: OR_ALERTE },
+  brightness: { label: 'Éclat maximal', color: LUNE_ALERTE },
 }
 
 const PLANETS = ['Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']

@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { fmt, fmtTime } from '../../../lib/format'
+import { LUNE } from '../../../kit/charte'
 
 const W = 960
 const H = 320
@@ -7,9 +8,8 @@ const PAD = { l: 40, r: 12, t: 12, b: 28 }
 const ALT_MIN = -30
 const ALT_MAX = 90
 
-/** Couleur de fond selon la hauteur du Soleil (jour, crépuscules, nuit). */
-const skyColor = (sunAlt) =>
-  sunAlt > 0 ? '#38bdf826' : sunAlt > -6 ? '#6366f12e' : sunAlt > -12 ? '#4338ca33' : sunAlt > -18 ? '#1e1b4b4d' : '#02061766'
+/** Part de lune dans le fond selon la hauteur du Soleil : les phases du jour de Céleste (jour, crépuscules, nuit). */
+const skyTint = (sunAlt) => (sunAlt > 0 ? 0.26 : sunAlt > -6 ? 0.17 : sunAlt > -12 ? 0.1 : sunAlt > -18 ? 0.05 : 0)
 
 /**
  * Courbes de hauteur de plusieurs astres sur une période (graphique SVG responsive).
@@ -22,8 +22,16 @@ export default function AltitudeChart({ series, start, end, now }) {
   const x = (t) => PAD.l + ((t - start) / span) * (W - PAD.l - PAD.r)
   const y = (alt) => PAD.t + ((ALT_MAX - Math.max(ALT_MIN, Math.min(ALT_MAX, alt))) / (ALT_MAX - ALT_MIN)) * (H - PAD.t - PAD.b)
 
+  // Une bande par phase du jour : des échantillons voisins semi-transparents laisseraient des rayures où ils se chevauchent
   const sun = series.find((s) => s.id === 'Sun')
-  const background = sun ? sun.points.slice(0, -1).map((p, i) => ({ x1: x(p.t), x2: x(sun.points[i + 1].t), color: skyColor(p.alt) })) : []
+  const background = []
+  sun?.points.slice(0, -1).forEach((p, i) => {
+    const tint = skyTint(p.alt)
+    const x2 = x(sun.points[i + 1].t)
+    const last = background.at(-1)
+    if (last?.tint === tint) last.x2 = x2
+    else background.push({ x1: x(p.t), x2, tint })
+  })
 
   const hours = []
   const first = new Date(start)
@@ -55,9 +63,11 @@ export default function AltitudeChart({ series, start, end, now }) {
         role="img"
         aria-label="Hauteur des astres au-dessus de l'horizon"
       >
-        {background.map((b, i) => (
-          <rect key={i} x={b.x1} width={b.x2 - b.x1 + 0.5} y={PAD.t} height={H - PAD.t - PAD.b} fill={b.color} />
-        ))}
+        {background
+          .filter((b) => b.tint > 0)
+          .map((b) => (
+            <rect key={b.x1} x={b.x1} width={b.x2 - b.x1} y={PAD.t} height={H - PAD.t - PAD.b} style={{ fill: LUNE }} fillOpacity={b.tint} />
+          ))}
         {[0, 30, 60, 90, -30].map((a) => (
           <g key={a}>
             <line x1={PAD.l} x2={W - PAD.r} y1={y(a)} y2={y(a)} className={a === 0 ? 'stroke-night-500' : 'stroke-night-400/30'} strokeWidth={a === 0 ? 1.5 : 1} />
@@ -80,14 +90,14 @@ export default function AltitudeChart({ series, start, end, now }) {
           <polyline
             key={s.id}
             fill="none"
-            stroke={s.color}
+            style={{ stroke: s.color }}
             strokeWidth={s.id === 'Sun' || s.id === 'Moon' ? 2.5 : 1.8}
             strokeDasharray={s.id === 'Sun' ? '6 4' : undefined}
             points={s.points.map((p) => `${x(p.t).toFixed(1)},${y(p.alt).toFixed(1)}`).join(' ')}
           />
         ))}
-        {now && now >= start && now <= end && <line x1={x(now)} x2={x(now)} y1={PAD.t} y2={H - PAD.b} stroke="#f59e0b" strokeWidth="1.5" />}
-        {hover && <line x1={x(hover)} x2={x(hover)} y1={PAD.t} y2={H - PAD.b} className="stroke-night-900 dark:stroke-white" strokeWidth="1" strokeDasharray="3 3" />}
+        {now && now >= start && now <= end && <line x1={x(now)} x2={x(now)} y1={PAD.t} y2={H - PAD.b} className="stroke-or" strokeWidth="1.5" />}
+        {hover && <line x1={x(hover)} x2={x(hover)} y1={PAD.t} y2={H - PAD.b} className="stroke-night-900 dark:stroke-night-100" strokeWidth="1" strokeDasharray="3 3" />}
       </svg>
 
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">

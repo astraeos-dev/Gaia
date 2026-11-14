@@ -8,18 +8,26 @@ import { Astronomy, makeObserver } from '../lib/astro'
 import { capPath, subPoint, xy } from '../lib/geo'
 import WorldMap from '../components/WorldMap'
 import { LUNAR_KIND, SOLAR_KIND, lunarEclipses, solarEclipses, transits } from './eclipses'
+import { CIEL_100, ENCRE, LUNE, TONE } from '../../../kit/charte'
 
 const SPANS = [
   { value: 5, label: '5 ans' },
   { value: 10, label: '10 ans' },
   { value: 20, label: '20 ans' },
 ]
+/** Les sommets d'une étoile à cinq branches : le centre de la bande, comme sur les cartes d'éclipse de Céleste. */
+const starPoints = (x, y, r) =>
+  Array.from({ length: 10 }, (_, i) => {
+    const a = (i * Math.PI) / 5 - Math.PI / 2
+    const k = i % 2 ? r * 0.45 : r
+    return `${(x + k * Math.cos(a)).toFixed(2)},${(y + k * Math.sin(a)).toFixed(2)}`
+  }).join(' ')
 const percent = (x) => (x == null ? '—' : x < 0.005 ? '< 1 %' : `${fmt(x * 100, 0)} %`)
 const dateFmt = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })
 
 function VisibleBadge({ visible }) {
   return visible ? (
-    <span className="chip text-emerald-700 dark:text-emerald-400">
+    <span className={`chip ${TONE.ok}`}>
       <Eye size={12} /> visible
     </span>
   ) : (
@@ -45,13 +53,13 @@ function SolarDetail({ e, location }) {
         <WorldMap date={e.peak} observer={location} label="Carte de l'éclipse au maximum">
           {e.center && (
             <g>
-              <circle cx={xy(e.center.lat, e.center.lon)[0]} cy={xy(e.center.lat, e.center.lon)[1]} r="2.4" fill="#f43f5e" stroke="#fff" strokeWidth="0.5" />
+              <polygon points={starPoints(...xy(e.center.lat, e.center.lon), 3.4)} style={{ fill: ENCRE, stroke: CIEL_100 }} strokeWidth="0.4" />
             </g>
           )}
         </WorldMap>
         <p className="mt-2 text-xs text-night-500">
           Jour, crépuscules et nuit au maximum de l'éclipse ;
-          {e.center ? ` point rouge : centre de la bande ${e.kind === 'annular' ? 'd’annularité' : 'de totalité'} (${fmtLat(e.center.lat, 1)}, ${fmtLon(e.center.lon, 1)}).` : ' éclipse partielle partout.'}
+          {e.center ? ` étoile : centre de la bande ${e.kind === 'annular' ? 'd’annularité' : 'de totalité'} (${fmtLat(e.center.lat, 1)}, ${fmtLon(e.center.lon, 1)}).` : ' éclipse partielle partout.'}
         </p>
       </div>
       <div>
@@ -88,10 +96,10 @@ function LunarDetail({ e, location }) {
     <div className="grid gap-4 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
       <div>
         <WorldMap date={e.peak} observer={location} showNight={false} label="Zone où la Lune est levée au maximum">
-          <path d={capPath(moon, 90)} fill="#a78bfa" fillOpacity="0.28" />
-          <circle cx={xy(moon.lat, moon.lon)[0]} cy={xy(moon.lat, moon.lon)[1]} r="2.2" fill="#e4e4e7" stroke="#0a0f21" strokeWidth="0.5" />
+          <path d={capPath(moon, 90)} style={{ fill: LUNE }} fillOpacity="0.3" />
+          <circle cx={xy(moon.lat, moon.lon)[0]} cy={xy(moon.lat, moon.lon)[1]} r="2.2" style={{ fill: CIEL_100, stroke: LUNE }} strokeWidth="0.8" />
         </WorldMap>
-        <p className="mt-2 text-xs text-night-500">Zone violette : la Lune est au-dessus de l'horizon au maximum de l'éclipse.</p>
+        <p className="mt-2 text-xs text-night-500">Zone bleue : la Lune est au-dessus de l’horizon au maximum de l’éclipse ; cercle : la Lune au zénith.</p>
       </div>
       <div>
         <h3 className="mb-2 font-semibold">Déroulement (heures locales)</h3>

@@ -3,6 +3,7 @@ import { Maximize2, X } from 'lucide-react'
 import { useObserverLocation } from '../../../context/location'
 import { useAstroClock } from '../../../hooks/useAstroClock'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
+import { useAppliedTheme } from '../../../hooks/useAppliedTheme'
 import { LocationButton } from '../../../components/LocationPicker'
 import Segmented from '../../../components/Segmented'
 import { compass, fmt, fmtDMS, fmtHMS, fmtTime } from '../../../lib/format'
@@ -40,6 +41,7 @@ export default function SkyMap() {
   const options = { ...DEFAULT_OPTIONS, ...stored }
   const [selectedId, setSelectedId] = useState(null)
   const [size, setSize] = useState(0)
+  useAppliedTheme() // redessine la carte quand le thème change : ses couleurs viennent de la page
   const wrapRef = useRef(null)
   const canvasRef = useRef(null)
   const targetsRef = useRef([])
@@ -124,7 +126,7 @@ export default function SkyMap() {
           </div>
           <div
             ref={wrapRef}
-            className="mx-auto w-full max-w-[900px] overflow-hidden rounded-lg bg-night-950"
+            className="mx-auto w-full max-w-[900px] overflow-hidden rounded-lg bg-white dark:bg-night-900"
             style={options.night ? { filter: 'sepia(1) saturate(6) hue-rotate(-50deg) brightness(0.75)' } : undefined}
           >
             <canvas
@@ -244,7 +246,7 @@ export default function SkyMap() {
           <div className="card card-pad text-xs leading-relaxed text-night-500">
             Projection stéréographique centrée sur le zénith : le bord du cercle est l'horizon, l'est est à gauche quand le nord est en haut
             (comme en regardant le ciel au-dessus de soi). {scene.stars.length.toLocaleString('fr-FR')} étoiles jusqu'à la magnitude 6,
-            tracés et noms des 88 constellations, 110 objets Messier. Pointillés orange : écliptique ; bleus : équateur céleste.
+            tracés et noms des 88 constellations, 110 objets Messier. Pointillés dorés : écliptique ; bleus : équateur céleste.
           </div>
         </aside>
       </div>

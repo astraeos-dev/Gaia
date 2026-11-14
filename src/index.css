@@ -34,8 +34,11 @@
     --accent-800: 111 71 0;
     --accent-900: 82 52 0;
     --accent-950: 46 29 0;
-    /* Les jetons eux-mêmes, pour les graphiques et les signaux (src/kit/charte.js, couleurs or, lune, ok, alerte
-       de Tailwind), puis quatre mélanges à parts égales de deux jetons, comme config.mix de Céleste. */
+    /* Les jetons eux-mêmes, pour les graphiques, les cartes et les signaux (src/kit/charte.js, couleurs or,
+       lune, ok, alerte de Tailwind), puis quatre mélanges à parts égales de deux jetons, comme config.mix de Céleste. */
+    --ciel-000: 246 244 239;
+    --ciel-100: 255 255 255;
+    --ciel-200: 227 223 213;
     --or: 143 92 0;
     --lune: 47 93 143;
     --encre: 20 26 36;
@@ -48,6 +51,9 @@
     --lune-alerte: 113 66 86;
   }
   :root.dark {
+    --ciel-000: 11 15 23;
+    --ciel-100: 19 26 38;
+    --ciel-200: 31 42 59;
     --or: 242 184 75;
     --lune: 143 184 232;
     --encre: 232 236 242;
@@ -83,6 +89,9 @@
     --accent-800: 140 52 26;
     --accent-900: 92 32 16;
     --accent-950: 50 16 8;
+    --ciel-000: 10 0 0;
+    --ciel-100: 22 3 3;
+    --ciel-200: 42 7 7;
     --or: 255 138 92;
     --lune: 224 74 53;
     --encre: 255 90 70;

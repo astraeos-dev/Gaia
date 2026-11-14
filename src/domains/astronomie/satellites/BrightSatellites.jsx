@@ -87,8 +87,8 @@ export default function BrightSatellites() {
       </div>
 
       {celestrak.error && (
-        <div className="card card-pad flex items-start gap-3 border-red-500/40 text-sm">
-          <TriangleAlert size={18} className="mt-0.5 shrink-0 text-red-500" />
+        <div className="card card-pad flex items-start gap-3 border-alerte/40 text-sm dark:border-alerte/40">
+          <TriangleAlert size={18} className="mt-0.5 shrink-0 text-alerte" />
           <div>
             <p className="font-medium">Impossible de télécharger les orbites ({celestrak.error}).</p>
             <p className="text-night-500">{sats ? 'Les dernières orbites enregistrées sont utilisées.' : 'Vérifiez votre connexion puis réessayez.'}</p>

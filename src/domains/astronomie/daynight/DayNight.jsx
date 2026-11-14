@@ -8,6 +8,7 @@ import { angularDistance, subPoint, xy } from '../lib/geo'
 import WorldMap from '../components/WorldMap'
 import TimeControls from '../components/TimeControls'
 import { InfoCard, Row } from '../components/InfoCard'
+import { CIEL_100, ENCRE, ENCRE_ATTENUEE, LUNE } from '../../../kit/charte'
 
 const CITIES = [
   { name: 'Paris', lat: 48.857, lon: 2.352, zone: 'Europe/Paris' },
@@ -33,10 +34,10 @@ const CITIES = [
 const sunAltitude = (sun, place) => 90 - angularDistance(sun, place)
 
 function lighting(alt) {
-  if (alt > 0) return { label: 'Jour', className: 'text-accent-700 dark:text-accent-300' }
-  if (alt > -6) return { label: 'Crépuscule civil', className: 'text-sky-600 dark:text-sky-300' }
-  if (alt > -12) return { label: 'Crépuscule nautique', className: 'text-indigo-600 dark:text-indigo-300' }
-  if (alt > -18) return { label: 'Crépuscule astronomique', className: 'text-violet-600 dark:text-violet-300' }
+  if (alt > 0) return { label: 'Jour', className: 'text-or' }
+  if (alt > -6) return { label: 'Crépuscule civil', className: 'text-lune' }
+  if (alt > -12) return { label: 'Crépuscule nautique', className: 'text-lune' }
+  if (alt > -18) return { label: 'Crépuscule astronomique', className: 'text-lune' }
   return { label: 'Nuit', className: 'text-night-500' }
 }
 
@@ -64,17 +65,17 @@ export default function DayNight() {
 
       <section className="card overflow-hidden p-2 sm:p-3">
         <WorldMap date={date} observer={location} label="Jour et nuit sur la Terre">
-          <circle cx={mx} cy={my} r="2" fill="#e4e4e7" stroke="#0a0f21" strokeWidth="0.5" />
-          <text x={mx + 3} y={my + 1.5} className="fill-white text-[4.5px]">
+          <circle cx={mx} cy={my} r="2" style={{ fill: LUNE, stroke: CIEL_100 }} strokeWidth="0.5" />
+          <text x={mx + 3} y={my + 1.5} className="text-[4.5px]" style={{ fill: ENCRE }}>
             Lune
           </text>
           {CITIES.map((c) => {
             const [x, y] = xy(c.lat, c.lon)
-            return <circle key={c.name} cx={x} cy={y} r="0.7" fill="#f8fafc" fillOpacity="0.8" />
+            return <circle key={c.name} cx={x} cy={y} r="0.7" style={{ fill: ENCRE_ATTENUEE }} />
           })}
         </WorldMap>
         <p className="px-2 pt-2 text-xs text-night-500">
-          Zones de plus en plus sombres : crépuscules civil, nautique, astronomique puis nuit. Soleil jaune : point où il est au zénith ; point rouge : votre lieu.
+          Côté jour voilé d’or, puis zones de plus en plus sombres : crépuscules civil, nautique, astronomique et nuit. Soleil : point où il est au zénith ; point bleu : votre lieu.
         </p>
       </section>
 

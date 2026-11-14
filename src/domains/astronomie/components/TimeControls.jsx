@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Radio } from 'lucide-react'
 import { toDateTimeLocal, utcOffsetLabel } from '../../../lib/format'
+import { TONE } from '../../../kit/charte'
 
 /** Choix de l'instant : temps réel, saisie libre et pas de ±1 h / ±1 j. */
 export default function TimeControls({ clock, steps = ['day', 'hour'], className = '' }) {
@@ -13,7 +14,7 @@ export default function TimeControls({ clock, steps = ['day', 'hour'], className
       <button
         type="button"
         onClick={goLive}
-        className={`btn ${live ? 'border-emerald-500/60 text-emerald-600 dark:text-emerald-400' : ''}`}
+        className={`btn ${live ? TONE.ok : ''}`}
         title="Revenir à l'heure actuelle, mise à jour automatique"
       >
         <Radio size={15} className={live ? 'animate-pulse' : ''} />

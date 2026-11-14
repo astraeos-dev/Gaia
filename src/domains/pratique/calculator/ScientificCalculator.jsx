@@ -52,7 +52,7 @@ const MAIN_KEYS = [
 const keyStyle = {
   num: 'bg-white text-night-900 dark:bg-night-800 dark:text-night-100',
   op: 'bg-night-100 text-accent-700 dark:bg-night-900 dark:text-accent-400 font-bold',
-  eq: 'bg-accent-600 text-white border-accent-600 hover:bg-accent-700 font-bold',
+  eq: 'bg-accent-600 text-night-50 border-accent-600 hover:bg-accent-700 font-bold dark:text-night-950',
   action: 'bg-night-100 text-alerte dark:bg-night-900',
   default: 'bg-night-100 text-night-700 dark:bg-night-900 dark:text-night-300',
 }

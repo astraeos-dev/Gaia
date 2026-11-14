@@ -7,8 +7,9 @@ import Segmented from '../../../components/Segmented'
 import { compass, fmt, fmtAngle, fmtHMS, fmtTime } from '../../../lib/format'
 import { Astronomy, BODIES, BODY, bodyConstellation, bodyPosition, diameterArcsec, fmtDiameter, makeObserver, riseTransitSet } from '../lib/astro'
 import TimeControls from '../components/TimeControls'
+import { LUNE } from '../../../kit/charte'
 
-const ROWS = [BODY.Sun, BODY.Moon, BODY.Mercury, BODY.Venus, { id: 'Earth', name: 'Terre', symbol: '⊕', color: '#60a5fa' }, ...BODIES.slice(4)]
+const ROWS = [BODY.Sun, BODY.Moon, BODY.Mercury, BODY.Venus, { id: 'Earth', name: 'Terre', symbol: '⊕', color: LUNE }, ...BODIES.slice(4)]
 
 const DEFAULTS = { cartesian: 'helio', angular: 'equatorial', angleMode: 'dms', nakedEye: false, aboveHorizon: false, selected: 'Sun' }
 
