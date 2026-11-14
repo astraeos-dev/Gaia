@@ -1,4 +1,5 @@
 import { PisteSchema } from '../schemas.jsx'
+import { LUNE } from '../../../../kit/charte'
 
 /**
  * LARGEUR DE PISTE (IPC-2221)
@@ -79,7 +80,7 @@ export default {
         y: { label: 'Largeur (mm)', min: 0 },
         series: [
           { name: 'Couche externe', points: currents.map((c) => [c, traceWidth(c, v.dt, oz, false)]) },
-          { name: 'Couche interne', color: '#60a5fa', points: currents.map((c) => [c, traceWidth(c, v.dt, oz, true)]) },
+          { name: 'Couche interne', color: LUNE, points: currents.map((c) => [c, traceWidth(c, v.dt, oz, true)]) },
         ],
         markers: [{ x: v.i, y: wMm, label: `${v.i} A` }],
       },

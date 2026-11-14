@@ -1,3 +1,4 @@
+import { OR } from '../../../kit/charte'
 /**
  * Autonomie d'un montage qui se réveille périodiquement (veille profonde d'un ESP, d'un Arduino…) :
  *   I moyen = (Iréveil × tréveil + Iveille × (T − tréveil)) / T
@@ -39,7 +40,7 @@ export default {
         title: 'Autonomie selon l’intervalle entre deux réveils',
         x: { label: 'Intervalle (min)', log: true },
         y: { label: 'Autonomie (jours)', min: 0 },
-        series: [{ name: 'Autonomie (jours)', color: '#f59e0b', points }],
+        series: [{ name: 'Autonomie (jours)', color: OR, points }],
         markers: [{ x: v.period, y: hours / 24, label: 'Votre réglage' }],
       },
       notes: [

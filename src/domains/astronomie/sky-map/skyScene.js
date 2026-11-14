@@ -1,6 +1,8 @@
 /**
  * Calcul et dessin de la carte du ciel (projection stéréographique centrée sur le zénith,
  * horizon sur le cercle extérieur, nord en haut et est à gauche comme lorsqu'on lève les yeux).
+ * Les couleurs sont celles de la carte du ciel de Céleste (charts.py, draw_sky_map), dans le thème de la page :
+ * étoiles et planètes à l'encre, objets Messier en lune, Lune en lune, Soleil en or.
  */
 import STARS from '../data/stars.json'
 import STAR_NAMES from '../data/star-names.json'
@@ -8,21 +10,11 @@ import CONSTELLATIONS from '../data/constellations.json'
 import LINES from '../data/constellation-lines.json'
 import MESSIER from '../data/messier.json'
 import { Astronomy, BODIES, bodyPosition, constellationAt, makeJ2000ToHorizon, moonInfo } from '../lib/astro'
+import { canvasPalette } from '../../../kit/charte'
 
 const NAME_BY_INDEX = new Map(STAR_NAMES)
 const DEG = Math.PI / 180
 const OBLIQUITY = 23.4392911 * DEG
-
-/** Couleur approximative d'une étoile d'après son indice B−V. */
-function starColor(bv) {
-  if (bv < -0.1) return '#9db4ff'
-  if (bv < 0.15) return '#c4d4ff'
-  if (bv < 0.45) return '#f1f3ff'
-  if (bv < 0.7) return '#fff6e5'
-  if (bv < 1.1) return '#ffdcae'
-  if (bv < 1.45) return '#ffc285'
-  return '#ffa860'
-}
 
 /** Coordonnées horizontales de tout ce qui est affichable, pour un instant et un lieu. */
 export function computeScene(date, observer) {
@@ -79,13 +71,11 @@ export function makeProjection(size, rotationDeg = 0) {
   }
 }
 
-function skyBackground(sunAlt) {
-  if (sunAlt > 0) return ['#1d4e89', '#3b82c4']
-  if (sunAlt > -6) return ['#141b45', '#36407a']
-  if (sunAlt > -12) return ['#0b1030', '#1b2152']
-  if (sunAlt > -18) return ['#070a1f', '#10153a']
-  return ['#03050f', '#0a0f24']
-}
+/** Part de lune dans le fond du ciel selon la hauteur du Soleil : les teintes des phases du jour de Céleste. */
+const skyTint = (sunAlt) => (sunAlt > 0 ? 0.26 : sunAlt > -6 ? 0.17 : sunAlt > -12 ? 0.1 : sunAlt > -18 ? 0.05 : 0)
+
+const SANS = '"IBM Plex Sans", sans-serif'
+const MONO = '"IBM Plex Mono", monospace'
 
 const CARDINALS = [
   ['N', 0],
@@ -106,17 +96,14 @@ export function drawScene(ctx, size, scene, options) {
   const { cx, cy, R, project } = makeProjection(size, options.rotation)
   const targets = []
   const scale = size / 700
+  const pal = canvasPalette()
   ctx.clearRect(0, 0, size, size)
 
-  // Fond du ciel (dégradé selon la hauteur du Soleil)
-  const [inner, outer] = skyBackground(scene.sunAlt)
-  const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, R)
-  grad.addColorStop(0, inner)
-  grad.addColorStop(1, outer)
+  // Fond du ciel : ciel-000, teinté de lune le jour et aux crépuscules
   ctx.save()
   ctx.beginPath()
   ctx.arc(cx, cy, R, 0, Math.PI * 2)
-  ctx.fillStyle = grad
+  ctx.fillStyle = pal.mix('lune', 'ciel-000', skyTint(scene.sunAlt))
   ctx.fill()
   ctx.clip()
 
@@ -138,7 +125,7 @@ export function drawScene(ctx, size, scene, options) {
 
   // Grille alt-azimutale
   if (options.grid) {
-    ctx.strokeStyle = 'rgba(148, 163, 184, 0.18)'
+    ctx.strokeStyle = pal.color('ciel-200')
     ctx.lineWidth = 1
     for (const alt of [30, 60]) {
       const r = R * Math.tan(((90 - alt) * DEG) / 2)
@@ -158,27 +145,27 @@ export function drawScene(ctx, size, scene, options) {
   // Équateur céleste et écliptique
   if (options.ecliptic) {
     ctx.setLineDash([6 * scale, 6 * scale])
-    ctx.strokeStyle = 'rgba(249, 115, 22, 0.55)'
+    ctx.strokeStyle = pal.color('or', 0.6)
     ctx.lineWidth = 1.2
     polyline(scene.ecliptic)
-    ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)'
+    ctx.strokeStyle = pal.color('lune', 0.5)
     polyline(scene.equator)
     ctx.setLineDash([])
   }
 
   // Tracés des constellations
   if (options.lines) {
-    ctx.strokeStyle = 'rgba(125, 211, 252, 0.35)'
+    ctx.strokeStyle = pal.color('encre-attenuee', 0.4)
     ctx.lineWidth = 1
     for (const c of scene.lines) for (const seg of c.segments) polyline(seg, -5)
   }
 
   // Objets Messier
   if (options.messier) {
-    ctx.strokeStyle = 'rgba(167, 243, 208, 0.7)'
-    ctx.fillStyle = 'rgba(167, 243, 208, 0.85)'
+    ctx.strokeStyle = pal.color('lune', 0.85)
+    ctx.fillStyle = pal.color('lune', 0.85)
     ctx.lineWidth = 1
-    ctx.font = `${Math.round(10 * Math.max(scale, 0.8))}px "JetBrains Mono", monospace`
+    ctx.font = `${Math.round(10 * Math.max(scale, 0.8))}px ${MONO}`
     for (const m of scene.messier) {
       if (m.alt < 0) continue
       const [x, y] = project(m.alt, m.az)
@@ -190,19 +177,24 @@ export function drawScene(ctx, size, scene, options) {
     }
   }
 
-  // Étoiles (les plus faibles d'abord pour que les brillantes passent devant)
+  // Étoiles à l'encre, plus pâles quand elles sont faibles, un halo autour des plus brillantes
+  // (les plus faibles d'abord pour que les brillantes passent devant)
   const starScale = Math.max(scale, 0.7)
   for (let k = scene.stars.length - 1; k >= 0; k--) {
     const s = scene.stars[k]
     if (s.alt < 0 || s.mag > options.magLimit) continue
     const [x, y] = project(s.alt, s.az)
     const r = Math.max(0.55, (options.magLimit + 0.6 - s.mag) * 0.62) * starScale
+    if (s.mag < 1) {
+      ctx.beginPath()
+      ctx.arc(x, y, r * 2.2, 0, Math.PI * 2)
+      ctx.fillStyle = pal.color('encre', 0.1)
+      ctx.fill()
+    }
     ctx.beginPath()
     ctx.arc(x, y, r, 0, Math.PI * 2)
-    ctx.fillStyle = starColor(s.bv)
-    ctx.globalAlpha = s.mag > 4.5 ? 0.75 : 1
+    ctx.fillStyle = pal.color('encre', Math.min(1, Math.max(0.45, 1 - s.mag / 7)))
     ctx.fill()
-    ctx.globalAlpha = 1
     if (s.mag < 4.5 || s.name) targets.push({ x, y, r: Math.max(r + 3, 6), kind: 'star', obj: s })
   }
 
@@ -212,8 +204,8 @@ export function drawScene(ctx, size, scene, options) {
     for (const c of scene.labels) {
       if (c.alt < 3 || (c.rank > 2 && size < 520)) continue
       const [x, y] = project(c.alt, c.az)
-      ctx.font = `${c.rank === 1 ? 600 : 400} ${Math.round((c.rank === 1 ? 11 : 10) * Math.max(scale, 0.85))}px Inter, sans-serif`
-      ctx.fillStyle = c.rank === 1 ? 'rgba(186, 230, 253, 0.75)' : 'rgba(186, 230, 253, 0.5)'
+      ctx.font = `${c.rank === 1 ? 600 : 400} ${Math.round((c.rank === 1 ? 11 : 10) * Math.max(scale, 0.85))}px ${SANS}`
+      ctx.fillStyle = pal.color('encre-attenuee', c.rank === 1 ? 0.85 : 0.6)
       ctx.fillText(c.fr.toUpperCase(), x, y)
     }
     ctx.textAlign = 'left'
@@ -221,8 +213,8 @@ export function drawScene(ctx, size, scene, options) {
 
   // Noms des étoiles brillantes
   if (options.starNames) {
-    ctx.font = `${Math.round(11 * Math.max(scale, 0.85))}px Inter, sans-serif`
-    ctx.fillStyle = 'rgba(244, 244, 245, 0.8)'
+    ctx.font = `${Math.round(11 * Math.max(scale, 0.85))}px ${SANS}`
+    ctx.fillStyle = pal.color('encre-attenuee')
     for (const s of scene.stars) {
       if (!s.name || s.alt < 1 || s.mag > Math.min(options.magLimit, size < 520 ? 1.6 : 2.3)) continue
       const [x, y] = project(s.alt, s.az)
@@ -230,36 +222,37 @@ export function drawScene(ctx, size, scene, options) {
     }
   }
 
-  // Soleil, Lune et planètes
+  // Soleil (or), Lune (lune) et planètes (encre)
   if (options.planets) {
     for (const b of scene.bodies) {
       if (b.alt < -1) continue
       const [x, y] = project(b.alt, b.az)
+      const color = pal.color(b.id === 'Sun' ? 'or' : b.id === 'Moon' ? 'lune' : 'encre')
       let r
       if (b.id === 'Sun') {
         r = 9 * starScale
         ctx.beginPath()
         ctx.arc(x, y, r * 1.8, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(250, 204, 21, 0.25)'
+        ctx.fillStyle = pal.color('or', 0.25)
         ctx.fill()
         ctx.beginPath()
         ctx.arc(x, y, r, 0, Math.PI * 2)
-        ctx.fillStyle = '#facc15'
+        ctx.fillStyle = color
         ctx.fill()
       } else if (b.id === 'Moon') {
         r = 9 * starScale
-        drawMoon(ctx, x, y, r, scene.moonPhase)
+        drawMoon(ctx, x, y, r, scene.moonPhase, pal)
       } else {
         r = Math.max(2.5, Math.min(5.5, 4.5 - b.mag * 0.5)) * starScale
         ctx.beginPath()
         ctx.arc(x, y, r, 0, Math.PI * 2)
-        ctx.fillStyle = b.color
+        ctx.fillStyle = color
         ctx.fill()
-        ctx.strokeStyle = 'rgba(0,0,0,0.6)'
+        ctx.strokeStyle = pal.color('ciel-000', 0.6)
         ctx.stroke()
       }
-      ctx.font = `600 ${Math.round(12 * Math.max(scale, 0.85))}px Inter, sans-serif`
-      ctx.fillStyle = b.color
+      ctx.font = `600 ${Math.round(12 * Math.max(scale, 0.85))}px ${SANS}`
+      ctx.fillStyle = color
       ctx.fillText(b.name, x + r + 4, y - r)
       targets.push({ x, y, r: r + 6, kind: 'body', obj: b, priority: 2 })
     }
@@ -270,7 +263,7 @@ export function drawScene(ctx, size, scene, options) {
     const sel = options.selected
     if (sel.alt > -1) {
       const [x, y] = project(sel.alt, sel.az)
-      ctx.strokeStyle = '#f59e0b'
+      ctx.strokeStyle = pal.color('or')
       ctx.lineWidth = 2
       ctx.beginPath()
       ctx.arc(x, y, 12 * starScale, 0, Math.PI * 2)
@@ -279,9 +272,9 @@ export function drawScene(ctx, size, scene, options) {
   }
   ctx.restore()
 
-  // Horizon et points cardinaux
-  ctx.strokeStyle = 'rgba(249, 115, 22, 0.8)'
-  ctx.lineWidth = 2
+  // Horizon et points cardinaux (le nord à l'encre, les autres en encre atténuée)
+  ctx.strokeStyle = pal.color('encre-attenuee')
+  ctx.lineWidth = 1.5
   ctx.beginPath()
   ctx.arc(cx, cy, R, 0, Math.PI * 2)
   ctx.stroke()
@@ -291,8 +284,8 @@ export function drawScene(ctx, size, scene, options) {
     const main = label.length === 1
     const r = R + (size / 2 - R) / 2
     const a = az * DEG + options.rotation * DEG
-    ctx.font = `${main ? 700 : 500} ${Math.round((main ? 14 : 10) * Math.max(scale, 0.85))}px "JetBrains Mono", monospace`
-    ctx.fillStyle = main ? '#f59e0b' : '#a1a1aa'
+    ctx.font = `${main ? 600 : 400} ${Math.round((main ? 14 : 10) * Math.max(scale, 0.85))}px ${MONO}`
+    ctx.fillStyle = pal.color(label === 'N' ? 'encre' : 'encre-attenuee')
     ctx.fillText(label, cx - r * Math.sin(a), cy - r * Math.cos(a))
   }
   ctx.textAlign = 'left'
@@ -301,11 +294,15 @@ export function drawScene(ctx, size, scene, options) {
   return targets
 }
 
-function drawMoon(ctx, x, y, r, phase) {
+/** La Lune éclairée selon sa phase : face sombre en ciel-200, partie éclairée et contour en lune (comme Céleste). */
+function drawMoon(ctx, x, y, r, phase, pal) {
   ctx.beginPath()
   ctx.arc(x, y, r, 0, Math.PI * 2)
-  ctx.fillStyle = '#3f3f46'
+  ctx.fillStyle = pal.color('ciel-200')
   ctx.fill()
+  ctx.strokeStyle = pal.color('lune')
+  ctx.lineWidth = 1.2
+  ctx.stroke()
   const p = phase * DEG
   const rx = Math.abs(Math.cos(p)) * r
   const waxing = phase < 180
@@ -314,7 +311,7 @@ function drawMoon(ctx, x, y, r, phase) {
   // Bord éclairé (demi-disque) puis terminateur elliptique
   ctx.arc(x, y, r, -Math.PI / 2, Math.PI / 2, !waxing)
   ctx.ellipse(x, y, rx, r, 0, Math.PI / 2, -Math.PI / 2, waxing ? !gibbous : gibbous)
-  ctx.fillStyle = '#f4f4f5'
+  ctx.fillStyle = pal.color('lune')
   ctx.fill()
 }
 

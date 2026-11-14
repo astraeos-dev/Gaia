@@ -23,6 +23,7 @@ import AltitudeChart from '../components/AltitudeChart'
 import MoonPhase from '../components/MoonPhase'
 import TimeControls from '../components/TimeControls'
 import { InfoCard, Row } from '../components/InfoCard'
+import { LUNE, OR } from '../../../kit/charte'
 
 const MONTHS = Array.from({ length: 12 }, (_, i) => i)
 const signedDeg = (v, pos, neg) => `${fmt(Math.abs(v), 2)}° ${v >= 0 ? pos : neg}`
@@ -79,8 +80,8 @@ export default function MoonPage() {
       riseAz: at(rts.rise)?.az,
       setAz: at(rts.set)?.az,
       series: [
-        { id: 'Sun', name: 'Soleil', color: '#facc15', points: altitudeSeries('Sun', observer, start, end, 15) },
-        { id: 'Moon', name: 'Lune', color: '#e4e4e7', points: altitudeSeries('Moon', observer, start, end, 15) },
+        { id: 'Sun', name: 'Soleil', color: OR, points: altitudeSeries('Sun', observer, start, end, 15) },
+        { id: 'Moon', name: 'Lune', color: LUNE, points: altitudeSeries('Moon', observer, start, end, 15) },
       ],
       start,
       end,

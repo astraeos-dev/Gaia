@@ -10,10 +10,10 @@ import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import { fmt } from '../../../lib/format'
 
 const LEVEL = {
-  error: { label: 'Erreur', Icon: OctagonAlert, className: 'border-red-500/40 bg-red-500/5 text-red-700 dark:text-red-300' },
-  warning: { label: 'Attention', Icon: TriangleAlert, className: 'border-amber-500/40 bg-amber-500/5 text-amber-800 dark:text-amber-300' },
-  info: { label: 'À savoir', Icon: Info, className: 'border-sky-500/40 bg-sky-500/5 text-sky-800 dark:text-sky-300' },
-  ok: { label: 'Bon', Icon: CircleCheck, className: 'border-emerald-500/40 bg-emerald-500/5 text-emerald-800 dark:text-emerald-300' },
+  error: { label: 'Erreur', Icon: OctagonAlert, className: 'border-alerte/40 bg-alerte/5 text-alerte' },
+  warning: { label: 'Attention', Icon: TriangleAlert, className: 'border-or/40 bg-or/5 text-or' },
+  info: { label: 'À savoir', Icon: Info, className: 'border-lune/40 bg-lune/5 text-lune' },
+  ok: { label: 'Bon', Icon: CircleCheck, className: 'border-ok/40 bg-ok/5 text-ok' },
 }
 const V = (v) => (v == null ? '—' : `${String(v).replace('.', ',')} V`)
 const byId = (id) => MODULES.find((m) => m.id === id)

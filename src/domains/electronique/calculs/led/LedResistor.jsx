@@ -79,7 +79,7 @@ export default function LedResistor() {
         <div className="border-t border-night-200 pt-4 dark:border-night-800">
           {res.error === 'missing' && <p className="text-sm text-night-500">Saisissez la tension d'alimentation, la tension directe et le courant.</p>}
           {res.error === 'voltage' && (
-            <p className="text-sm text-red-500">
+            <p className="text-sm text-alerte">
               L'alimentation doit dépasser la somme des tensions directes ({formatSI(res.totalVf, 'V', 4)}) : réduisez le nombre de LED en série ou
               augmentez la tension.
             </p>

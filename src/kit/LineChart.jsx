@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { smartNumber } from '../lib/format'
+import { OR } from './charte'
 
 const W = 640
 const H = 300
@@ -101,7 +102,7 @@ export default function LineChart({ chart }) {
           <polyline
             key={s.name}
             fill="none"
-            stroke={s.color ?? '#f59e0b'}
+            style={{ stroke: s.color ?? OR }}
             strokeWidth="2.5"
             strokeDasharray={s.dashed ? '6 4' : undefined}
             strokeLinejoin="round"
@@ -113,7 +114,7 @@ export default function LineChart({ chart }) {
         ))}
         {chart.markers?.map((m) => (
           <g key={`${m.label}-${m.x}`}>
-            <circle cx={sx(m.x)} cy={sy(m.y)} r="4.5" fill={m.color ?? '#f59e0b'} />
+            <circle cx={sx(m.x)} cy={sy(m.y)} r="4.5" style={{ fill: m.color ?? OR }} />
             <text x={sx(m.x) + 7} y={sy(m.y) - 7} className="fill-night-600 text-[11px] dark:fill-night-300">
               {m.label}
             </text>
@@ -126,7 +127,7 @@ export default function LineChart({ chart }) {
           const p = hover != null ? nearest(s.points, hover) : null
           return (
             <span key={s.name} className="inline-flex items-center gap-1.5">
-              <span className="inline-block h-0.5 w-4" style={{ backgroundColor: s.color ?? '#f59e0b' }} />
+              <span className="inline-block h-0.5 w-4" style={{ backgroundColor: s.color ?? OR }} />
               {s.name}
               {p && <span className="font-mono text-night-900 dark:text-night-100">{fy(p[1])}</span>}
             </span>

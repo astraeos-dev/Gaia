@@ -16,8 +16,7 @@ export default function About() {
         <p className="flex items-center gap-4">
           <Logo size={56} className="shrink-0" />
           <span>
-            {SITE.name} réunit les projets d’Astraeos : chacun a sa section, avec ce qu’il fait, comment l’installer et sa
-            documentation. Dans la mythologie grecque, Gaïa est la Terre mère, l’ancêtre des Titans : Astraeos, le Titan des
+            {SITE.name} réunit les projets d’Astraeos : pour chacun, ce qu’il fait, comment l’installer et sa documentation. Dans la mythologie grecque, Gaïa est la Terre mère, l’ancêtre des Titans : Astraeos, le Titan des
             étoiles et du crépuscule, est son petit-fils. Elle porte ici tous les projets.
           </span>
         </p>
@@ -44,7 +43,7 @@ export default function About() {
       </div>
 
       <section className="mt-14">
-        <SectionTitle kicker="Les projets" title="Un projet, une section" />
+        <SectionTitle kicker="Les projets" title="Les projets d’Astraeos" />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {ACTIVE_PROJECTS.map((p) => (
             <ProjectCard key={p.id} project={p} />

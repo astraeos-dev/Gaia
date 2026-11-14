@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { formatInBase, groupDigits, parseInBase } from './bases'
+import { INVALID } from '../../../../kit/charte'
 
 const FIXED = [
   { base: 2, label: 'Binaire', group: 4 },
@@ -47,7 +48,7 @@ export default function NumberBases() {
             </div>
             <input
               id={`base-${b.custom ? 'c' : b.base}`}
-              className={`input font-mono text-lg ${b.base === source.base && invalid ? 'border-red-500' : ''}`}
+              className={`input font-mono text-lg ${b.base === source.base && invalid ? INVALID : ''}`}
               value={field(b.base)}
               onChange={(e) => setSource({ base: b.base, text: e.target.value })}
               spellCheck={false}
@@ -58,7 +59,7 @@ export default function NumberBases() {
             )}
           </div>
         ))}
-        {invalid && <p className="text-sm text-red-500">Chiffre non valide pour la base {source.base}.</p>}
+        {invalid && <p className="text-sm text-alerte">Chiffre non valide pour la base {source.base}.</p>}
       </div>
       {value !== null && (
         <div className="card card-pad grid gap-2 text-sm sm:grid-cols-3">

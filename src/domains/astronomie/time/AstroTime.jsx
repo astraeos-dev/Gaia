@@ -84,7 +84,7 @@ export default function AstroTime() {
         <LocationButton />
       </div>
 
-      <div className="grid gap-4 rounded-2xl bg-night-900 p-5 text-white sm:grid-cols-3 dark:bg-night-900/70">
+      <div className="grid gap-4 rounded-2xl bg-night-900 p-5 text-night-100 sm:grid-cols-3 dark:bg-night-900/70">
         <div>
           <p className="label text-night-300">Heure locale</p>
           <p className="font-mono text-3xl font-semibold tabular-nums">{fmtTime(date, true)}</p>

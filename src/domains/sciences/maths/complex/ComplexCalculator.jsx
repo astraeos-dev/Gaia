@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { parseNumber, smartNumber } from '../../../../lib/format'
 import Segmented from '../../../../components/Segmented'
 import * as C from './complex'
+import { LUNE, OK, OR } from '../../../../kit/charte'
 
 const OPERATIONS = [
   { value: 'add', label: 'z₁ + z₂', binary: true, fn: C.add },
@@ -62,9 +63,9 @@ function Argand({ points }) {
       {points.map((p) =>
         Number.isFinite(p.z.re) && Number.isFinite(p.z.im) ? (
           <g key={p.label}>
-            <line x1={S / 2} y1={S / 2} x2={sx(p.z.re)} y2={sy(p.z.im)} stroke={p.color} strokeWidth="2" />
-            <circle cx={sx(p.z.re)} cy={sy(p.z.im)} r="4" fill={p.color} />
-            <text x={sx(p.z.re) + 6} y={sy(p.z.im) - 6} fill={p.color} className="font-mono text-[11px] font-bold">
+            <line x1={S / 2} y1={S / 2} x2={sx(p.z.re)} y2={sy(p.z.im)} style={{ stroke: p.color }} strokeWidth="2" />
+            <circle cx={sx(p.z.re)} cy={sy(p.z.im)} r="4" style={{ fill: p.color }} />
+            <text x={sx(p.z.re) + 6} y={sy(p.z.im) - 6} style={{ fill: p.color }} className="font-mono text-[11px] font-bold">
               {p.label}
             </text>
           </g>
@@ -97,9 +98,9 @@ export default function ComplexCalculator() {
   }
 
   const points = [
-    z1 && { label: 'z₁', z: z1, color: '#38bdf8' },
-    operation.binary && z2 && { label: 'z₂', z: z2, color: '#a78bfa' },
-    result && { label: 'r', z: result, color: '#f59e0b' },
+    z1 && { label: 'z₁', z: z1, color: LUNE },
+    operation.binary && z2 && { label: 'z₂', z: z2, color: OK },
+    result && { label: 'r', z: result, color: OR },
   ].filter(Boolean)
 
   return (
@@ -134,7 +135,7 @@ export default function ComplexCalculator() {
           <Segmented value={op} onChange={setOp} options={OPERATIONS.map(({ value, label }) => ({ value, label }))} ariaLabel="Opération" />
         </div>
         <div className="border-t border-night-200 pt-4 dark:border-night-800">
-          {error ? <p className="text-sm text-red-500">{error}</p> : result && <Forms z={result} label={`Résultat : ${operation.label}`} />}
+          {error ? <p className="text-sm text-alerte">{error}</p> : result && <Forms z={result} label={`Résultat : ${operation.label}`} />}
         </div>
         {z1 && (
           <div className="grid gap-4 border-t border-night-200 pt-4 dark:border-night-800 sm:grid-cols-2">

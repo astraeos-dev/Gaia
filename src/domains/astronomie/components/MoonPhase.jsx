@@ -1,3 +1,4 @@
+import { CIEL_200, LUNE } from '../../../kit/charte'
 /**
  * Dessin vectoriel de la Lune pour un angle de phase donné (0 = nouvelle, 180 = pleine).
  * Dans l'hémisphère sud (`south`), l'image est inversée gauche-droite.
@@ -23,8 +24,8 @@ export default function MoonPhase({ phase, size = 48, south = false, className =
       style={south ? { transform: 'scaleX(-1)' } : undefined}
     >
       {title && <title>{title}</title>}
-      <circle cx="50" cy="50" r="50" fill="#27272a" stroke="#52525b" strokeWidth="1.5" />
-      <path d={d} fill="#f4f4f5" />
+      <circle cx="50" cy="50" r="50" style={{ fill: CIEL_200, stroke: LUNE }} strokeWidth="1.5" />
+      <path d={d} style={{ fill: LUNE }} />
     </svg>
   )
 }

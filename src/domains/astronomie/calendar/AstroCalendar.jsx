@@ -192,7 +192,7 @@ export default function AstroCalendar() {
                     <div className="flex items-start justify-between">
                       <span
                         className={`inline-flex h-6 w-6 items-center justify-center rounded-full text-xs font-semibold sm:text-sm ${
-                          isToday ? 'bg-accent-600 text-white' : ''
+                          isToday ? 'bg-or text-night-50 dark:text-night-950' : ''
                         }`}
                       >
                         {d.getDate()}

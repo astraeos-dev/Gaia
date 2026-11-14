@@ -1,6 +1,8 @@
+import { TONE } from '../kit/charte'
+
 const STATUS = {
   stable: null,
-  beta: { label: 'Bêta', className: 'border-sky-500/40 text-sky-700 dark:text-sky-300' },
+  beta: { label: 'Bêta', className: TONE.lune },
   dev: { label: 'En construction', className: 'border-accent-500/40 text-accent-700 dark:text-accent-300' },
 }
 

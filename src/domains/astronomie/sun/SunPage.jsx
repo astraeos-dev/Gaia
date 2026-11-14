@@ -10,6 +10,7 @@ import { solarTime } from '../lib/time'
 import AltitudeChart from '../components/AltitudeChart'
 import TimeControls from '../components/TimeControls'
 import { InfoCard, Row } from '../components/InfoCard'
+import { LUNE, OK, OR } from '../../../kit/charte'
 
 const MONTH_STARTS = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
 const MONTH_SHORT = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
@@ -69,7 +70,7 @@ export default function SunPage() {
       diff: today.dayLength != null && yesterday.dayLength != null ? (today.dayLength - yesterday.dayLength) * 60 : null,
       rise: withAz(today.sunrise, observer),
       set: withAz(today.sunset, observer),
-      series: [{ id: 'Sun', name: 'Soleil', color: '#facc15', points: altitudeSeries('Sun', observer, start, end, 10) }],
+      series: [{ id: 'Sun', name: 'Soleil', color: OR, points: altitudeSeries('Sun', observer, start, end, 10) }],
       start,
       end,
     }
@@ -165,11 +166,11 @@ export default function SunPage() {
               x: { label: 'Date', ticks: MONTH_STARTS.map((m) => m + 1), format: (v) => new Date(year, 0, Math.round(v)).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) },
               y: { label: 'Heures', min: 0, max: 24, ticks: [0, 3, 6, 9, 12, 15, 18, 21, 24], format: hhmm },
               series: [
-                { name: 'Lever', color: '#f59e0b', points: annual.rise },
-                { name: 'Coucher', color: '#8b5cf6', points: annual.set },
-                { name: 'Durée du jour', color: '#38bdf8', points: annual.length, dashed: true },
+                { name: 'Lever', color: OR, points: annual.rise },
+                { name: 'Coucher', color: LUNE, points: annual.set },
+                { name: 'Durée du jour', color: OK, points: annual.length, dashed: true },
               ],
-              markers: Number.isFinite(today.dayLength) ? [{ x: doy, y: today.dayLength, label: 'Aujourd’hui', color: '#38bdf8' }] : [],
+              markers: Number.isFinite(today.dayLength) ? [{ x: doy, y: today.dayLength, label: 'Aujourd’hui', color: OK }] : [],
             }}
           />
         </section>

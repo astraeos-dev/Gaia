@@ -52,8 +52,8 @@ const MAIN_KEYS = [
 const keyStyle = {
   num: 'bg-white text-night-900 dark:bg-night-800 dark:text-night-100',
   op: 'bg-night-100 text-accent-700 dark:bg-night-900 dark:text-accent-400 font-bold',
-  eq: 'bg-accent-600 text-white border-accent-600 hover:bg-accent-700 font-bold',
-  action: 'bg-night-100 text-red-600 dark:bg-night-900 dark:text-red-400',
+  eq: 'bg-accent-600 text-night-50 border-accent-600 hover:bg-accent-700 font-bold dark:text-night-950',
+  action: 'bg-night-100 text-alerte dark:bg-night-900',
   default: 'bg-night-100 text-night-700 dark:bg-night-900 dark:text-night-300',
 }
 
@@ -163,7 +163,7 @@ export default function ScientificCalculator() {
           />
           <p className="mt-1 min-h-[1.5rem] text-right font-mono text-sm" aria-live="polite">
             {lastError ? (
-              <span className="text-red-500">{lastError}</span>
+              <span className="text-alerte">{lastError}</span>
             ) : preview && 'value' in preview ? (
               <span className="text-night-500">= {smartNumber(preview.value, 12)}</span>
             ) : null}
@@ -205,7 +205,7 @@ export default function ScientificCalculator() {
             <History size={15} className="text-accent-500" /> Historique
           </h2>
           {history.length > 0 && (
-            <button type="button" className="text-night-400 hover:text-red-500" onClick={() => setHistory([])} aria-label="Vider l'historique">
+            <button type="button" className="text-night-400 hover:text-alerte" onClick={() => setHistory([])} aria-label="Vider l'historique">
               <Trash2 size={15} />
             </button>
           )}

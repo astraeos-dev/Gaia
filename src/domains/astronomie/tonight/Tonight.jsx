@@ -22,6 +22,7 @@ import {
 } from '../lib/astro'
 import AltitudeChart from '../components/AltitudeChart'
 import MoonPhase from '../components/MoonPhase'
+import { SERIES } from '../../../kit/charte'
 
 function Row({ label, value, sub }) {
   return (
@@ -68,10 +69,10 @@ export default function Tonight() {
 
     const start = addHours(day, 12)
     const end = addHours(day, 36)
-    const series = ['Sun', 'Moon', ...PLANETS.filter((p) => p.nakedEye).map((p) => p.id)].map((id) => ({
+    const series = ['Sun', 'Moon', ...PLANETS.filter((p) => p.nakedEye).map((p) => p.id)].map((id, i) => ({
       id,
       name: BODY[id].name,
-      color: BODY[id].color,
+      color: SERIES[i], // le Soleil en or, la Lune en lune, puis les séries de Céleste
       points: altitudeSeries(id, observer, start, end, 10),
     }))
 
@@ -114,7 +115,7 @@ export default function Tonight() {
       <div className="grid gap-6 lg:grid-cols-3">
         <section className="card card-pad">
           <h2 className="mb-3 flex items-center gap-2 font-semibold">
-            <Sun size={18} className="text-amber-500" /> Soleil
+            <Sun size={18} className="text-or" /> Soleil
           </h2>
           <Row label="Aube astronomique" value={fmtTime(sun.astronomicalDawn)} />
           <Row label="Aube nautique" value={fmtTime(sun.nauticalDawn)} />

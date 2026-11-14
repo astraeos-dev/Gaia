@@ -12,6 +12,7 @@ import WorldMap from '../components/WorldMap'
 import { InfoCard, Row } from '../components/InfoCard'
 import { SATELLITES, findPasses, lookAt, parseTle } from './passes'
 import { useCelestrak } from './useCelestrak'
+import { CIEL_100, ENCRE, ENCRE_ATTENUEE, OR } from '../../../kit/charte'
 
 const RAD = 180 / Math.PI
 
@@ -67,7 +68,7 @@ export default function SatelliteMap() {
 
       {celestrak.error && !tle && (
         <div className="card card-pad flex items-center gap-3 text-sm">
-          <TriangleAlert size={18} className="text-red-500" /> Impossible de télécharger l'orbite ({celestrak.error}).
+          <TriangleAlert size={18} className="text-alerte" /> Impossible de télécharger l'orbite ({celestrak.error}).
         </div>
       )}
       {!tle && !celestrak.error && <Loader label="Téléchargement de l'orbite…" />}
@@ -77,20 +78,20 @@ export default function SatelliteMap() {
           <section className="card overflow-hidden p-2 sm:p-3">
             <WorldMap date={now} observer={location} label={`Position de ${tle.name}`}>
               {track.past.map((seg, i) => (
-                <polyline key={`p${i}`} points={line(seg)} fill="none" stroke="#cbd5e1" strokeOpacity="0.5" strokeWidth="0.5" strokeDasharray="1.5 1" />
+                <polyline key={`p${i}`} points={line(seg)} fill="none" style={{ stroke: ENCRE_ATTENUEE }} strokeOpacity="0.7" strokeWidth="0.5" strokeDasharray="1.5 1" />
               ))}
               {track.future.map((seg, i) => (
-                <polyline key={`f${i}`} points={line(seg)} fill="none" stroke="#fbbf24" strokeWidth="0.7" />
+                <polyline key={`f${i}`} points={line(seg)} fill="none" style={{ stroke: OR }} strokeWidth="0.7" />
               ))}
-              <path d={capPath({ lat: live.lat, lon }, footprintRadius(live.height))} fill="#fbbf24" fillOpacity="0.12" stroke="#fbbf24" strokeOpacity="0.6" strokeWidth="0.3" />
-              <circle cx={sx} cy={sy} r="3.2" fill={live.sunlit ? '#fde047' : '#94a3b8'} stroke="#0a0f21" strokeWidth="0.6" />
-              <text x={sx + 4} y={sy - 3} className="fill-white text-[6px] font-semibold">
+              <path d={capPath({ lat: live.lat, lon }, footprintRadius(live.height))} style={{ fill: OR, stroke: OR }} fillOpacity="0.12" strokeOpacity="0.6" strokeWidth="0.3" />
+              <circle cx={sx} cy={sy} r="3.2" style={{ fill: live.sunlit ? OR : ENCRE_ATTENUEE, stroke: CIEL_100 }} strokeWidth="0.6" />
+              <text x={sx + 4} y={sy - 3} className="text-[6px] font-semibold" style={{ fill: ENCRE }}>
                 {tle.name.replace(/ \(.*\)/, '')}
               </text>
             </WorldMap>
             <p className="px-2 pt-2 text-xs text-night-500">
-              Trait plein : prochaine orbite et demie · pointillés : demi-orbite passée · zone ambrée : régions d'où le satellite est au-dessus de l'horizon · point
-              rouge : votre lieu.
+              Trait plein : prochaine orbite et demie · pointillés : demi-orbite passée · zone dorée : régions d'où le satellite est au-dessus de l'horizon · point
+              bleu : votre lieu.
             </p>
           </section>
 

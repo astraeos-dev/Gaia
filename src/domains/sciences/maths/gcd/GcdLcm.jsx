@@ -45,7 +45,7 @@ export default function GcdLcm() {
             />
           </div>
         ))}
-        {!valid && <p className="text-sm text-red-500 sm:col-span-2">Saisissez deux entiers (pas tous les deux nuls).</p>}
+        {!valid && <p className="text-sm text-alerte sm:col-span-2">Saisissez deux entiers (pas tous les deux nuls).</p>}
       </div>
 
       {res && (

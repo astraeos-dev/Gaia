@@ -9,6 +9,7 @@ import { compass, fmt, fmtLat, fmtLon, fmtShortDate, fmtTime } from '../../../li
 import { SATELLITES, findPasses, lookAt, parseTle } from './passes'
 import { useCelestrak } from './useCelestrak'
 import PassTrack from '../components/PassTrack'
+import { TONE } from '../../../kit/charte'
 
 const point = (s) => (
   <>
@@ -92,14 +93,14 @@ export default function SatellitePasses() {
             <a className="underline hover:text-accent-500" href="https://celestrak.org/NORAD/elements/" target="_blank" rel="noreferrer">
               CelesTrak
             </a>
-            . {customTle && !tle && <span className="text-red-500">Format non reconnu.</span>}
+            . {customTle && !tle && <span className="text-alerte">Format non reconnu.</span>}
           </p>
         </div>
       )}
 
       {error && (
-        <div className="card card-pad flex items-start gap-3 border-amber-500/40 text-sm">
-          <TriangleAlert size={18} className="mt-0.5 shrink-0 text-amber-500" />
+        <div className="card card-pad flex items-start gap-3 border-or/40 text-sm dark:border-or/40">
+          <TriangleAlert size={18} className="mt-0.5 shrink-0 text-or" />
           <div>
             <p className="font-medium">Impossible de récupérer l'orbite à jour ({error}).</p>
             <p className="text-night-500">
@@ -148,7 +149,7 @@ export default function SatellitePasses() {
                   </div>
                 </dl>
               ) : (
-                <p className="text-sm text-red-500">Propagation impossible (orbite trop ancienne ou invalide).</p>
+                <p className="text-sm text-alerte">Propagation impossible (orbite trop ancienne ou invalide).</p>
               )}
             </div>
             <div className="card card-pad">
@@ -171,7 +172,7 @@ export default function SatellitePasses() {
               <p className="text-sm">
                 Époque : <span className="font-mono">{fmtShortDate(tle.epoch)}</span>
               </p>
-              <p className={`text-xs ${ageDays > 14 ? 'text-amber-500' : 'text-night-500'}`}>
+              <p className={`text-xs ${ageDays > 14 ? 'text-or' : 'text-night-500'}`}>
                 {ageDays > 14 ? `Ancienne de ${fmt(ageDays, 0)} jours : précision dégradée.` : `Âge : ${fmt(ageDays, 1)} jour(s).`}
               </p>
             </div>
@@ -206,7 +207,7 @@ export default function SatellitePasses() {
                         <td>{point(p.start)}</td>
                         <td>{point(p.peak)}</td>
                         <td>{point(p.end)}</td>
-                        <td>{p.visible ? <span className="chip border-emerald-500/40 text-emerald-600 dark:text-emerald-400">visible</span> : p.sunAltAtMax > -6 ? 'de jour' : "dans l'ombre"}</td>
+                        <td>{p.visible ? <span className={`chip ${TONE.ok}`}>visible</span> : p.sunAltAtMax > -6 ? 'de jour' : "dans l'ombre"}</td>
                       </tr>
                     ))}
                     {!shown.length && (
@@ -231,7 +232,7 @@ export default function SatellitePasses() {
                 <>
                   <PassTrack pass={current} />
                   <p className="mt-2 text-center text-xs text-night-500">
-                    <span className="text-emerald-500">●</span> début · <span className="text-red-400">●</span> fin · trait jaune : partie visible
+                    <span className="text-ok">●</span> début · <span className="text-alerte">●</span> fin · trait doré : partie visible
                   </p>
                 </>
               ) : (

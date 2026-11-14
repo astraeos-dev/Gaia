@@ -8,7 +8,7 @@ import Brand from './Brand'
 import CommandPalette from './CommandPalette'
 import { LocationButton } from './LocationPicker'
 
-// Un projet, une section ; puis le catalogue des outils et la page « À propos ».
+// Les projets, puis le catalogue des outils et la page « À propos ».
 const NAV = [
   ...ACTIVE_PROJECTS.map((p) => ({ to: `/${p.id}`, label: p.short ?? p.title })),
   { to: '/outils', label: 'Outils' },

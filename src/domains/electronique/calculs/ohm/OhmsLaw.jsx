@@ -3,6 +3,7 @@ import { RotateCcw } from 'lucide-react'
 import { formatSI, parseSI } from '../../../../lib/si'
 import { solveOhm } from './ohm'
 import { OhmSchema } from '../schemas'
+import { INVALID } from '../../../../kit/charte'
 
 const FIELDS = [
   { id: 'U', label: 'Tension', unit: 'V', placeholder: 'ex. 12' },
@@ -52,7 +53,7 @@ export default function OhmsLaw() {
                   id={`ohm-${f.id}`}
                   className={`input font-mono text-lg ${
                     computed ? 'border-accent-500/50 bg-accent-500/5 font-semibold text-accent-700 dark:bg-accent-500/5 dark:text-accent-400' : ''
-                  } ${invalid.includes(f) ? 'border-red-500' : ''}`}
+                  } ${invalid.includes(f) ? INVALID : ''}`}
                   inputMode="decimal"
                   placeholder={disabled ? '' : f.placeholder}
                   value={computed ? formatSI(result[f.id], f.unit, 5) : values[f.id]}
@@ -68,8 +69,8 @@ export default function OhmsLaw() {
             )
           })}
         </div>
-        {invalid.length > 0 && <p className="mt-3 text-sm text-red-500">Valeur non reconnue : {invalid.map((f) => f.id).join(', ')}.</p>}
-        {filled.length > 2 && <p className="mt-3 text-sm text-amber-600">Videz un champ : seules deux valeurs doivent être saisies.</p>}
+        {invalid.length > 0 && <p className="mt-3 text-sm text-alerte">Valeur non reconnue : {invalid.map((f) => f.id).join(', ')}.</p>}
+        {filled.length > 2 && <p className="mt-3 text-sm text-or">Videz un champ : seules deux valeurs doivent être saisies.</p>}
       </div>
 
       <div className="card card-pad">

@@ -123,7 +123,7 @@ function Grid({ connector, view, active, onPick }) {
           const first = header && view.square && String(label) === '1'
           return (
             <g key={`${r}-${label}`}>
-              {header && <rect x={x(r, i) - w / 2 - 3} y={y(r) - h / 2 - 3} width={w + 6} height={h + 6} rx={first ? 1 : 12} className={first ? 'fill-amber-300/30 stroke-amber-500' : 'fill-transparent stroke-transparent'} strokeWidth="1.5" />}
+              {header && <rect x={x(r, i) - w / 2 - 3} y={y(r) - h / 2 - 3} width={w + 6} height={h + 6} rx={first ? 1 : 12} className={first ? 'fill-or/20 stroke-or' : 'fill-transparent stroke-transparent'} strokeWidth="1.5" />}
               <Contact
                 x={x(r, i)}
                 y={y(r)}

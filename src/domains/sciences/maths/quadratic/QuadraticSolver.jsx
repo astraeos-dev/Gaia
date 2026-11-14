@@ -52,13 +52,13 @@ function Plot({ a, b, c, result }) {
     <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full rounded-lg border border-night-200 bg-night-50 dark:border-night-800 dark:bg-night-950" role="img" aria-label="Tracé de la parabole">
       {yMin < 0 && yMax > 0 && <line x1="0" x2={W} y1={sy(0)} y2={sy(0)} className="stroke-night-400 dark:stroke-night-600" strokeWidth="1" />}
       {xMin < 0 && xMax > 0 && <line y1="0" y2={H} x1={sx(0)} x2={sx(0)} className="stroke-night-400 dark:stroke-night-600" strokeWidth="1" />}
-      <line x1={sx(result.vertex.x)} x2={sx(result.vertex.x)} y1="0" y2={H} stroke="#f59e0b" strokeDasharray="4 4" strokeOpacity="0.4" />
-      <path d={path} fill="none" stroke="#f59e0b" strokeWidth="2.5" />
-      <circle cx={sx(result.vertex.x)} cy={sy(result.vertex.y)} r="4.5" fill="#f59e0b" />
+      <line x1={sx(result.vertex.x)} x2={sx(result.vertex.x)} y1="0" y2={H} className="stroke-or" strokeDasharray="4 4" strokeOpacity="0.4" />
+      <path d={path} fill="none" className="stroke-or" strokeWidth="2.5" />
+      <circle cx={sx(result.vertex.x)} cy={sy(result.vertex.y)} r="4.5" className="fill-or" />
       {result.roots
         .filter((r) => r.im === 0)
         .map((r) => (
-          <circle key={r.re} cx={sx(r.re)} cy={sy(0)} r="5" className="fill-white stroke-emerald-500 dark:fill-night-950" strokeWidth="2.5" />
+          <circle key={r.re} cx={sx(r.re)} cy={sy(0)} r="5" className="fill-white stroke-lune dark:fill-night-950" strokeWidth="2.5" />
         ))}
     </svg>
   )
@@ -145,7 +145,7 @@ export default function QuadraticSolver() {
             )}
           </div>
         )}
-        {!valid && <p className="mt-4 text-sm text-red-500">Les trois coefficients doivent être des nombres.</p>}
+        {!valid && <p className="mt-4 text-sm text-alerte">Les trois coefficients doivent être des nombres.</p>}
       </div>
 
       {result && 'vertex' in result && (
@@ -153,7 +153,7 @@ export default function QuadraticSolver() {
           <p className="label">Parabole</p>
           <Plot a={a} b={b} c={c} result={result} />
           <p className="mt-2 text-xs text-night-500">
-            <span className="text-accent-500">●</span> sommet · <span className="text-emerald-500">○</span> racines réelles
+            <span className="text-or">●</span> sommet · <span className="text-lune">○</span> racines réelles
           </p>
         </div>
       )}

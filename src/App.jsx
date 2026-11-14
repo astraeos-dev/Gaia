@@ -28,7 +28,7 @@ export default function App() {
         <Route path="outils" element={<ToolsIndex />} />
         <Route path="a-propos" element={<About />} />
         <Route path="projets" element={<Navigate to="/" replace />} />
-        {/* Un projet, une section : #/celeste/<page>, #/celeste/documentation/<document>, #/<projet> */}
+        {/* Les sections des projets : #/celeste/<page>, #/celeste/documentation/<document>, #/<projet> */}
         <Route path="celeste" element={celeste} />
         <Route path="celeste/:page" element={celeste} />
         <Route path="celeste/documentation/:doc" element={celeste} />

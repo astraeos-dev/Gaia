@@ -1,18 +1,18 @@
-import * as I from 'lucide-react'
-
 /**
  * LES PROJETS
  * -----------
- * Un projet, une section du site : #/<id>. L'accueil les présente tous, l'en-tête mène aux projets actifs.
+ * Chaque projet a sa section du site : #/<id>. L'accueil les présente tous, l'en-tête mène aux projets actifs.
  *
  * id       : adresse de la section (#/celeste…) ; Céleste a ses propres pages (src/projects/celeste)
  * repo     : dépôt GitHub (github.com/astraeos-dev/<repo>) ; private : aucun lien montré aux visiteurs
  * status   : 'actif' | 'en-pause' | 'prototype' | 'termine' | 'archive'
- * logo     : image dans public/ ; icon : icône lucide quand le projet n'a pas de logo
+ * logo     : son logo dans public/projets/, dessiné par scripts/make-logo.py selon la charte Astræos
  * domains  : espaces d'outils du site qui viennent du projet (src/domains/<espace>)
  * tools    : identifiants (registry.js) des outils du site issus du projet
  * intro, features, install, links : le contenu de la section
  */
+import { TONE } from '../kit/charte'
+
 export const PROJECTS = [
   {
     id: 'celeste',
@@ -94,7 +94,7 @@ export const PROJECTS = [
       'Éphémérides du Soleil, de la Lune, des planètes, des astéroïdes et des comètes, et temps astronomique, sous forme de capteurs Home Assistant.',
     tech: ['Python', 'Home Assistant', 'HACS', 'Astronomy Engine', 'IMCCE'],
     status: 'actif',
-    icon: I.House,
+    logo: 'projets/celeste-ha.svg',
     tools: ['soleil', 'lune', 'temps-astronomique'],
     intro: [
       'Céleste pour Home Assistant met le ciel dans la domotique : chaque astre suivi devient un appareil avec ses capteurs (hauteur, azimut, lever, coucher, magnitude…), utilisables dans les automatisations.',
@@ -139,7 +139,7 @@ export const PROJECTS = [
     tech: ['Python', 'Home Assistant', 'HACS', 'astraeos-astro'],
     status: 'actif',
     version: '0.3.2',
-    icon: I.Sun,
+    logo: 'projets/helios.svg',
     intro: [
       'Helios et sa seule dépendance, astraeos-astro, n’utilisent que la bibliothèque standard de Python : aucun code compilé, et Home Assistant installe tout seul ce qu’il faut.',
       'Le moteur (solar_engine.py) ne dépend pas de Home Assistant : on peut le tester et vérifier ses équations directement en Python.',
@@ -180,7 +180,7 @@ export const PROJECTS = [
       'Calcule, à partir de vos capteurs, le point de rosée, l’humidex, le refroidissement éolien, la pression au niveau de la mer et des indicateurs de confort intérieur (PMV/PPD ISO 7730, risque de moisissure, conseil d’aération).',
     tech: ['Python', 'Home Assistant', 'HACS'],
     status: 'prototype',
-    icon: I.CloudSun,
+    logo: 'projets/meteo-confort.svg',
     tools: ['air-humide'],
     intro: [
       'Tout est calculé localement, sans dépendance externe, et recalculé à chaque changement d’un capteur source. Les unités des capteurs (°F, inHg, mph, m/s…) sont converties automatiquement.',
@@ -208,7 +208,7 @@ export const PROJECTS = [
       'Portage de libastro, le cœur en C de PyEphem, qui ne demande que la bibliothèque standard de Python : il s’installe partout où Python tourne, sans compilateur, et donne les valeurs de PyEphem à quelques millièmes de seconde d’arc près.',
     tech: ['Python', 'PyPI', 'VSOP87'],
     status: 'actif',
-    icon: I.Package,
+    logo: 'projets/astraeos-astro.svg',
     intro: [
       'astraeos-astro calcule la position apparente du Soleil vue d’un lieu : temps et ΔT, la Terre d’après VSOP87, la nutation et l’obliquité, l’aberration, la parallaxe, puis la hauteur et l’azimut. Il dit aussi dans quelle constellation se trouve un point du ciel.',
       'Helios, l’intégration Home Assistant, calcule le Soleil avec lui.',
@@ -280,8 +280,8 @@ export const PROJECTS = [
 ]
 
 export const PROJECT_STATUS = {
-  actif: { label: 'Actif', className: 'border-ok/40 text-ok dark:border-ok/40 dark:text-ok' },
-  prototype: { label: 'En développement', className: 'border-sky-500/40 text-sky-600 dark:text-sky-400' },
+  actif: { label: 'Actif', className: TONE.ok },
+  prototype: { label: 'En développement', className: TONE.lune },
   'en-pause': { label: 'En pause', className: 'border-accent-500/40 text-accent-700 dark:text-accent-400' },
   termine: { label: 'Terminé', className: 'border-night-500/40 text-night-500' },
   archive: { label: 'Archivé', className: 'border-night-500/40 text-night-500' },

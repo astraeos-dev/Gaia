@@ -44,7 +44,7 @@ export default function TonightWidget() {
 
       <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
         <div className="flex items-center gap-2">
-          <Sunrise size={16} className="text-amber-500" /> {fmtTime(data.sun.sunrise)}
+          <Sunrise size={16} className="text-or" /> {fmtTime(data.sun.sunrise)}
         </div>
         <div className="flex items-center gap-2">
           <Sunset size={16} className="text-accent-500" /> {fmtTime(data.sun.sunset)}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { addressTable, hex } from './data/modules'
 import { AhctShifter, Bss138Shifter, DividerShifter, I2cBus, I2sBus, LevelChart, OneWireBus, SpiBus, UartLink } from './BusDiagrams'
 import { Links, SearchField } from './ui'
+import { TONE as TONE_COLOR } from '../../../kit/charte'
 
 const BUSES = [
   {
@@ -81,11 +82,7 @@ const REFS = [
 ]
 
 const TONE = { ok: 'Possible', warn: 'Avec précaution', bad: 'Interdit' }
-const TONE_CLASS = {
-  ok: 'border-emerald-500/40 text-emerald-700 dark:text-emerald-300',
-  warn: 'border-amber-500/40 text-amber-800 dark:text-amber-300',
-  bad: 'border-red-500/40 text-red-700 dark:text-red-300',
-}
+const TONE_CLASS = { ok: TONE_COLOR.ok, warn: TONE_COLOR.or, bad: TONE_COLOR.alerte }
 
 function Table({ head, rows, wrap = [] }) {
   return (

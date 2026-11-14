@@ -1,4 +1,5 @@
 import { ConstanteTempsSchema } from '../schemas.jsx'
+import { LUNE } from '../../../../kit/charte'
 export default {
   schematic: ConstanteTempsSchema,
   inputs: [
@@ -37,7 +38,7 @@ export default {
         y: { label: '% de la valeur finale', min: 0, max: 100 },
         series: [
           { name: rc ? 'Tension aux bornes de C' : 'Courant', points: points.map((t) => [t, 100 * (1 - Math.exp(-t / tau))]) },
-          { name: rc ? 'Courant de charge' : 'Tension aux bornes de L', color: '#60a5fa', points: points.map((t) => [t, 100 * Math.exp(-t / tau)]) },
+          { name: rc ? 'Courant de charge' : 'Tension aux bornes de L', color: LUNE, points: points.map((t) => [t, 100 * Math.exp(-t / tau)]) },
         ],
         markers: [{ x: tau, y: 63.2, label: 'τ (63 %)' }],
       },

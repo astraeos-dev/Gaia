@@ -5,6 +5,7 @@ import { parseNumber, toDateInput } from '../lib/format'
 import { formatSI, parseSI } from '../lib/si'
 import { formatResult } from './format'
 import LineChart from './LineChart'
+import { INVALID } from './charte'
 
 /**
  * CALCULATEUR GÉNÉRIQUE
@@ -102,7 +103,7 @@ function Field({ input, value, onChange, values }) {
       <input
         id={id}
         type={input.type === 'date' ? 'date' : 'text'}
-        className={`input ${input.type === 'text' ? '' : 'font-mono'} ${invalid ? 'border-red-500' : ''}`}
+        className={`input ${input.type === 'text' ? '' : 'font-mono'} ${invalid ? INVALID : ''}`}
         inputMode={numeric ? 'decimal' : undefined}
         value={value}
         placeholder={input.placeholder ?? (input.optional ? 'facultatif' : '')}
@@ -125,7 +126,7 @@ function Field({ input, value, onChange, values }) {
         </div>
       )}
       {(invalid || echo || hint) && (
-        <p className={`mt-1 text-xs ${invalid ? 'text-red-500' : 'text-night-500'}`}>{invalid ? 'Valeur non reconnue' : echo || hint}</p>
+        <p className={`mt-1 text-xs ${invalid ? 'text-alerte' : 'text-night-500'}`}>{invalid ? 'Valeur non reconnue' : echo || hint}</p>
       )}
     </div>
   )
@@ -269,7 +270,7 @@ export default function Calculator({ spec }) {
           <div className="mt-5 border-t border-night-200 pt-4 dark:border-night-800">
             {missing.length > 0 && <p className="text-sm text-night-500">Renseignez : {missing.map((i) => labelOf(i, values).toLowerCase()).join(', ')}.</p>}
             {!missing.length && !output && <p className="text-sm text-night-500">Calcul impossible avec ces valeurs.</p>}
-            {output?.error && <p className="text-sm text-red-500">{output.error}</p>}
+            {output?.error && <p className="text-sm text-alerte">{output.error}</p>}
             {output?.results?.length > 0 && <ResultTiles results={output.results} />}
             {output?.table && <ResultTable table={output.table} />}
             {output?.chart && <ChartView chart={output.chart} />}

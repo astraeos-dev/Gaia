@@ -7,6 +7,7 @@ import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import { DEFAULT_MONTAGE, MONTAGE_KEY } from './check'
 import { wiringOf } from './data/wiring'
 import WiringDiagram from './WiringDiagram'
+import { TONE } from '../../../kit/charte'
 
 const volts = (v) => String(v).replace('.', ',')
 const supplyText = ([a, b]) => (a === b ? `${volts(a)} V` : `${volts(a)} à ${volts(b)} V`)
@@ -35,7 +36,7 @@ function ModuleCard({ module: m, open, onToggle, onAdd, count }) {
         <span className="chip">{m.iface}</span>
         <span className="chip">{supplyText(m.supply)}</span>
         {addresses.length > 0 && <span className="chip font-mono">{addresses.length > 4 ? `${hex(addresses[0])} à ${hex(addresses.at(-1))}` : addresses.map(hex).join(' · ')}</span>}
-        {m.external && <span className="chip border-amber-500/40 text-amber-700 dark:text-amber-300">Alimentation séparée</span>}
+        {m.external && <span className={`chip ${TONE.or}`}>Alimentation séparée</span>}
       </div>
       <SpecList className="text-xs" rows={m.specs} />
       {open && (
