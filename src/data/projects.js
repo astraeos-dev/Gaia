@@ -164,7 +164,8 @@ export const PROJECTS = [
     ],
     install: [
       'Home Assistant 2025.4 ou plus récent.',
-      'Avec HACS : ajouter le dépôt en dépôt personnalisé (catégorie Intégration), installer Helios.',
+      'Avec HACS : Helios fait partie du catalogue par défaut ; le rechercher dans HACS, le télécharger, puis redémarrer Home Assistant.',
+      'Si HACS ne le propose pas encore : l’ajouter en dépôt personnalisé (catégorie Intégration).',
       'Paramètres → Appareils et services → Ajouter une intégration → Helios. L’altitude et l’intervalle de mise à jour se règlent ensuite dans les options.',
     ],
     links: [{ label: 'Code source et documentation', href: 'https://github.com/astraeos-dev/Helios', primary: true }],

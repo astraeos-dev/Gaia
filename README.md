@@ -24,7 +24,8 @@ espaces : l'Astronomie vient de Céleste, l'Électronique, les Sciences et le Pr
 Les couleurs, les polices et le logo sont ceux de Céleste : trois thèmes (Jour, Nuit, et Observation, rouge pour
 garder la vision de nuit), les polices IBM Plex, et un logo fait d'une lettre à l'encre et d'une étoile d'or. Les
 couleurs sont des variables CSS (`src/index.css`) que Tailwind lit (`tailwind.config.js`) ; le logo, le G de Gaïa
-et son étoile, est dessiné par `scripts/make-logo.py` (`public/favicon.svg`, `public/gaia.svg`).
+et son étoile, est dessiné par `scripts/make-logo.py` (`public/favicon.svg`, `public/gaia.svg`), comme les logos
+des projets (`public/projets/`) : leur lettre à l'encre et un point d'or.
 
 ## Ajouter un projet
 
