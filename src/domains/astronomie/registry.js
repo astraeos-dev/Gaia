@@ -10,7 +10,7 @@ export const DOMAIN = { id: 'astronomie', label: 'Astronomie', icon: I.Telescope
 
 export const RUBRIQUES = [
   { id: 'ciel', label: 'Ciel et observation', icon: I.Map, description: 'Ce qui est visible ce soir, carte du ciel, calendrier, éclipses, jour et nuit, temps astronomique.' },
-  { id: 'astres', label: 'Soleil, Lune et planètes', icon: I.Sun, description: 'Positions, levers et couchers, phases et visibilité des astres du système solaire.' },
+  { id: 'astres', label: 'Soleil, Lune, planètes et comètes', icon: I.Sun, description: 'Positions, levers et couchers, phases et visibilité des astres du système solaire, et les comètes observables.' },
   { id: 'satellites-iss', label: 'Satellites', icon: I.Satellite, description: 'Passages visibles de l’ISS et des satellites brillants, position en direct.' },
 ]
 
@@ -28,6 +28,7 @@ export const TOOLS = [
   { id: 'soleil', rubrique: 'astres', title: 'Le Soleil', summary: 'Position, lever, coucher, crépuscules et durée du jour, équation du temps, saisons et éphémérides du mois.', icon: I.Sun, tags: ['lever', 'coucher', 'crépuscule', 'équinoxe', 'solstice'], wide: true, component: lazy(() => import('./sun/SunPage.jsx')) },
   { id: 'lune', rubrique: 'astres', title: 'La Lune', summary: 'Phase, distance, libration, lever et coucher, périgée et apogée, calendrier lunaire du mois.', icon: I.Moon, tags: ['phase', 'libration', 'périgée', 'pleine lune'], wide: true, component: lazy(() => import('./moon/MoonPage.jsx')) },
   { id: 'planetes', rubrique: 'astres', title: 'Résumé des planètes', summary: 'Magnitude, élongation, distance, diamètre et visibilité de chaque planète, avec une vue de dessus du système solaire.', icon: I.CircleDashed, tags: ['planètes', 'élongation', 'magnitude', 'orrery'], wide: true, component: lazy(() => import('./planets/PlanetsPage.jsx')) },
+  { id: 'cometes', rubrique: 'astres', title: 'Comètes', summary: 'Les comètes observées ce mois-ci et leur visibilité chez vous, et pour chacune : position, orbite, carte de repérage, éclat prévu et éphémérides.', icon: I.Sparkle, featured: true, tags: ['comète', 'magnitude', 'carte de repérage', 'éphémérides', 'orbite', 'COBS', 'MPC'], wide: true, component: lazy(() => import('./comets/Comets.jsx')) },
 
   // --- Satellites ---
   { id: 'satellites', rubrique: 'satellites-iss', title: "Passages de l'ISS et satellites", summary: 'Prévisions des passages visibles (orbites TLE de CelesTrak) et position en temps réel.', icon: I.Satellite, status: 'beta', tags: ['ISS', 'TLE', 'satellites'], wide: true, featured: true, component: lazy(() => import('./satellites/SatellitePasses.jsx')) },

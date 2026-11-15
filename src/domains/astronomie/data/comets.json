@@ -1,0 +1,577 @@
+{
+ "updated": "2026-11-15",
+ "sources": {
+  "orbits": "Minor Planet Center (CometEls.txt) ; JPL Small-Body Database",
+  "observations": "COBS — Comet Observation Database (cobs.si)"
+ },
+ "comets": [
+  {
+   "id": "29p",
+   "short": "29P",
+   "designation": "29P/Schwassmann-Wachmann",
+   "name": "Schwassmann-Wachmann",
+   "aka": null,
+   "orbit": {
+    "q": 5.798006,
+    "e": 0.042908,
+    "i": 9.3548,
+    "node": 312.399,
+    "peri": 51.1929,
+    "tp": 2464035.83,
+    "epoch": "2026-11-15"
+   },
+   "H": 4,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 12.4,
+    "date": "2026-11-13"
+   },
+   "cobs": null,
+   "predictedPeak": {
+    "mag": 15.6,
+    "date": "2027-04-04"
+   }
+  },
+  {
+   "id": "c-2026-a2",
+   "short": "C/2026 A2",
+   "designation": "C/2026 A2 (Bok)",
+   "name": "Bok",
+   "aka": null,
+   "orbit": {
+    "q": 1.937771,
+    "e": 0.997664,
+    "i": 82.3062,
+    "node": 206.5873,
+    "peri": 155.9389,
+    "tp": 2461396.8548,
+    "epoch": "2026-11-15"
+   },
+   "H": 11,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 12.6,
+    "date": "2026-11-14"
+   },
+   "cobs": {
+    "mag": 12.4,
+    "peak": 12.3,
+    "peakDate": "2026-11-25",
+    "perihelionMag": 12.5
+   },
+   "predictedPeak": {
+    "mag": 15,
+    "date": "2026-11-25"
+   }
+  },
+  {
+   "id": "c-2024-t5",
+   "short": "C/2024 T5",
+   "designation": "C/2024 T5 (ATLAS)",
+   "name": "ATLAS",
+   "aka": null,
+   "orbit": {
+    "q": 3.839334,
+    "e": 1.002304,
+    "i": 52.3876,
+    "node": 100.6772,
+    "peri": 352.4889,
+    "tp": 2461531.8303,
+    "epoch": "2026-11-15"
+   },
+   "H": 7.4,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 13.4,
+    "date": "2026-11-15"
+   },
+   "cobs": {
+    "mag": 13.3,
+    "peak": 13.1,
+    "peakDate": "2027-01-06",
+    "perihelionMag": 13.8
+   },
+   "predictedPeak": {
+    "mag": 15.9,
+    "date": "2027-01-04"
+   }
+  },
+  {
+   "id": "161p",
+   "short": "161P",
+   "designation": "161P/Hartley-IRAS",
+   "name": "Hartley-IRAS",
+   "aka": null,
+   "orbit": {
+    "q": 1.265109,
+    "e": 0.83617,
+    "i": 95.7921,
+    "node": 1.4737,
+    "peri": 47.0653,
+    "tp": 2461371.6784,
+    "epoch": "2026-11-15"
+   },
+   "H": 8.5,
+   "G": 6,
+   "source": "MPC",
+   "observed": {
+    "mag": 13.8,
+    "date": "2026-11-14"
+   },
+   "cobs": {
+    "mag": 12.3,
+    "peak": 12.5,
+    "peakDate": "2026-11-27",
+    "perihelionMag": 12.5
+   },
+   "predictedPeak": {
+    "mag": 10.5,
+    "date": "2026-11-15"
+   }
+  },
+  {
+   "id": "c-2024-j3",
+   "short": "C/2024 J3",
+   "designation": "C/2024 J3 (ATLAS)",
+   "name": "ATLAS",
+   "aka": null,
+   "orbit": {
+    "q": 3.86553,
+    "e": 0.999861,
+    "i": 75.639,
+    "node": 285.9593,
+    "peri": 74.0908,
+    "tp": 2461369.9293,
+    "epoch": "2026-11-15"
+   },
+   "H": 8.6,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 14.1,
+    "date": "2026-11-14"
+   },
+   "cobs": {
+    "mag": 14.1,
+    "peak": 13.8,
+    "peakDate": "2026-08-15",
+    "perihelionMag": 14.1
+   },
+   "predictedPeak": {
+    "mag": 17.5,
+    "date": "2026-11-15"
+   }
+  },
+  {
+   "id": "10p",
+   "short": "10P",
+   "designation": "10P/Tempel",
+   "name": "Tempel",
+   "aka": null,
+   "orbit": {
+    "q": 1.417717,
+    "e": 0.537435,
+    "i": 12.0271,
+    "node": 117.7967,
+    "peri": 195.4577,
+    "tp": 2461254.6004,
+    "epoch": "2026-11-15"
+   },
+   "H": 13.1,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 14.4,
+    "date": "2026-11-14"
+   },
+   "cobs": {
+    "mag": 12.3,
+    "peak": 7.8,
+    "peakDate": "2026-08-03",
+    "perihelionMag": 7.8
+   },
+   "predictedPeak": {
+    "mag": 15.9,
+    "date": "2026-11-15"
+   }
+  },
+  {
+   "id": "c-2014-un271",
+   "short": "C/2014 UN271",
+   "designation": "C/2014 UN271 (Bernardinelli-Bernstein)",
+   "name": "Bernardinelli-Bernstein",
+   "aka": null,
+   "orbit": {
+    "q": 10.959201,
+    "e": 1.004028,
+    "i": 95.4455,
+    "node": 190.0098,
+    "peri": 326.0967,
+    "tp": 2462883.2139,
+    "epoch": "2026-11-15"
+   },
+   "H": 4.5,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 14.6,
+    "date": "2026-11-12"
+   },
+   "cobs": {
+    "mag": 14.6,
+    "peak": 13.7,
+    "peakDate": "2031-04-04",
+    "perihelionMag": 13.9
+   },
+   "predictedPeak": {
+    "mag": 21,
+    "date": "2027-11-15"
+   }
+  },
+  {
+   "id": "p-2026-r2",
+   "short": "P/2026 R2",
+   "designation": "P/2026 R2 (Leonard)",
+   "name": "Leonard",
+   "aka": null,
+   "orbit": {
+    "q": 0.789531,
+    "e": 0.8987,
+    "i": 78.0988,
+    "node": 179.2308,
+    "peri": 205.5274,
+    "tp": 2461338.7368,
+    "epoch": "2026-11-15"
+   },
+   "H": 15.9,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 14.6,
+    "date": "2026-11-12"
+   },
+   "cobs": null,
+   "predictedPeak": {
+    "mag": 15.4,
+    "date": "2026-11-15"
+   }
+  },
+  {
+   "id": "78p",
+   "short": "78P",
+   "designation": "78P/Gehrels",
+   "name": "Gehrels",
+   "aka": null,
+   "orbit": {
+    "q": 2.004612,
+    "e": 0.462978,
+    "i": 6.2573,
+    "node": 210.4893,
+    "peri": 192.8175,
+    "tp": 2461216.6497,
+    "epoch": "2026-11-15"
+   },
+   "H": 5.5,
+   "G": 8,
+   "source": "MPC",
+   "observed": {
+    "mag": 14.7,
+    "date": "2026-11-14"
+   },
+   "cobs": {
+    "mag": 14.8,
+    "peak": 15.4,
+    "peakDate": "2026-06-25",
+    "perihelionMag": 15.4
+   },
+   "predictedPeak": {
+    "mag": 14,
+    "date": "2026-11-15"
+   }
+  },
+  {
+   "id": "11p",
+   "short": "11P",
+   "designation": "11P/Tempel-Swift-LINEAR",
+   "name": "Tempel-Swift-LINEAR",
+   "aka": null,
+   "orbit": {
+    "q": 1.387566,
+    "e": 0.577007,
+    "i": 14.4308,
+    "node": 238.8499,
+    "peri": 168.0608,
+    "tp": 2461354.4514,
+    "epoch": "2026-11-15"
+   },
+   "H": 16.8,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 15,
+    "date": "2026-11-14"
+   },
+   "cobs": null,
+   "predictedPeak": {
+    "mag": 16.3,
+    "date": "2026-11-15"
+   }
+  },
+  {
+   "id": "c-2024-r4",
+   "short": "C/2024 R4",
+   "designation": "C/2024 R4 (PANSTARRS)",
+   "name": "PANSTARRS",
+   "aka": null,
+   "orbit": {
+    "q": 4.408206,
+    "e": 1.002067,
+    "i": 95.3812,
+    "node": 345.9498,
+    "peri": 109.0216,
+    "tp": 2461705.3667,
+    "epoch": "2026-11-15"
+   },
+   "H": 7.9,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 15.2,
+    "date": "2026-11-14"
+   },
+   "cobs": null,
+   "predictedPeak": {
+    "mag": 17.7,
+    "date": "2027-07-28"
+   }
+  },
+  {
+   "id": "88p",
+   "short": "88P",
+   "designation": "88P/Howell",
+   "name": "Howell",
+   "aka": null,
+   "orbit": {
+    "q": 1.35772,
+    "e": 0.563249,
+    "i": 4.3821,
+    "node": 56.6671,
+    "peri": 235.8546,
+    "tp": 2461118.2447,
+    "epoch": "2026-11-15"
+   },
+   "H": 11,
+   "G": 6,
+   "source": "MPC",
+   "observed": {
+    "mag": 15.4,
+    "date": "2026-11-14"
+   },
+   "cobs": {
+    "mag": 14.9,
+    "peak": 14.5,
+    "peakDate": "2026-03-23",
+    "perihelionMag": 14.5
+   },
+   "predictedPeak": {
+    "mag": 18.5,
+    "date": "2026-11-15"
+   }
+  },
+  {
+   "id": "2p",
+   "short": "2P",
+   "designation": "2P/Encke",
+   "name": "Encke",
+   "aka": null,
+   "orbit": {
+    "q": 0.338593,
+    "e": 0.847326,
+    "i": 11.3479,
+    "node": 334.0196,
+    "peri": 187.288,
+    "tp": 2461446.7278,
+    "epoch": "2026-11-15"
+   },
+   "H": 14.6,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 15.6,
+    "date": "2026-11-14"
+   },
+   "cobs": null,
+   "predictedPeak": {
+    "mag": 9,
+    "date": "2027-02-08"
+   }
+  },
+  {
+   "id": "220p",
+   "short": "220P",
+   "designation": "220P/McNaught",
+   "name": "McNaught",
+   "aka": null,
+   "orbit": {
+    "q": 1.559312,
+    "e": 0.500277,
+    "i": 8.1208,
+    "node": 150.0842,
+    "peri": 180.5603,
+    "tp": 2461205.6125,
+    "epoch": "2026-11-15"
+   },
+   "H": 12.2,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 15.6,
+    "date": "2026-11-14"
+   },
+   "cobs": {
+    "mag": 14,
+    "peak": 12.5,
+    "peakDate": "2026-06-14",
+    "perihelionMag": 12.5
+   },
+   "predictedPeak": {
+    "mag": 15.7,
+    "date": "2026-11-15"
+   }
+  },
+  {
+   "id": "260p",
+   "short": "260P",
+   "designation": "260P/McNaught",
+   "name": "McNaught",
+   "aka": null,
+   "orbit": {
+    "q": 1.417982,
+    "e": 0.60861,
+    "i": 15.0395,
+    "node": 349.2712,
+    "peri": 18.5078,
+    "tp": 2461257.5007,
+    "epoch": "2026-11-15"
+   },
+   "H": 13.4,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 15.9,
+    "date": "2026-11-15"
+   },
+   "cobs": null,
+   "predictedPeak": {
+    "mag": 15.9,
+    "date": "2026-11-15"
+   }
+  },
+  {
+   "id": "112p",
+   "short": "112P",
+   "designation": "112P/Urata-Niijima",
+   "name": "Urata-Niijima",
+   "aka": null,
+   "orbit": {
+    "q": 1.441203,
+    "e": 0.590766,
+    "i": 24.2041,
+    "node": 31.7934,
+    "peri": 21.5753,
+    "tp": 2461305.3535,
+    "epoch": "2026-11-15"
+   },
+   "H": 15.1,
+   "G": 4,
+   "source": "MPC",
+   "observed": {
+    "mag": 16,
+    "date": "2026-11-13"
+   },
+   "cobs": null,
+   "predictedPeak": {
+    "mag": 17.1,
+    "date": "2026-11-15"
+   }
+  },
+  {
+   "id": "7p",
+   "short": "7P",
+   "designation": "7P/Pons-Winnecke",
+   "name": "Pons-Winnecke",
+   "aka": null,
+   "orbit": {
+    "q": 1.133399,
+    "e": 0.659934,
+    "i": 21.8338,
+    "node": 92.5791,
+    "peri": 174.5043,
+    "tp": 2461643.433,
+    "epoch": "2026-11-15"
+   },
+   "H": 10,
+   "G": 6,
+   "source": "MPC",
+   "observed": null,
+   "cobs": null,
+   "predictedPeak": {
+    "mag": 11.1,
+    "date": "2027-08-27"
+   }
+  },
+  {
+   "id": "342p",
+   "short": "342P",
+   "designation": "342P/SOHO",
+   "name": "SOHO",
+   "aka": null,
+   "orbit": {
+    "q": 0.051751,
+    "e": 0.982974,
+    "i": 11.6728,
+    "node": 73.2497,
+    "peri": 27.7109,
+    "tp": 2461444.2833,
+    "epoch": "2026-11-15"
+   },
+   "H": 20,
+   "G": 4,
+   "source": "MPC",
+   "observed": null,
+   "cobs": null,
+   "predictedPeak": {
+    "mag": 9.2,
+    "date": "2027-02-08"
+   }
+  },
+  {
+   "id": "45p",
+   "short": "45P",
+   "designation": "45P/Honda-Mrkos-Pajdusakova",
+   "name": "Honda-Mrkos-Pajdusakova",
+   "aka": null,
+   "orbit": {
+    "q": 0.558359,
+    "e": 0.817349,
+    "i": 4.3236,
+    "node": 87.6667,
+    "peri": 327.9644,
+    "tp": 2461649.2976,
+    "epoch": "2026-11-15"
+   },
+   "H": 13.5,
+   "G": 8,
+   "source": "MPC",
+   "observed": null,
+   "cobs": null,
+   "predictedPeak": {
+    "mag": 8.5,
+    "date": "2027-08-27"
+   }
+  }
+ ]
+}

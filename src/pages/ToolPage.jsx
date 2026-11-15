@@ -11,14 +11,15 @@ import NotFound from './NotFound'
 import { isPublicRepo } from '../data/projects'
 
 export default function ToolPage() {
-  const { domain: domainId, toolId } = useParams()
+  const { domain: domainId, toolId, item } = useParams()
   const { search } = useLocation()
   const tool = resolveTool(toolId)
-  useDocumentTitle(tool?.title)
+  // La page d'un élément (une comète…) donne elle-même son titre
+  useDocumentTitle(item ? null : tool?.title)
 
   if (!tool) return <NotFound />
   // Ancienne adresse (#/<rubrique>/<outil>) ou outil fusionné dans un autre : adresse actuelle
-  if (tool.domain !== domainId || tool.id !== toolId) return <Navigate to={`${toolPath(tool)}${search}`} replace />
+  if (tool.domain !== domainId || tool.id !== toolId) return <Navigate to={`${toolPath(tool)}${item ? `/${item}` : ''}${search}`} replace />
 
   const domain = getDomain(tool.domain)
   const rubrique = getRubrique(tool.rubrique)
