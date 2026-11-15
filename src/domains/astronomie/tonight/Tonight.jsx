@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ChevronLeft, ChevronRight, Moon, Sun } from 'lucide-react'
 import { useObserverLocation } from '../../../context/location'
 import { LocationButton } from '../../../components/LocationPicker'
@@ -11,6 +12,7 @@ import {
   altitudeSeries,
   bodyConstellation,
   bodyPosition,
+  constellationAt,
   makeObserver,
   moonInfo,
   nextMoonQuarters,
@@ -23,6 +25,8 @@ import {
 import AltitudeChart from '../components/AltitudeChart'
 import MoonPhase from '../components/MoonPhase'
 import { SERIES } from '../../../kit/charte'
+import { cometPosition } from '../lib/comets'
+import { COMETS, cometNight, cometPath, nightSamples } from '../comets/sky'
 
 function Row({ label, value, sub }) {
   return (
@@ -76,10 +80,21 @@ export default function Tonight() {
       points: altitudeSeries(id, observer, start, end, 10),
     }))
 
-    return { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end }
+    // Les comètes observées plus brillantes que la magnitude 14, à plus de 15° pendant la nuit nautique
+    const samples = nightSamples(observer, addHours(day, 13))
+    const comets = COMETS.filter((c) => c.observed && c.observed.mag <= 14)
+      .map((comet) => ({ comet, night: cometNight(comet, samples) }))
+      .filter(({ night }) => night.visible)
+      .map(({ comet, night }) => {
+        const p = cometPosition(comet.el, night.best.t)
+        return { comet, night, constellation: constellationAt(p.raHours, p.dec).name }
+      })
+      .slice(0, 6)
+
+    return { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end, comets }
   }, [location, day, isToday])
 
-  const { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end } = data
+  const { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end, comets } = data
   const darkHours = sun.astronomicalDusk && nextSun.astronomicalDawn ? (nextSun.astronomicalDawn - sun.astronomicalDusk) / 3_600_000 : null
 
   return (
@@ -191,6 +206,37 @@ export default function Tonight() {
           </ul>
         </section>
       </div>
+
+      {comets.length > 0 && (
+        <section className="card card-pad">
+          <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="font-semibold">Comètes de la nuit</h2>
+            <Link to="/astronomie/cometes" className="text-sm font-medium text-accent-700 hover:underline dark:text-accent-400">
+              Toutes les comètes →
+            </Link>
+          </div>
+          <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {comets.map(({ comet, night, constellation }) => (
+              <li key={comet.id}>
+                <Link to={cometPath(comet)} className="block h-full rounded-lg border border-night-200 p-3 transition-colors hover:border-accent-400 dark:border-night-800">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="font-semibold">{comet.short}</span>
+                    <span className="font-mono text-xs text-night-500">mag {fmt(comet.observed.mag, 1)}</span>
+                  </div>
+                  {comet.name && <p className="text-xs text-night-500">{comet.name}</p>}
+                  <p className="mt-1 text-sm">
+                    Au mieux vers {fmtTime(night.best.t)} à {fmt(night.best.alt, 0)}° ({compass(night.best.az)}) · {constellation}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-night-500">
+            Comètes observées ce mois-ci plus brillantes que la magnitude 14, à plus de 15° quand le Soleil est sous −12°. À la magnitude 12, il faut
+            déjà un télescope.
+          </p>
+        </section>
+      )}
 
       <section className="card card-pad">
         <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">

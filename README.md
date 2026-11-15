@@ -4,13 +4,13 @@
 
 > Le site des projets d'Astraeos, et plus de quatre-vingts outils qui fonctionnent entièrement dans le navigateur.
 
-[![Déploiement](https://github.com/astraeos-dev/personnal-site/actions/workflows/deploy.yml/badge.svg)](https://github.com/astraeos-dev/personnal-site/actions/workflows/deploy.yml)
-[![Licence MIT](https://img.shields.io/github/license/astraeos-dev/personnal-site?label=licence)](LICENSE)
+[![Déploiement](https://github.com/astraeos-dev/Gaia/actions/workflows/deploy.yml/badge.svg)](https://github.com/astraeos-dev/Gaia/actions/workflows/deploy.yml)
+[![Licence MIT](https://img.shields.io/github/license/astraeos-dev/Gaia?label=licence)](LICENSE)
 
 <a href="https://buymeacoffee.com/gregorychau"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="40"></a>
 
-**Visiter** : https://astraeos-dev.github.io/personnal-site/. Une idée, un problème ?
-[Ouvrir une demande](https://github.com/astraeos-dev/personnal-site/issues/new/choose).
+**Visiter** : https://astraeos-dev.github.io/Gaia/. Une idée, un problème ?
+[Ouvrir une demande](https://github.com/astraeos-dev/Gaia/issues/new/choose).
 
 **Projet actif** · le site des projets d'Astraeos : [Céleste](https://github.com/astraeos-dev/Celeste_App) ·
 [Ganymede](https://github.com/astraeos-dev/Ganymede) · [Céleste pour Home Assistant](https://github.com/astraeos-dev/Celeste_HA) ·

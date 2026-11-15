@@ -4,9 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig(({ command, isPreview }) => ({
   plugins: [react()],
-  // En production le site est servi par GitHub Pages sous /<nom-du-dépôt>/.
+  // En production le site est servi par GitHub Pages sous /<nom-du-dépôt>/ : le dépôt s'appelle Gaia (la casse compte).
   // Pour un domaine personnel (ou un dépôt <utilisateur>.github.io), remplacer par '/'.
-  base: command === 'build' || isPreview ? '/personnal-site/' : '/',
+  base: command === 'build' || isPreview ? '/Gaia/' : '/',
   build: {
     chunkSizeWarningLimit: 700,
   },

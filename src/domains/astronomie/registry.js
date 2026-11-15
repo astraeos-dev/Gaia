@@ -10,7 +10,7 @@ export const DOMAIN = { id: 'astronomie', label: 'Astronomie', icon: I.Telescope
 
 export const RUBRIQUES = [
   { id: 'ciel', label: 'Ciel et observation', icon: I.Map, description: 'Ce qui est visible ce soir, carte du ciel, calendrier, éclipses, jour et nuit, temps astronomique.' },
-  { id: 'astres', label: 'Soleil, Lune et planètes', icon: I.Sun, description: 'Positions, levers et couchers, phases et visibilité des astres du système solaire.' },
+  { id: 'astres', label: 'Soleil, Lune, planètes et comètes', icon: I.Sun, description: 'Positions, levers et couchers, phases et visibilité des astres du système solaire, et les comètes observables.' },
   { id: 'satellites-iss', label: 'Satellites', icon: I.Satellite, description: 'Passages visibles de l’ISS et des satellites brillants, position en direct.' },
 ]
 
@@ -23,11 +23,16 @@ export const TOOLS = [
   { id: 'jour-nuit', rubrique: 'ciel', title: 'Jour et nuit sur la Terre', summary: 'Carte du monde éclairé, crépuscules, points subsolaire et sublunaire, et heure du Soleil dans les grandes villes.', icon: I.SunMoon, tags: ['terminateur', 'carte', 'crépuscule', 'monde'], wide: true, component: lazy(() => import('./daynight/DayNight.jsx')) },
   { id: 'temps-astronomique', rubrique: 'ciel', title: 'Heure et temps astronomique', summary: 'UTC, TAI, TT, temps GPS, jour julien, temps sidéral local, temps solaire vrai et équation du temps, en direct.', icon: I.Clock3, featured: true, tags: ['jour julien', 'sidéral', 'UTC', 'GPS', 'ΔT'], wide: true, component: lazy(() => import('./time/AstroTime.jsx')) },
 
+  { id: 'etoiles-filantes', rubrique: 'ciel', title: 'Étoiles filantes', summary: 'Les pluies de l’année : maximum, activité, taux horaire, radiant et Lune, et la nuit du maximum chez vous, avec le nombre de météores à attendre.', icon: I.Stars, tags: ['météores', 'Perséides', 'Géminides', 'Léonides', 'radiant', 'ZHR', 'IMO'], wide: true, component: lazy(() => import('./meteors/MeteorShowers.jsx')) },
+
   // --- Soleil, Lune et planètes ---
   { id: 'systeme-solaire', rubrique: 'astres', title: 'Calculateur du système solaire', summary: 'Coordonnées héliocentriques, géocentriques, équatoriales ou horizontales, magnitudes et levers/couchers.', icon: I.Orbit, tags: ['planètes', 'coordonnées', 'magnitude'], repo: 'ha-meeus-astronomy', wide: true, component: lazy(() => import('./solar-system/SolarSystem.jsx')) },
   { id: 'soleil', rubrique: 'astres', title: 'Le Soleil', summary: 'Position, lever, coucher, crépuscules et durée du jour, équation du temps, saisons et éphémérides du mois.', icon: I.Sun, tags: ['lever', 'coucher', 'crépuscule', 'équinoxe', 'solstice'], wide: true, component: lazy(() => import('./sun/SunPage.jsx')) },
   { id: 'lune', rubrique: 'astres', title: 'La Lune', summary: 'Phase, distance, libration, lever et coucher, périgée et apogée, calendrier lunaire du mois.', icon: I.Moon, tags: ['phase', 'libration', 'périgée', 'pleine lune'], wide: true, component: lazy(() => import('./moon/MoonPage.jsx')) },
   { id: 'planetes', rubrique: 'astres', title: 'Résumé des planètes', summary: 'Magnitude, élongation, distance, diamètre et visibilité de chaque planète, avec une vue de dessus du système solaire.', icon: I.CircleDashed, tags: ['planètes', 'élongation', 'magnitude', 'orrery'], wide: true, component: lazy(() => import('./planets/PlanetsPage.jsx')) },
+  { id: 'cometes', rubrique: 'astres', title: 'Comètes', summary: 'Les comètes observées ce mois-ci et leur visibilité chez vous, et pour chacune : position, orbite, carte de repérage, éclat prévu et éphémérides.', icon: I.Sparkle, featured: true, tags: ['comète', 'magnitude', 'carte de repérage', 'éphémérides', 'orbite', 'COBS', 'MPC'], wide: true, component: lazy(() => import('./comets/Comets.jsx')) },
+  { id: 'asteroides', rubrique: 'astres', title: 'Astéroïdes brillants', summary: 'Vesta, Cérès, Pallas et les astéroïdes qu’une jumelle peut suivre, et les planètes naines : magnitude, visibilité chez vous, prochaine opposition, carte de repérage et éphémérides.', icon: I.CircleDot, tags: ['astéroïde', 'Vesta', 'Cérès', 'planète naine', 'opposition', 'éphémérides'], wide: true, component: lazy(() => import('./asteroids/Asteroids.jsx')) },
+  { id: 'lunes-de-jupiter', rubrique: 'astres', title: 'Les satellites de Jupiter', summary: 'Io, Europe, Ganymède et Callisto comme dans une jumelle ou un télescope, leur ballet sur trois jours, et les passages, ombres et éclipses visibles chez vous.', icon: I.Orbit, tags: ['Jupiter', 'Io', 'Europe', 'Ganymède', 'Callisto', 'satellites galiléens', 'ombre'], wide: true, component: lazy(() => import('./jupiter/JupiterMoons.jsx')) },
 
   // --- Satellites ---
   { id: 'satellites', rubrique: 'satellites-iss', title: "Passages de l'ISS et satellites", summary: 'Prévisions des passages visibles (orbites TLE de CelesTrak) et position en temps réel.', icon: I.Satellite, status: 'beta', tags: ['ISS', 'TLE', 'satellites'], wide: true, featured: true, component: lazy(() => import('./satellites/SatellitePasses.jsx')) },

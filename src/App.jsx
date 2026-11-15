@@ -37,6 +37,7 @@ export default function App() {
         ))}
         <Route path=":domain" element={<DomainPage />} />
         <Route path=":domain/:toolId" element={<ToolPage />} />
+        <Route path=":domain/:toolId/:item" element={<ToolPage />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

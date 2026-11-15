@@ -4,6 +4,7 @@
  * oppositions, élongations, éclipses) et sur un balayage pour les rapprochements.
  */
 import { Astronomy, BODY, DAY_MS, QUARTER_NAMES, unitVector } from '../lib/astro'
+import { SHOWERS, whenSolarLongitude } from '../meteors/showers'
 import { ALERTE, ENCRE, ENCRE_ATTENUEE, LUNE, LUNE_ALERTE, LUNE_OK, OK, OR, OR_ALERTE, OR_LUNE } from '../../../kit/charte'
 
 export const EVENT_TYPES = {
@@ -30,21 +31,6 @@ const ECLIPTIC_STARS = [
   { id: 'Regulus', near: 'de Régulus', ra: 152.09, dec: 11.97 },
   { id: 'Spica', near: 'de Spica', ra: 201.3, dec: -11.16 },
   { id: 'Antares', near: "d'Antarès", ra: 247.35, dec: -26.43 },
-]
-
-/** Maxima des principaux essaims (dates moyennes, à ±1 jour près selon les années). */
-const METEOR_SHOWERS = [
-  { month: 0, day: 3, name: 'Quadrantides', zhr: 110, radiant: 'Bouvier' },
-  { month: 3, day: 22, name: 'Lyrides', zhr: 18, radiant: 'Lyre' },
-  { month: 4, day: 6, name: 'Êta Aquarides', zhr: 50, radiant: 'Verseau' },
-  { month: 6, day: 30, name: 'Delta Aquarides', zhr: 25, radiant: 'Verseau' },
-  { month: 7, day: 12, name: 'Perséides', zhr: 100, radiant: 'Persée' },
-  { month: 9, day: 8, name: 'Draconides', zhr: 10, radiant: 'Dragon' },
-  { month: 9, day: 21, name: 'Orionides', zhr: 20, radiant: 'Orion' },
-  { month: 10, day: 12, name: 'Taurides du Nord', zhr: 5, radiant: 'Taureau' },
-  { month: 10, day: 17, name: 'Léonides', zhr: 15, radiant: 'Lion' },
-  { month: 11, day: 14, name: 'Géminides', zhr: 150, radiant: 'Gémeaux' },
-  { month: 11, day: 22, name: 'Ursides', zhr: 10, radiant: 'Petite Ourse' },
 ]
 
 const ECLIPSE_KIND = {
@@ -234,12 +220,11 @@ export function findEvents(start, end, observer) {
     }
   }
 
-  // Étoiles filantes (dates moyennes)
-  for (let y = start.getFullYear(); y <= end.getFullYear(); y++) {
-    for (const sh of METEOR_SHOWERS) {
-      push(new Date(y, sh.month, sh.day, 23), 'meteor', `Maximum des ${sh.name}`, `Jusqu'à ${sh.zhr} météores/h · radiant : ${sh.radiant} (date moyenne)`, {
-        approximate: true,
-      })
+  // Étoiles filantes : l'instant où le Soleil atteint la longitude du maximum (calendrier de l'IMO, meteors/showers.js)
+  for (let y = start.getFullYear() - 1; y <= end.getFullYear(); y++) {
+    for (const sh of SHOWERS) {
+      const max = whenSolarLongitude(sh.lambda, y)
+      push(max, 'meteor', `Maximum des ${sh.name}`, `Jusqu'à ${sh.zhr} météores/h · radiant : ${sh.constellation}`)
     }
   }
 

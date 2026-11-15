@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Maximize2, X } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { ArrowRight, Maximize2, X } from 'lucide-react'
 import { useObserverLocation } from '../../../context/location'
 import { useAstroClock } from '../../../hooks/useAstroClock'
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
@@ -17,6 +18,7 @@ const TOGGLES = [
   ['starNames', 'Noms'],
   ['planets', 'Planètes'],
   ['messier', 'Messier'],
+  ['comets', 'Comètes'],
   ['grid', 'Grille'],
   ['ecliptic', 'Écliptique'],
 ]
@@ -27,6 +29,7 @@ const DEFAULT_OPTIONS = {
   starNames: true,
   planets: true,
   messier: false,
+  comets: true,
   grid: false,
   ecliptic: true,
   magLimit: 5,
@@ -53,7 +56,13 @@ export default function SkyMap() {
     if (!selectedId) return null
     const [kind, key] = selectedId.split(':')
     const obj =
-      kind === 'body' ? scene.bodies.find((b) => b.id === key) : kind === 'messier' ? scene.messier.find((m) => m.id === key) : scene.stars[Number(key)]
+      kind === 'body'
+        ? scene.bodies.find((b) => b.id === key)
+        : kind === 'messier'
+          ? scene.messier.find((m) => m.id === key)
+          : kind === 'comet'
+            ? scene.comets.find((c) => c.id === key)
+            : scene.stars[Number(key)]
     return obj ? describe({ kind, obj }) : null
   }, [selectedId, scene])
 
@@ -92,7 +101,7 @@ export default function SkyMap() {
       }
     }
     if (!best) return setSelectedId(null)
-    const key = best.kind === 'body' ? best.obj.id : best.kind === 'messier' ? best.obj.id : best.obj.i
+    const key = best.kind === 'star' ? best.obj.i : best.obj.id
     setSelectedId(`${best.kind}:${key}`)
   }
 
@@ -213,6 +222,11 @@ export default function SkyMap() {
                     </>
                   )}
                 </dl>
+                {selected.link && (
+                  <Link to={selected.link} className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-accent-700 hover:underline dark:text-accent-400">
+                    Fiche de la comète <ArrowRight size={14} />
+                  </Link>
+                )}
               </div>
             ) : (
               <p className="flex items-center gap-2 text-sm text-night-500">
@@ -246,7 +260,7 @@ export default function SkyMap() {
           <div className="card card-pad text-xs leading-relaxed text-night-500">
             Projection stéréographique centrée sur le zénith : le bord du cercle est l'horizon, l'est est à gauche quand le nord est en haut
             (comme en regardant le ciel au-dessus de soi). {scene.stars.length.toLocaleString('fr-FR')} étoiles jusqu'à la magnitude 6,
-            tracés et noms des 88 constellations, 110 objets Messier. Pointillés dorés : écliptique ; bleus : équateur céleste.
+            tracés et noms des 88 constellations, 110 objets Messier, comètes observées ce mois-ci (leur queue à l'opposé du Soleil). Pointillés dorés : écliptique ; bleus : équateur céleste.
           </div>
         </aside>
       </div>

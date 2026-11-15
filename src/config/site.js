@@ -5,6 +5,6 @@ export const SITE = {
   tagline: "Les projets d'Astraeos",
   description:
     "Céleste, l'observatoire astronomique pour Windows ; Ganymède, ses calculateurs et ses outils dans le navigateur ; les intégrations Home Assistant ; une bibliothèque d'astronomie en Python.",
-  repo: 'https://github.com/astraeos-dev/personnal-site',
+  repo: 'https://github.com/astraeos-dev/Gaia',
   github: 'https://github.com/astraeos-dev',
 }
