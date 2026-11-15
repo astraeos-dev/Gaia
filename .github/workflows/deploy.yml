@@ -37,6 +37,9 @@ jobs:
       - name: Comètes (MPC, COBS, JPL)
         run: node scripts/fetch-comets.mjs
 
+      - name: Astéroïdes et planètes naines (JPL)
+        run: node scripts/fetch-asteroids.mjs
+
       - name: Lint
         run: npm run lint
 

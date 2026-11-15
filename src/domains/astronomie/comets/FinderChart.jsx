@@ -44,7 +44,7 @@ function positionAngle(from, to) {
  * (jusqu'à la magnitude 6,5, 5,5 dans un grand champ) et les figures des constellations, avec ses dates ; la comète à l'instant choisi, sa
  * queue à l'opposé du Soleil. Nord en haut, est à gauche, comme le ciel.
  */
-export default function FinderChart({ comet, date, span = 60 }) {
+export default function FinderChart({ body: comet, date, span = 60 }) {
   const chart = useMemo(() => {
     const before = Math.round(span / 6)
     const path = []
@@ -101,7 +101,7 @@ export default function FinderChart({ comet, date, span = 60 }) {
     // La queue, à l'opposé du Soleil
     const sun = Astronomy.EquatorFromVector(Astronomy.GeoVector(Astronomy.Body.Sun, date, true))
     const pa = positionAngle(path.find((p) => p.d === 0), { ra: sun.ra * 15, dec: sun.dec })
-    const tail = now ? { x: now.xy[0] + Math.sin(pa) * 30, y: now.xy[1] + Math.cos(pa) * 30 } : null
+    const tail = now && comet.kind !== 'asteroid' ? { x: now.xy[0] + Math.sin(pa) * 30, y: now.xy[1] + Math.cos(pa) * 30 } : null
     return { stars, lines, names, track, ticks, now, tail, fov, magLimit }
   }, [comet, date, span])
 
@@ -138,7 +138,7 @@ export default function FinderChart({ comet, date, span = 60 }) {
           ))}
           {now && (
             <g>
-              <line x1={now.xy[0]} y1={now.xy[1]} x2={tail.x} y2={tail.y} style={{ stroke: OR_ALERTE }} strokeOpacity="0.55" strokeWidth="4" strokeLinecap="round" />
+              {tail && <line x1={now.xy[0]} y1={now.xy[1]} x2={tail.x} y2={tail.y} style={{ stroke: OR_ALERTE }} strokeOpacity="0.55" strokeWidth="4" strokeLinecap="round" />}
               <circle cx={now.xy[0]} cy={now.xy[1]} r="5" style={{ fill: OR_ALERTE, stroke: CIEL_000 }} strokeWidth="1.5" />
             </g>
           )}
@@ -150,7 +150,7 @@ export default function FinderChart({ comet, date, span = 60 }) {
       </svg>
       <figcaption className="mt-2 text-xs text-night-500">
         Le trajet de {comet.short} du {dayMonth.format(track[0].t)} au {dayMonth.format(track.at(-1).t)}, parmi les étoiles jusqu’à la magnitude {String(magLimit).replace('.', ',')} ;
-        le gros point est la comète à l’instant choisi, sa queue tournée à l’opposé du Soleil.
+        le gros point est {comet.kind === 'asteroid' ? 'l’astéroïde à l’instant choisi.' : 'la comète à l’instant choisi, sa queue tournée à l’opposé du Soleil.'}
       </figcaption>
     </figure>
   )

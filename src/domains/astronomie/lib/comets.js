@@ -1,15 +1,16 @@
 /**
- * LES COMÈTES : positions et éclat
- * --------------------------------
- * Orbites à deux corps à partir des éléments du Minor Planet Center (fichier CometEls.txt), comme Céleste
- * (mpc.py) : précises à quelques minutes d'arc près de l'époque des éléments, assez pour trouver une comète.
- * Magnitude totale prévue par les paramètres du MPC : m = H + 5 log Δ + 2,5 G log r.
+ * LES COMÈTES ET LES ASTÉROÏDES : positions et éclat
+ * --------------------------------------------------
+ * Orbites à deux corps à partir des éléments du Minor Planet Center (fichier CometEls.txt) ou du JPL, comme
+ * Céleste (mpc.py) : précises à quelques minutes d'arc près de l'époque des éléments, assez pour trouver l'astre.
+ * Magnitude prévue : pour une comète, la magnitude totale des paramètres du MPC, m = H + 5 log Δ + 2,5 G log r ;
+ * pour un astéroïde (kind: 'asteroid'), le système H, G de l'UAI, qui tient compte de l'angle de phase.
  *
  * Seul Astronomy Engine est importé (la Terre) : le script qui prépare les données (scripts/fetch-comets.mjs)
  * s'en sert aussi.
  *
  * Un élément d'orbite : { q (UA), e, i, node, peri (degrés, écliptique J2000), tp (jour julien TT du périhélie),
- * H, G (paramètres de magnitude, null si inconnus) }.
+ * H, G (paramètres de magnitude, null si inconnus), kind ('asteroid' pour le système H, G) }.
  */
 import * as Astronomy from 'astronomy-engine'
 
@@ -99,9 +100,22 @@ export function heliocentric(el, jd) {
 
 const toEquatorial = ({ x, y, z }) => ({ x, y: y * COS_E - z * SIN_E, z: y * SIN_E + z * COS_E })
 
-/** Magnitude totale prévue, ou null sans paramètres de magnitude. */
-export function predictedMagnitude(el, r, delta) {
-  if (el.H == null || el.G == null || !(r > 0) || !(delta > 0)) return null
+/**
+ * Magnitude prévue à r UA du Soleil et delta UA de la Terre, la Terre à R UA du Soleil ; null sans paramètres.
+ * Comète : m = H + 5 log Δ + 2,5 G log r. Astéroïde : système H, G (Bowell et al., 1989), m = H + 5 log(rΔ)
+ * − 2,5 log((1 − G) Φ1 + G Φ2), Φi = exp(−Ai tan(α/2)^Bi), α l'angle de phase ; G vaut 0,15 s'il est inconnu.
+ */
+export function predictedMagnitude(el, r, delta, R = 1) {
+  if (el.H == null || !(r > 0) || !(delta > 0)) return null
+  if (el.kind === 'asteroid') {
+    const cosPhase = Math.max(-1, Math.min(1, (r * r + delta * delta - R * R) / (2 * r * delta)))
+    const t = Math.tan(Math.acos(cosPhase) / 2)
+    const g = el.G ?? 0.15
+    const phi1 = Math.exp(-3.33 * t ** 0.63)
+    const phi2 = Math.exp(-1.87 * t ** 1.22)
+    return el.H + 5 * Math.log10(r * delta) - 2.5 * Math.log10((1 - g) * phi1 + g * phi2)
+  }
+  if (el.G == null) return null
   return el.H + 5 * Math.log10(delta) + 2.5 * el.G * Math.log10(r)
 }
 
@@ -143,7 +157,7 @@ export function cometPosition(el, date) {
     eclLat,
     // au-dessus ou au-dessous du plan de l'écliptique, vue du Soleil (la « latitude écliptique » de Heavens-Above)
     helioLat: Math.asin(here.z / here.r) / DEG,
-    mag: predictedMagnitude(el, r, delta),
+    mag: predictedMagnitude(el, r, delta, sun),
     helio: here,
     earth: { x: earth.x, y: earth.y * COS_E + earth.z * SIN_E, z: -earth.y * SIN_E + earth.z * COS_E },
   }

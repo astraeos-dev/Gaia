@@ -14,7 +14,7 @@ const month = new Intl.DateTimeFormat('fr-FR', { month: 'short' })
  * MPC), avec la dernière magnitude observée (COBS), le périhélie et le passage au plus près de la Terre. L'axe des
  * magnitudes est retourné : plus haut, plus brillant.
  */
-export default function BrightnessChart({ comet, date }) {
+export default function BrightnessChart({ body: comet, date }) {
   const chart = useMemo(() => {
     const points = []
     for (let d = -120; d <= 240; d += 2) {
@@ -88,8 +88,9 @@ export default function BrightnessChart({ comet, date }) {
         )}
       </svg>
       <figcaption className="mt-2 text-xs text-night-500">
-        Courbe : magnitude prévue par les paramètres du Minor Planet Center (H = {comet.el.H ?? '—'}, G = {comet.el.G ?? '—'}) ; trait doré : l’instant choisi ;
-        point bleu : la dernière magnitude observée. Une comète peut s’écarter de plusieurs magnitudes de sa prévision (sursaut, désagrégation).
+        {comet.kind === 'asteroid'
+          ? `Courbe : magnitude prévue par le système H, G (H = ${comet.el.H}, G = ${comet.el.G ?? '0,15'}), qui tient compte de l’angle de phase ; trait doré : l’instant choisi.`
+          : `Courbe : magnitude prévue par les paramètres du Minor Planet Center (H = ${comet.el.H ?? '—'}, G = ${comet.el.G ?? '—'}) ; trait doré : l’instant choisi ; point bleu : la dernière magnitude observée. Une comète peut s’écarter de plusieurs magnitudes de sa prévision (sursaut, désagrégation).`}
       </figcaption>
     </figure>
   )

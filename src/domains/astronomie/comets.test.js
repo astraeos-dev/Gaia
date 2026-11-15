@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { cometPosition, julianDay, orbitInfo, orbitPoints, predictedMagnitude, speedKmS } from './lib/comets'
 import DATA from './data/comets.json'
+import ASTEROIDS from './data/asteroids.json'
 
 const at = new Date(Date.UTC(2026, 10, 15, 17, 53, 6))
 const arcsec = (a, b) => {
@@ -46,6 +47,16 @@ describe('comètes : orbites à deux corps', () => {
     expect(p.delta).toBeCloseTo(1.5820272, 4)
   })
 
+  // Vesta : éléments du JPL (époque JD 2461200,5) ; référence JPL Horizons au même instant (RA/Dec astrométriques, APmag)
+  it('astéroïde (Vesta) : position et magnitude H, G comme JPL Horizons', () => {
+    const vesta = { kind: 'asteroid', q: 2.148361914524259, e: 0.09020374382834395, i: 7.143925545058711, node: 103.701293265032, peri: 151.4686478221564, tp: 2460901.587379843, H: 3.25, G: 0.32 }
+    const p = cometPosition(vesta, at)
+    expect(arcsec(p, { ra: 15.931, dec: -4.50368 })).toBeLessThan(30)
+    expect(p.delta).toBeCloseTo(1.66348, 2)
+    expect(p.r).toBeCloseTo(2.4943, 2)
+    expect(p.mag).toBeCloseTo(7.009, 1)
+  })
+
   it('magnitude prévue : m = H + 5 log Δ + 2,5 G log r', () => {
     expect(predictedMagnitude({ H: 5, G: 4 }, 10, 10)).toBeCloseTo(5 + 5 + 10, 6)
     expect(predictedMagnitude({ H: null, G: 4 }, 1, 1)).toBeNull()
@@ -57,6 +68,19 @@ describe('comètes : orbites à deux corps', () => {
     const open = orbitPoints({ q: 1, e: 1.2, i: 10, node: 0, peri: 0 }, 50, 8)
     expect(open[0].r).toBeCloseTo(8, 6)
     expect(open.at(-1).r).toBeCloseTo(8, 6)
+  })
+})
+
+describe('astéroïdes : données du site', () => {
+  it('chaque astre a ses éléments, ses paramètres H et un identifiant d’adresse unique', () => {
+    expect(ASTEROIDS.updated).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+    expect(ASTEROIDS.asteroids.length).toBeGreaterThan(20)
+    expect(new Set(ASTEROIDS.asteroids.map((a) => a.id)).size).toBe(ASTEROIDS.asteroids.length)
+    for (const a of ASTEROIDS.asteroids) {
+      expect(a.id).toMatch(/^[a-z0-9-]+$/)
+      for (const k of ['q', 'e', 'i', 'node', 'peri', 'tp']) expect(Number.isFinite(a.orbit[k])).toBe(true)
+      expect(Number.isFinite(a.H)).toBe(true)
+    }
   })
 })
 

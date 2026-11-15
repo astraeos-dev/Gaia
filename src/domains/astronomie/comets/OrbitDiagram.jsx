@@ -23,7 +23,7 @@ const PLANETS = [
  * et les planètes à l'instant choisi, le point vernal ♈ à droite. Au-delà de 6 ua, les distances suivent leur
  * racine carrée, pour garder lisibles les planètes intérieures.
  */
-export default function OrbitDiagram({ comet, date }) {
+export default function OrbitDiagram({ body: comet, date }) {
   const view = useMemo(() => {
     const el = comet.el
     const now = cometPosition(el, date)
@@ -106,7 +106,7 @@ export default function OrbitDiagram({ comet, date }) {
       </svg>
       <figcaption className="mt-2 text-xs text-night-500">
         Trait plein : au-dessus de l’écliptique ; pointillés : au-dessous ; losange : le périhélie. Échelle {view.linear ? 'proportionnelle' : 'en racine carrée des distances'}{' '}
-        jusqu’à {String(Math.round(view.reach * 10) / 10).replace('.', ',')} ua. La comète est {view.above ? 'au-dessus' : 'au-dessous'} de l’écliptique.
+        jusqu’à {String(Math.round(view.reach * 10) / 10).replace('.', ',')} ua. {comet.kind === 'asteroid' ? 'L’astéroïde' : 'La comète'} est {view.above ? 'au-dessus' : 'au-dessous'} de l’écliptique.
       </figcaption>
     </figure>
   )
