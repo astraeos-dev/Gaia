@@ -1,4 +1,25 @@
+<p align="center"><img src="public/favicon.svg" width="128" height="128" alt="Gaïa"></p>
+
 # Gaïa — les projets d'Astraeos
+
+> Le site des projets d'Astraeos, et plus de quatre-vingts outils qui fonctionnent entièrement dans le navigateur.
+
+[![Déploiement](https://github.com/astraeos-dev/personnal-site/actions/workflows/deploy.yml/badge.svg)](https://github.com/astraeos-dev/personnal-site/actions/workflows/deploy.yml)
+[![Licence MIT](https://img.shields.io/github/license/astraeos-dev/personnal-site?label=licence)](LICENSE)
+
+<a href="https://buymeacoffee.com/gregorychau"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="40"></a>
+
+**Visiter** : https://astraeos-dev.github.io/personnal-site/. Une idée, un problème ?
+[Ouvrir une demande](https://github.com/astraeos-dev/personnal-site/issues/new/choose).
+
+**Projet actif** · le site des projets d'Astraeos : [Céleste](https://github.com/astraeos-dev/Celeste_App) ·
+[Ganymede](https://github.com/astraeos-dev/Ganymede) · [Céleste pour Home Assistant](https://github.com/astraeos-dev/Celeste_HA) ·
+[Helios](https://github.com/astraeos-dev/Helios) · [Météo & Confort](https://github.com/astraeos-dev/meteo_confort) ·
+[astraeos-astro](https://github.com/astraeos-dev/astraeos-astro) · [Océanos](https://github.com/astraeos-dev/Oc-anos)
+
+---
+
+## Présentation
 
 Le site qui réunit les projets d'Astraeos, **un projet par section** : Céleste (l'observatoire astronomique pour
 Windows), Ganymède (l'application Android de calcul et ses outils web), les intégrations Home Assistant Céleste,
@@ -7,8 +28,6 @@ ancêtre des Titans : Astraeos, le Titan des étoiles, est son petit-fils.
 
 Le site offre aussi plus de quatre-vingts outils qui fonctionnent entièrement dans le navigateur, rangés en quatre
 espaces : l'Astronomie vient de Céleste, l'Électronique, les Sciences et le Pratique de Ganymède.
-
-**Site en ligne :** https://astraeos-dev.github.io/personnal-site/
 
 ## Les sections
 
@@ -22,9 +41,9 @@ espaces : l'Astronomie vient de Céleste, l'Électronique, les Sciences et le Pr
 ## La charte Astræos
 
 Les couleurs, les polices et le logo sont ceux de Céleste : trois thèmes (Jour, Nuit, et Observation, rouge pour
-garder la vision de nuit), les polices IBM Plex, et un logo fait d'une lettre à l'encre et d'une étoile d'or. Les
+garder la vision de nuit), les polices IBM Plex, et un logo fait d'une lettre à l'encre et d'un point d'or. Les
 couleurs sont des variables CSS (`src/index.css`) que Tailwind lit (`tailwind.config.js`) ; le logo, le G de Gaïa
-et son étoile, est dessiné par `scripts/make-logo.py` (`public/favicon.svg`, `public/gaia.svg`), comme les logos
+et son point, est dessiné par `scripts/make-logo.py` (`public/favicon.svg`, `public/gaia.svg`), comme les logos
 des projets (`public/projets/`) : leur lettre à l'encre et un point d'or.
 
 ## Ajouter un projet
