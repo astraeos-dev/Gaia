@@ -1,11 +1,11 @@
 """
 scripts/make-logo.py — le logo de Gaïa, d'après sa géométrie
 ============================================================
-Le G de Gaïa et son étoile, selon la charte Astræos (celle du logo de Céleste,
-dont le C devient ici un G) : un arc épais à l'encre, ouvert en haut à droite,
-fermé par la barre du G, et une étoile à quatre branches dorée dans
-l'ouverture. Ni ombre, ni contour, ni dégradé, ni déformation ; l'interface
-remplace l'encre (#e8ecf2) et l'or (#f2b84b) par ceux du thème.
+Le G de Gaïa et son point d'or, selon la charte Astræos (celle du logo de
+Céleste, dont le C devient ici un G) : un arc épais à l'encre, ouvert en haut à
+droite, fermé par la barre du G, et un point doré à droite de l'ouverture. Ni
+ombre, ni contour, ni dégradé, ni déformation ; l'interface remplace l'encre
+(#e8ecf2) et l'or (#f2b84b) par ceux du thème.
 
 Écrit public/favicon.svg (le symbole sur sa tuile Nuit), public/gaia.svg (le
 symbole seul), src/components/gaia-mark.json (ses éléments, pour le
@@ -23,10 +23,9 @@ INK, GOLD, NIGHT = "#e8ecf2", "#f2b84b", "#0b0f17"
 # l'angle END (à droite, au milieu) en passant par le haut, la gauche et le bas (degrés depuis l'est, y vers le bas) ;
 # puis sa barre, de la fin de l'arc vers le centre, sur BAR de la largeur du rayon
 CX, CY, RHO, STROKE, START, END, BAR = 44.0, 52.0, 29.0, 11.0, -50.0, 8.0, 0.55
-# l'étoile : quatre branches, LONG du centre à une pointe, SHORT à un creux, dans l'ouverture du G
-LONG, SHORT, STAR_ANGLE, STAR_RADIUS = 13.0, 3.2, -15.0, 38.0
-# le point d'or des logos de projets, à la place de l'étoile du G et du C de Céleste, DOT de rayon
-DOT = 7.0
+# le point d'or, DOT de rayon, comme sur les logos des projets : à DOT_RADIUS du centre du G dans la direction
+# DOT_ANGLE, à droite de l'ouverture et assez loin de l'arc pour ne pas le toucher
+DOT, DOT_ANGLE, DOT_RADIUS = 7.0, -25.0, 46.0
 
 
 def _n(value):
@@ -39,26 +38,25 @@ def _at(angle_deg, radius=RHO):
 
 
 def mark():
-    """Les éléments du symbole : l'arc et la barre du G (un chemin), l'étoile (un polygone)."""
+    """Les éléments du symbole : l'arc et la barre du G (un chemin), le point (centre et rayon)."""
     x0, y0 = _at(START)
     x1, y1 = _at(END)
     bx = CX + RHO * (1 - BAR) * math.cos(math.radians(END))
     # l'arc va de START à END dans le sens inverse des aiguilles d'une montre (par le haut et la gauche) : grand arc
     path = (f"M{_n(x0)} {_n(y0)} A{_n(RHO)} {_n(RHO)} 0 1 0 {_n(x1)} {_n(y1)} "
             f"L{_n(bx)} {_n(y1)}")
-    sx, sy = _at(STAR_ANGLE, STAR_RADIUS)
-    pts = []
-    for i in range(8):
-        a = math.radians(-90 + 45 * i)
-        r = LONG if i % 2 == 0 else SHORT
-        pts.append(f"{_n(sx + r * math.cos(a))},{_n(sy + r * math.sin(a))}")
-    return {"letter": path, "stroke": STROKE, "star": " ".join(pts)}
+    dx, dy = _at(DOT_ANGLE, DOT_RADIUS)
+    return {"letter": path, "stroke": STROKE, "dot": {"cx": float(_n(dx)), "cy": float(_n(dy)), "r": DOT}}
+
+
+def _dot(x, y):
+    return f'<circle cx="{_n(x)}" cy="{_n(y)}" r="{_n(DOT)}" fill="{GOLD}"/>'
 
 
 def svg(tile):
     m = mark()
     body = (f'<path fill="none" stroke="{INK}" stroke-width="{_n(m["stroke"])}" stroke-linecap="round" '
-            f'stroke-linejoin="round" d="{m["letter"]}"/><polygon fill="{GOLD}" points="{m["star"]}"/>')
+            f'stroke-linejoin="round" d="{m["letter"]}"/>{_dot(m["dot"]["cx"], m["dot"]["cy"])}')
     back = f'<rect width="100" height="100" rx="22" fill="{NIGHT}"/>' if tile else ""
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Gaïa">'
             f'<title>Gaïa</title>{back}{body}</svg>\n')
@@ -79,14 +77,15 @@ PROJECT_LOGOS = {
     "meteo-confort": {"letters": ["M20 76 L20 28 L41 58 L62 28 L62 76"], "dot": (80, 30)},
     # astraeos-astro : le A ouvert en haut, son point à la pointe
     "astraeos-astro": {"letters": ["M24 80 L42.5 36", "M57.5 36 L76 80", "M33 62 L67 62"], "dot": (50, 22)},
+    # Océanos : le O des marées, le point à sa droite, comme celui de Helios (assets/brand/icon.svg de son dépôt)
+    "oceanos": {"letters": ["M20 51 A22 22 0 1 1 64 51 A22 22 0 1 1 20 51"], "dot": (78, 30)},
 }
 
 
 def project_svg(name, logo):
     body = "".join(f'<path fill="none" stroke="{INK}" stroke-width="{_n(STROKE)}" stroke-linecap="round" '
                    f'stroke-linejoin="round" d="{d}"/>' for d in logo["letters"])
-    x, y = logo["dot"]
-    body += f'<circle cx="{_n(x)}" cy="{_n(y)}" r="{_n(DOT)}" fill="{GOLD}"/>'
+    body += _dot(*logo["dot"])
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="{name}">'
             f'<title>{name}</title><rect width="100" height="100" rx="22" fill="{NIGHT}"/>{body}</svg>\n')
 

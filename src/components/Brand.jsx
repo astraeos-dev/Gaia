@@ -3,8 +3,8 @@ import { SITE } from '../config/site'
 import MARK from './gaia-mark.json'
 
 /**
- * Logo : le G de Gaïa et son étoile (scripts/make-logo.py). Charte Astræos, comme le C de Céleste : la lettre
- * à l'encre, l'étoile en or, aux couleurs du thème ; ni ombre, ni contour, ni dégradé.
+ * Logo : le G de Gaïa et son point d'or (scripts/make-logo.py). Charte Astræos, comme les logos des projets : la
+ * lettre à l'encre, le point en or, aux couleurs du thème ; ni ombre, ni contour, ni dégradé.
  */
 export function Logo({ size = 28, className = '' }) {
   return (
@@ -17,7 +17,7 @@ export function Logo({ size = 28, className = '' }) {
         strokeLinejoin="round"
         className="stroke-night-900 dark:stroke-night-100"
       />
-      <polygon points={MARK.star} className="fill-accent-700 dark:fill-accent-400" />
+      <circle cx={MARK.dot.cx} cy={MARK.dot.cy} r={MARK.dot.r} className="fill-accent-700 dark:fill-accent-400" />
     </svg>
   )
 }
