@@ -11,6 +11,8 @@ import LINES from '../data/constellation-lines.json'
 import MESSIER from '../data/messier.json'
 import { Astronomy, BODIES, bodyPosition, constellationAt, makeJ2000ToHorizon, moonInfo } from '../lib/astro'
 import { canvasPalette } from '../../../kit/charte'
+import { cometPosition } from '../lib/comets'
+import { COMETS } from '../comets/sky'
 
 const NAME_BY_INDEX = new Map(STAR_NAMES)
 const DEG = Math.PI / 180
@@ -50,7 +52,13 @@ export function computeScene(date, observer) {
   const moon = moonInfo(date)
   const sun = bodies.find((b) => b.id === 'Sun')
 
-  return { stars, lines, labels, messier, ecliptic, equator, bodies, moonPhase: moon.phase, sunAlt: sun.alt }
+  // Les comètes observées ce mois-ci (comets/sky.js), avec leur dernière magnitude observée
+  const comets = COMETS.filter((c) => c.observed).map((c) => {
+    const p = cometPosition(c.el, date)
+    return { id: c.id, short: c.short, designation: c.designation, mag: c.observed.mag, ra: p.ra, dec: p.dec, dist: p.delta, ...toHor(p.ra, p.dec) }
+  })
+
+  return { stars, lines, labels, messier, ecliptic, equator, bodies, comets, moonPhase: moon.phase, sunAlt: sun.alt }
 }
 
 /** Fabrique la projection (alt, az) → pixels pour un canevas de taille donnée. */
@@ -258,6 +266,32 @@ export function drawScene(ctx, size, scene, options) {
     }
   }
 
+  // Comètes : un point, une queue à l'opposé du Soleil et leur désignation, dans le mélange or-alerte des comètes de Céleste
+  if (options.comets) {
+    const sun = scene.bodies.find((b) => b.id === 'Sun')
+    const [sx, sy] = project(Math.max(sun.alt, -80), sun.az)
+    ctx.font = `600 ${Math.round(11 * Math.max(scale, 0.85))}px ${SANS}`
+    ctx.lineCap = 'round'
+    for (const c of scene.comets) {
+      if (c.alt < 0) continue
+      const [x, y] = project(c.alt, c.az)
+      const len = Math.hypot(x - sx, y - sy) || 1
+      ctx.strokeStyle = pal.color('or-alerte', 0.6)
+      ctx.lineWidth = 3 * starScale
+      ctx.beginPath()
+      ctx.moveTo(x, y)
+      ctx.lineTo(x + ((x - sx) / len) * 14 * starScale, y + ((y - sy) / len) * 14 * starScale)
+      ctx.stroke()
+      ctx.beginPath()
+      ctx.arc(x, y, 3.5 * starScale, 0, Math.PI * 2)
+      ctx.fillStyle = pal.color('or-alerte')
+      ctx.fill()
+      ctx.fillText(c.short, x + 6, y + 13)
+      targets.push({ x, y, r: 10, kind: 'comet', obj: c, priority: 1 })
+    }
+    ctx.lineCap = 'butt'
+  }
+
   // Sélection
   if (options.selected) {
     const sel = options.selected
@@ -331,6 +365,21 @@ export function describe(target) {
       dec: o.dec,
       constellation: cst(o.ra2000, o.dec2000),
       distance: o.dist,
+      ref: o,
+    }
+  }
+  if (target.kind === 'comet') {
+    return {
+      title: o.designation,
+      subtitle: 'Comète · dernière magnitude observée',
+      mag: o.mag,
+      alt: o.alt,
+      az: o.az,
+      raHours: o.ra / 15,
+      dec: o.dec,
+      constellation: cst(o.ra / 15, o.dec),
+      distance: o.dist,
+      link: `/astronomie/cometes/${o.id}`,
       ref: o,
     }
   }
