@@ -25,6 +25,8 @@ INK, GOLD, NIGHT = "#e8ecf2", "#f2b84b", "#0b0f17"
 CX, CY, RHO, STROKE, START, END, BAR = 44.0, 52.0, 29.0, 11.0, -50.0, 8.0, 0.55
 # l'étoile : quatre branches, LONG du centre à une pointe, SHORT à un creux, dans l'ouverture du G
 LONG, SHORT, STAR_ANGLE, STAR_RADIUS = 13.0, 3.2, -15.0, 38.0
+# le point d'or qui remplace l'étoile dans un logo de projet (Helios : le Soleil), DOT de rayon
+DOT = 7.0
 
 
 def _n(value):
@@ -64,14 +66,15 @@ def svg(tile):
 
 # Les logos des projets, dans la même grammaire : la lettre de chacun en traits épais à l'encre (STROKE, bouts et
 # angles arrondis), une étoile d'or, la tuile Nuit. Céleste garde le sien, dessiné dans son dépôt.
-#   letters : les tracés de la lettre (chemins SVG, en traits) ; star : le centre de l'étoile
+#   letters : les tracés de la lettre (chemins SVG, en traits) ; star : le centre de l'étoile, ou dot : celui du
+#   point d'or qui la remplace
 PROJECT_LOGOS = {
     # Ganymède : le gamma de Γανυμήδης (le G latin est celui de Gaïa), l'étoile sous sa barre
     "ganymede": {"letters": ["M36 78 L36 24 L70 24"], "star": (64, 54)},
     # Céleste pour Home Assistant : le C de Céleste et son étoile sous le toit de la maison
     "celeste-ha": {"letters": ["M20 44 L50 18 L80 44", "M60.4 51.6 A17 17 0 1 0 60.4 72.4"], "star": (69.5, 62)},
-    # Helios : le H du Soleil, l'étoile levée à sa droite
-    "helios": {"letters": ["M26 26 L26 76", "M58 26 L58 76", "M26 51 L58 51"], "star": (78, 30)},
+    # Helios : le H, et le Soleil en point d'or levé à sa droite
+    "helios": {"letters": ["M26 26 L26 76", "M58 26 L58 76", "M26 51 L58 51"], "dot": (78, 30)},
     # Météo & Confort : le M, l'étoile à sa droite
     "meteo-confort": {"letters": ["M20 76 L20 28 L41 58 L62 28 L62 76"], "star": (80, 30)},
     # astraeos-astro : le A ouvert en haut, son étoile à la pointe
@@ -91,7 +94,11 @@ def _star(x, y, long=LONG, short=SHORT):
 def project_svg(name, logo):
     body = "".join(f'<path fill="none" stroke="{INK}" stroke-width="{_n(STROKE)}" stroke-linecap="round" '
                    f'stroke-linejoin="round" d="{d}"/>' for d in logo["letters"])
-    body += f'<polygon fill="{GOLD}" points="{_star(*logo["star"])}"/>'
+    if "dot" in logo:
+        x, y = logo["dot"]
+        body += f'<circle cx="{_n(x)}" cy="{_n(y)}" r="{_n(DOT)}" fill="{GOLD}"/>'
+    else:
+        body += f'<polygon fill="{GOLD}" points="{_star(*logo["star"])}"/>'
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="{name}">'
             f'<title>{name}</title><rect width="100" height="100" rx="22" fill="{NIGHT}"/>{body}</svg>\n')
 
