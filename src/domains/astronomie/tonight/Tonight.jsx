@@ -27,6 +27,7 @@ import MoonPhase from '../components/MoonPhase'
 import { SERIES } from '../../../kit/charte'
 import { cometPosition } from '../lib/comets'
 import { COMETS, cometNight, cometPath, nightSamples } from '../comets/sky'
+import { UNCERTAINTY_MIN, visibleMinima } from '../variables/algol'
 
 function Row({ label, value, sub }) {
   return (
@@ -91,10 +92,13 @@ export default function Tonight() {
       })
       .slice(0, 6)
 
-    return { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end, comets }
+    // Le minimum d'Algol de la nuit, s'il vaut d'être observé d'ici (variables/algol.js, comme Céleste)
+    const algol = visibleMinima(start, end, observer)[0] ?? null
+
+    return { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end, comets, algol }
   }, [location, day, isToday])
 
-  const { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end, comets } = data
+  const { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end, comets, algol } = data
   const darkHours = sun.astronomicalDusk && nextSun.astronomicalDawn ? (nextSun.astronomicalDawn - sun.astronomicalDusk) / 3_600_000 : null
 
   return (
@@ -206,6 +210,22 @@ export default function Tonight() {
           </ul>
         </section>
       </div>
+
+      {algol && (
+        <section className="card card-pad">
+          <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="font-semibold">Algol au plus faible</h2>
+            <Link to="/astronomie/algol" className="text-sm font-medium text-accent-700 hover:underline dark:text-accent-400">
+              Les minima d’Algol →
+            </Link>
+          </div>
+          <p className="text-sm">
+            Minimum de l’étoile variable Algol (β de Persée) vers <strong>{fmtTime(algol.date)}</strong> (à ±{UNCERTAINTY_MIN} min près), à{' '}
+            {fmt(algol.alt, 0)}° de hauteur ({compass(algol.az)}) : elle tombe de la magnitude 2,1 à 3,4. Comparez-la à γ d’Andromède (2,3),
+            puis à ε (2,9) et κ de Persée (3,8), dans les heures qui précèdent et qui suivent.
+          </p>
+        </section>
+      )}
 
       {comets.length > 0 && (
         <section className="card card-pad">

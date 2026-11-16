@@ -48,4 +48,5 @@ Ce qui est fait, et ce qui vient. La feuille de route complète du projet, versi
 ## Sur le web
 
 - [x] Une section Céleste sur le site Gaïa, avec ses outils d'astronomie dans le navigateur
+- [x] Dans le navigateur, d'après Heavens-Above et In-The-Sky : les comètes, les astéroïdes brillants, les étoiles filantes, les satellites de Jupiter, les cartes des 88 constellations et les minima d'Algol
 - [ ] Céleste dans le navigateur : son moteur en Python dans la page, avec Pyodide, en commençant par « Ce soir » ([les pistes](#/celeste/documentation/web), en anglais)
