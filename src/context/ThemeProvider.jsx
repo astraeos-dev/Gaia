@@ -23,6 +23,25 @@ export function ThemeProvider({ children }) {
     }
   }, [theme])
 
+  // À l'impression, le thème Jour : de l'encre sur du papier blanc, quel que soit le thème à l'écran
+  useEffect(() => {
+    const root = document.documentElement.classList
+    const before = () => {
+      root.remove('dark')
+      root.remove('observation')
+    }
+    const after = () => {
+      root.toggle('dark', theme !== 'light')
+      root.toggle('observation', theme === 'observation')
+    }
+    window.addEventListener('beforeprint', before)
+    window.addEventListener('afterprint', after)
+    return () => {
+      window.removeEventListener('beforeprint', before)
+      window.removeEventListener('afterprint', after)
+    }
+  }, [theme])
+
   const toggleTheme = useCallback(() => setTheme((t) => THEMES[(THEMES.indexOf(t) + 1) % THEMES.length]), [])
   const value = useMemo(() => ({ theme, toggleTheme, setTheme }), [theme, toggleTheme])
 

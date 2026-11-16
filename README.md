@@ -151,9 +151,13 @@ Pour un domaine personnel, remplacer `base` dans `vite.config.js` par `'/'`.
 
 - Calculs astronomiques : [Astronomy Engine](https://github.com/cosinekitty/astronomy) — Don Cross, licence MIT
   (le successeur du moteur utilisé par ses pages *Astronomy Calendar*, *Sky View* et *Solar System Calculator*).
-- Étoiles (jusqu'à la magnitude 6), tracés et noms des constellations, objets Messier :
+- Étoiles (jusqu'à la magnitude 6), tracés, noms et limites des constellations, objets Messier :
   [d3-celestial](https://github.com/ofrohn/d3-celestial) — Olaf Frohn, licence BSD-3.
   Les fichiers compacts de `src/domains/astronomie/data/` en sont extraits.
+- Cartes des constellations : les étoiles du *Yale Bright Star Catalogue* jusqu'à la magnitude 6,5 (Hoffleit et
+  Warren 1991, domaine public) et le ciel profond d'[OpenNGC](https://github.com/mattiaverga/OpenNGC) (Mattia Verga,
+  licence CC BY-SA 4.0 ; `data/deep-sky.json` est partagé sous la même licence), recopiés de Céleste par
+  `scripts/sync-celeste-sky.mjs`.
 - Fond de carte du monde : [Natural Earth](https://www.naturalearthdata.com) (domaine public), via
   [world-atlas](https://github.com/topojson/world-atlas), converti en tracé SVG équirectangulaire.
 - Satellites : [satellite.js](https://github.com/shashwatak/satellite-js) (MIT), éléments orbitaux

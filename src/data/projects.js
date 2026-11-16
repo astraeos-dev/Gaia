@@ -28,7 +28,7 @@ export const PROJECTS = [
     version: '4.24',
     logo: 'projets/celeste.svg',
     domains: ['astronomie'],
-    tools: ['ce-soir', 'carte-du-ciel', 'cometes'],
+    tools: ['ce-soir', 'carte-du-ciel', 'constellations', 'cometes'],
     links: [
       { label: 'Télécharger pour Windows', href: 'https://github.com/astraeos-dev/Celeste_App/releases/latest', primary: true },
       { label: 'Code source', href: 'https://github.com/astraeos-dev/Celeste_App' },

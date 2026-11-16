@@ -20,11 +20,15 @@ export default function Layout() {
       >
         Aller au contenu
       </button>
-      <Header />
+      <div className="print:hidden">
+        <Header />
+      </div>
       <main id="contenu" tabIndex={-1} className="flex-1 outline-none">
         <Outlet />
       </main>
-      <Footer />
+      <div className="print:hidden">
+        <Footer />
+      </div>
     </div>
   )
 }
