@@ -54,7 +54,11 @@ export default function Footer() {
           <a className="underline hover:text-accent-600" href="https://github.com/ofrohn/d3-celestial" target="_blank" rel="noreferrer">
             d3-celestial
           </a>{' '}
-          (BSD-3). Satellites :{' '}
+          (BSD-3), Yale Bright Star Catalogue. Ciel profond :{' '}
+          <a className="underline hover:text-accent-600" href="https://github.com/mattiaverga/OpenNGC" target="_blank" rel="noreferrer">
+            OpenNGC
+          </a>{' '}
+          (CC BY-SA 4.0). Satellites :{' '}
           <a className="underline hover:text-accent-600" href="https://github.com/shashwatak/satellite-js" target="_blank" rel="noreferrer">
             satellite.js
           </a>{' '}

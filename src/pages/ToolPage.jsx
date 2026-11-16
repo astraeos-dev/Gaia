@@ -28,7 +28,7 @@ export default function ToolPage() {
 
   return (
     <div className={`mx-auto px-4 py-6 sm:px-6 sm:py-8 lg:px-8 ${tool.wide ? 'max-w-[1600px]' : 'max-w-5xl'}`}>
-      <nav aria-label="Fil d'Ariane" className="mb-4 flex flex-wrap items-center gap-1 text-sm text-night-500">
+      <nav aria-label="Fil d'Ariane" className="mb-4 flex print:hidden flex-wrap items-center gap-1 text-sm text-night-500">
         <Link to={`/${domain.id}`} className="hover:text-accent-600">
           {domain.label}
         </Link>
@@ -38,7 +38,7 @@ export default function ToolPage() {
         </Link>
       </nav>
 
-      <header className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+      <header className={`mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between ${item ? 'print:hidden' : ''}`}>
         <div className="flex items-start gap-3">
           <span className="mt-1 hidden rounded-xl bg-accent-400/15 p-2.5 text-accent-700 dark:text-accent-300 sm:block">
             <Icon size={22} />

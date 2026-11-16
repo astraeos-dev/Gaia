@@ -168,6 +168,16 @@
   .table-data tbody tr {
     @apply transition-colors hover:bg-night-50 dark:hover:bg-night-800/30;
   }
+  /* À l'impression (fiche d'une constellation…) : des tableaux serrés */
+  @media print {
+    .table-data {
+      font-size: 10px;
+    }
+    .table-data th,
+    .table-data td {
+      padding: 1px 6px;
+    }
+  }
 }
 
 @layer components {

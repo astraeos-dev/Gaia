@@ -5,6 +5,7 @@
  */
 import { Astronomy, BODY, DAY_MS, QUARTER_NAMES, unitVector } from '../lib/astro'
 import { SHOWERS, whenSolarLongitude } from '../meteors/showers'
+import { UNCERTAINTY_MIN, visibleMinima } from '../variables/algol'
 import { ALERTE, ENCRE, ENCRE_ATTENUEE, LUNE, LUNE_ALERTE, LUNE_OK, OK, OR, OR_ALERTE, OR_LUNE } from '../../../kit/charte'
 
 export const EVENT_TYPES = {
@@ -18,6 +19,7 @@ export const EVENT_TYPES = {
   approach: { label: 'Rapprochement', color: ENCRE },
   meteor: { label: "Pluie d'étoiles filantes", color: OR_ALERTE },
   brightness: { label: 'Éclat maximal', color: LUNE_ALERTE },
+  variable: { label: 'Minimum d’Algol', color: LUNE_OK },
 }
 
 const PLANETS = ['Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
@@ -226,6 +228,12 @@ export function findEvents(start, end, observer) {
       const max = whenSolarLongitude(sh.lambda, y)
       push(max, 'meteor', `Maximum des ${sh.name}`, `Jusqu'à ${sh.zhr} météores/h · radiant : ${sh.constellation}`)
     }
+  }
+
+  // Les minima d'Algol qui valent d'être observés d'ici : l'étoile à 15° au moins, le Soleil à −12° au moins
+  // (variables/algol.js, comme Céleste)
+  for (const m of visibleMinima(start, end, observer)) {
+    push(m.date, 'variable', 'Minimum d’Algol', `Algol à ${fmtDeg(m.alt, 0)} de hauteur, à ±${UNCERTAINTY_MIN} min près : de la magnitude 2,1 à 3,4 et retour en une dizaine d’heures`)
   }
 
   return events.sort((a, b) => a.time - b.time)

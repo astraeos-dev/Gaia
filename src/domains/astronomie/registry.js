@@ -9,7 +9,7 @@ import * as I from 'lucide-react'
 export const DOMAIN = { id: 'astronomie', label: 'Astronomie', icon: I.Telescope, description: 'Carte du ciel, éphémérides du Soleil, de la Lune et des planètes, éclipses, calendrier et satellites, calculés pour votre lieu.' }
 
 export const RUBRIQUES = [
-  { id: 'ciel', label: 'Ciel et observation', icon: I.Map, description: 'Ce qui est visible ce soir, carte du ciel, calendrier, éclipses, jour et nuit, temps astronomique.' },
+  { id: 'ciel', label: 'Ciel et observation', icon: I.Map, description: 'Ce qui est visible ce soir, carte du ciel et cartes des constellations, calendrier, éclipses, étoiles filantes, Algol, jour et nuit, temps astronomique.' },
   { id: 'astres', label: 'Soleil, Lune, planètes et comètes', icon: I.Sun, description: 'Positions, levers et couchers, phases et visibilité des astres du système solaire, et les comètes observables.' },
   { id: 'satellites-iss', label: 'Satellites', icon: I.Satellite, description: 'Passages visibles de l’ISS et des satellites brillants, position en direct.' },
 ]
@@ -23,6 +23,8 @@ export const TOOLS = [
   { id: 'jour-nuit', rubrique: 'ciel', title: 'Jour et nuit sur la Terre', summary: 'Carte du monde éclairé, crépuscules, points subsolaire et sublunaire, et heure du Soleil dans les grandes villes.', icon: I.SunMoon, tags: ['terminateur', 'carte', 'crépuscule', 'monde'], wide: true, component: lazy(() => import('./daynight/DayNight.jsx')) },
   { id: 'temps-astronomique', rubrique: 'ciel', title: 'Heure et temps astronomique', summary: 'UTC, TAI, TT, temps GPS, jour julien, temps sidéral local, temps solaire vrai et équation du temps, en direct.', icon: I.Clock3, featured: true, tags: ['jour julien', 'sidéral', 'UTC', 'GPS', 'ΔT'], wide: true, component: lazy(() => import('./time/AstroTime.jsx')) },
 
+  { id: 'constellations', rubrique: 'ciel', title: 'Les 88 constellations', summary: 'La carte de chaque constellation comme dans un atlas : limites officielles, étoiles et lettres grecques, objets du ciel profond, voisines, et quand la voir chez vous.', icon: I.Waypoints, featured: true, tags: ['constellation', 'Orion', 'Grande Ourse', 'étoiles', 'Messier', 'Caldwell', 'atlas', 'carte'], wide: true, component: lazy(() => import('./constellations/Constellations.jsx')) },
+  { id: 'algol', rubrique: 'ciel', title: 'Algol, l’étoile variable', summary: 'L’étoile du Démon perd les deux tiers de son éclat toutes les 2 j 20 h 49 min : ses prochains minima, ceux que vous verrez de chez vous, et les étoiles auxquelles la comparer.', icon: I.Activity, tags: ['étoile variable', 'Algol', 'Persée', 'binaire à éclipses', 'minimum'], wide: true, component: lazy(() => import('./variables/Algol.jsx')) },
   { id: 'etoiles-filantes', rubrique: 'ciel', title: 'Étoiles filantes', summary: 'Les pluies de l’année : maximum, activité, taux horaire, radiant et Lune, et la nuit du maximum chez vous, avec le nombre de météores à attendre.', icon: I.Stars, tags: ['météores', 'Perséides', 'Géminides', 'Léonides', 'radiant', 'ZHR', 'IMO'], wide: true, component: lazy(() => import('./meteors/MeteorShowers.jsx')) },
 
   // --- Soleil, Lune et planètes ---
