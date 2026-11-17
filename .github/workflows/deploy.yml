@@ -5,7 +5,7 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
-  # Chaque jour : les comètes, les géocroiseurs, les novae, les supernovae et les occultations se mettent à jour
+  # Chaque jour : les comètes, les géocroiseurs, les novae, les supernovae, les occultations et les lunes des planètes se mettent à jour
   schedule:
     - cron: '23 5 * * *'
 
@@ -48,6 +48,9 @@ jobs:
 
       - name: Occultations d'étoiles par des astéroïdes (IOTA)
         run: node scripts/fetch-occultations.mjs
+
+      - name: Lunes de Mars, Saturne, Uranus, Neptune et Pluton (JPL Horizons)
+        run: node scripts/fetch-moons.mjs
 
       - name: Lint
         run: npm run lint
