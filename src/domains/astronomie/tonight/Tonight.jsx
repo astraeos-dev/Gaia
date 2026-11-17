@@ -32,6 +32,8 @@ import { notableBetween } from '../neo/data'
 import { ldText, sizeText } from '../neo/format'
 import { chosen as chosenTransients } from '../transients/transients'
 import { OBJECTS as TRANSIENTS, bestTonight, kindText } from '../transients/sky'
+import { near as occultationsNear } from '../occultations/occultations'
+import { asteroidLabel, useOccultationEvents } from '../occultations/data'
 
 function Row({ label, value, sub }) {
   return (
@@ -114,6 +116,13 @@ export default function Tonight() {
   }, [location, day, isToday])
 
   const { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end, comets, algol, neo, transients } = data
+  // Les occultations de la nuit à moins de 100 km du lieu (occultations/, comme Céleste) : leurs prédictions se
+  // chargent à part, un fichier par mois
+  const predictions = useOccultationEvents(start, end)
+  const occultations = useMemo(
+    () => (predictions ? occultationsNear(predictions.events, location.lat, location.lon, location.elevation ?? 0, { start, end }) : []),
+    [predictions, location, start, end],
+  )
   const darkHours = sun.astronomicalDusk && nextSun.astronomicalDawn ? (nextSun.astronomicalDawn - sun.astronomicalDusk) / 3_600_000 : null
 
   return (
@@ -239,6 +248,30 @@ export default function Tonight() {
             {fmt(algol.alt, 0)}° de hauteur ({compass(algol.az)}) : elle tombe de la magnitude 2,1 à 3,4. Comparez-la à γ d’Andromède (2,3),
             puis à ε (2,9) et κ de Persée (3,8), dans les heures qui précèdent et qui suivent.
           </p>
+        </section>
+      )}
+
+      {occultations.length > 0 && (
+        <section className="card card-pad">
+          <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="font-semibold">Étoiles cachées par des astéroïdes</h2>
+            <Link to="/astronomie/occultations" className="text-sm font-medium text-accent-700 hover:underline dark:text-accent-400">
+              Toutes les occultations →
+            </Link>
+          </div>
+          <ul className="space-y-1 text-sm">
+            {occultations.map((s) => (
+              <li key={`${s.event.name}-${s.event.middle.getTime()}`}>
+                Occultation à {fmtTime(s.date, true)} : <strong>{asteroidLabel(s.event)}</strong> cache une étoile de magnitude {fmt(s.event.starMag, 1)},{' '}
+                {s.inside ? (
+                  <span className="font-semibold text-or">la bande passe sur le lieu ({fmt(s.duration, 1)} s)</span>
+                ) : (
+                  `la bande passe à ${fmt(s.edgeKm, 0)} km (${compass(s.direction)})`
+                )}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-night-500">Prédictions de l’IOTA : la bande peut encore se déplacer de plus que sa largeur.</p>
         </section>
       )}
 

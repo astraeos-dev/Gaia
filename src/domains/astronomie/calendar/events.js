@@ -9,6 +9,8 @@ import { UNCERTAINTY_MIN, visibleMinima } from '../variables/algol'
 import { notableBetween } from '../neo/data'
 import { AU_KM } from '../neo/neo'
 import { kmText, ldText, sizeText } from '../neo/format'
+import { asteroidLabel } from '../occultations/data'
+import { compass } from '../../../lib/format'
 import { ALERTE, ENCRE, ENCRE_ATTENUEE, LUNE, LUNE_ALERTE, LUNE_OK, OK, OR, OR_ALERTE, OR_LUNE } from '../../../kit/charte'
 
 export const EVENT_TYPES = {
@@ -24,6 +26,7 @@ export const EVENT_TYPES = {
   brightness: { label: 'Éclat maximal', color: LUNE_ALERTE },
   variable: { label: 'Minimum d’Algol', color: LUNE_OK },
   neo: { label: 'Astéroïde près de la Terre', color: ENCRE_ATTENUEE },
+  occultation: { label: 'Occultation d’étoile', color: OR_LUNE },
 }
 
 const PLANETS = ['Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
@@ -255,17 +258,44 @@ function raDec(body, time, observer) {
   return [eq.ra, eq.dec]
 }
 
+/**
+ * Les occultations d'étoiles par des astéroïdes dont la bande passe à moins de 100 km du lieu (occultations/, comme
+ * Céleste), en évènements du calendrier. Les prédictions se chargent à part (un fichier par mois) : `found` est la
+ * liste de near().
+ */
+export function occultationEvents(found) {
+  return found.map((s) => {
+    const mag = s.event.starMag != null ? s.event.starMag.toFixed(1).replace('.', ',') : '—'
+    const star = `l’étoile à ${fmtDeg(s.alt, 0)} (${compass(s.az)})`
+    return {
+      time: s.date,
+      type: 'occultation',
+      title: `${asteroidLabel(s.event)} cache une étoile de magnitude ${mag}`,
+      detail: s.inside
+        ? `La bande passe sur le lieu (${s.duration.toFixed(1).replace('.', ',')} s), ${star}`
+        : `La bande passe à ${Math.round(s.edgeKm)} km (${compass(s.direction)}), ${star}`,
+      important: s.inside,
+    }
+  })
+}
+
 /** Clé de jour local « AAAA-M-J ». */
 export const dayKey = (d) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
 
-/** Événements d'un mois groupés par jour (inclut les jours voisins visibles dans la grille). */
-export function monthEvents(year, month, observer) {
+/** La période d'un mois et des jours voisins visibles dans la grille (une semaine de chaque côté). */
+export function monthRange(year, month) {
   const start = new Date(year, month, 1)
   start.setDate(start.getDate() - 7)
   const end = new Date(year, month + 1, 1)
   end.setDate(end.getDate() + 7)
+  return { start, end }
+}
+
+/** Événements d'un mois groupés par jour (inclut les jours voisins visibles dans la grille) ; `extra` : d'autres évènements, déjà calculés. */
+export function monthEvents(year, month, observer, extra = []) {
+  const { start, end } = monthRange(year, month)
   const byDay = new Map()
-  for (const e of findEvents(start, end, observer)) {
+  for (const e of [...findEvents(start, end, observer), ...extra].sort((a, b) => a.time - b.time)) {
     const key = dayKey(e.time)
     if (!byDay.has(key)) byDay.set(key, [])
     byDay.get(key).push(e)

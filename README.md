@@ -163,7 +163,8 @@ Pour un domaine personnel, remplacer `base` dans `vite.config.js` par `'/'`.
   géocroiseurs ([CNEOS](https://cneos.jpl.nasa.gov/ca/)) et éphémérides ([Horizons](https://ssd.jpl.nasa.gov/horizons/))
   du JPL (NASA) ; novae et supernovae de « [Latest Supernovae](https://www.rochesterastronomy.org/supernova.html) »
   (David Bishop) et de la « [List of Recent Galactic Novae](https://asd.gsfc.nasa.gov/Koji.Mukai/novae/novae.html) »
-  (Koji Mukai, NASA Goddard).
+  (Koji Mukai, NASA Goddard) ; occultations d'étoiles par des astéroïdes, prédictions de l'[IOTA](https://asteroidoccultation.com)
+  (Steve Preston, avec Occult de David Herald), un fichier par mois dans `data/occultations/`.
 - Fond de carte du monde : [Natural Earth](https://www.naturalearthdata.com) (domaine public), via
   [world-atlas](https://github.com/topojson/world-atlas), converti en tracé SVG équirectangulaire.
 - Satellites : [satellite.js](https://github.com/shashwatak/satellite-js) (MIT), éléments orbitaux
