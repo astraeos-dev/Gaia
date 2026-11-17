@@ -1,0 +1,1168 @@
+{
+ "updated": "2026-11-17",
+ "sources": {
+  "supernovae": {
+   "from": "https://www.rochesterastronomy.org/supernova.html",
+   "updated": "2026-11-17"
+  },
+  "novae": {
+   "from": "https://asd.gsfc.nasa.gov/Koji.Mukai/novae/novae.html",
+   "updated": "2026-11-17"
+  }
+ },
+ "supernovae": [
+  {
+   "name": "AT 2026afvp",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 5.3521222,
+   "dec": 23.63925,
+   "mag": 10.3,
+   "magDate": "2026-10-18",
+   "stale": false,
+   "discovered": "2026-10-18",
+   "aka": [
+    "GEOTS-Balaji-2026-014",
+    "V1452 Tau",
+    "TCP J05210764+2338213"
+   ]
+  },
+  {
+   "name": "SN 2026ahvu",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "NGC 1433",
+   "ra": 3.6987531,
+   "dec": -47.227608,
+   "mag": 12.3,
+   "magDate": "2026-11-10",
+   "stale": false,
+   "discovered": "2026-11-02",
+   "discoverer": "ATLAS",
+   "aka": [
+    "ATLAS26ncp",
+    "GOTO26ltt"
+   ],
+   "z": 0.003589
+  },
+  {
+   "name": "SN 2026ahvi",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "NGC 4189",
+   "ra": 12.2306694,
+   "dec": 13.424472,
+   "mag": 12.5,
+   "magDate": "2026-11-11",
+   "stale": false,
+   "discovered": "2026-11-02",
+   "discoverer": "Koichi Itagaki",
+   "z": 0.006997
+  },
+  {
+   "name": "AT 2026abbx",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 17.8685553,
+   "dec": -23.722419,
+   "mag": 12.6,
+   "magDate": "2026-09-08",
+   "stale": false,
+   "discovered": "2026-09-08",
+   "aka": [
+    "ASASSN-26fc",
+    "TCP J17520680-2343207"
+   ]
+  },
+  {
+   "name": "SN 2026sqf",
+   "kind": "supernova",
+   "type": "Ia-CSM",
+   "host": "NGC 3310",
+   "ra": 10.6466558,
+   "dec": 53.509472,
+   "mag": 13.3,
+   "magDate": "2026-11-03",
+   "stale": false,
+   "peak": 11.2,
+   "peakDate": "2026-07-28",
+   "discovered": "2026-07-08",
+   "discoverer": "Patrick Wiggins",
+   "aka": [
+    "ZTF26abfmmvq",
+    "AT 2026uxt"
+   ],
+   "z": 0.00331
+  },
+  {
+   "name": "SN 2026aaiv",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "NGC 7331",
+   "ra": 22.6182272,
+   "dec": 34.409825,
+   "mag": 14.7,
+   "magDate": "2026-11-05",
+   "stale": false,
+   "peak": 11.5,
+   "peakDate": "2026-09-18",
+   "discovered": "2026-09-01",
+   "discoverer": "ATLAS",
+   "aka": [
+    "ATLAS26krw",
+    "GOTO26jfm",
+    "PS26hnd",
+    "ZTF26acczakj"
+   ],
+   "z": 0.003
+  },
+  {
+   "name": "SN 2026afsg",
+   "kind": "supernova",
+   "type": "Ib/c",
+   "host": "UGC 7012",
+   "ra": 12.034155,
+   "dec": 29.844708,
+   "mag": 15.5,
+   "magDate": "2026-10-23",
+   "stale": false,
+   "discovered": "2026-10-18",
+   "discoverer": "Ziyang Mai",
+   "z": 0.010277
+  },
+  {
+   "name": "SN 2026abxl",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "NGC 5127",
+   "ra": 13.3959411,
+   "dec": 31.564492,
+   "mag": 15.5,
+   "magDate": "2026-09-16",
+   "stale": false,
+   "discovered": "2026-09-16",
+   "discoverer": "Zwicky Transient Facility (ZTF)",
+   "aka": [
+    "ZTF26abvdfkg"
+   ],
+   "z": 0.016
+  },
+  {
+   "name": "SN 2026afxk",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "LEDA 311277",
+   "ra": 3.3074653,
+   "dec": -65.668136,
+   "mag": 16,
+   "magDate": "2026-10-25",
+   "stale": false,
+   "discovered": "2026-10-19",
+   "aka": [
+    "ATLAS26mvj"
+   ],
+   "z": 0.02
+  },
+  {
+   "name": "SN 2026pub",
+   "kind": "supernova",
+   "type": "II",
+   "host": "MCG -1-35-10",
+   "ra": 13.7604108,
+   "dec": -5.993286,
+   "mag": 16,
+   "magDate": "2026-08-05",
+   "stale": false,
+   "discovered": "2026-06-21",
+   "discoverer": "Catalina Real-Time Transient Survey and Michele T. Mazzucato",
+   "aka": [
+    "SNhunt485",
+    "ATLAS26hnt",
+    "ZTF26ablumkb"
+   ],
+   "z": 0.004837
+  },
+  {
+   "name": "SN 2026agwm",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "ESO 339-G13",
+   "ra": 19.9848378,
+   "dec": -38.011328,
+   "mag": 16.2,
+   "magDate": "2026-10-31",
+   "stale": false,
+   "discovered": "2026-10-27",
+   "aka": [
+    "ATLAS26mys"
+   ],
+   "z": 0.02
+  },
+  {
+   "name": "SN 2026acxa",
+   "kind": "supernova",
+   "type": "Ic-BL",
+   "host": "ESO 598-G17",
+   "ra": 21.0417397,
+   "dec": -19.461642,
+   "mag": 16.2,
+   "magDate": "2026-10-10",
+   "stale": false,
+   "peak": 14.9,
+   "peakDate": "2026-09-29",
+   "discovered": "2026-09-25",
+   "discoverer": "ATLAS",
+   "aka": [
+    "ZTF26abxkuhv"
+   ],
+   "z": 0.008089
+  },
+  {
+   "name": "SN 2026zji",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "LEDA 2640544",
+   "ra": 20.0762406,
+   "dec": 62.644092,
+   "mag": 16.2,
+   "magDate": "2026-09-23",
+   "stale": false,
+   "peak": 15.1,
+   "peakDate": "2026-09-03",
+   "discovered": "2026-08-21",
+   "discoverer": "ATLAS",
+   "aka": [
+    "ATLAS26kkd",
+    "ZTF26abqqppl"
+   ],
+   "z": 0.0238
+  },
+  {
+   "name": "SN 2026aeaq",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "CGCG 248-049",
+   "ra": 15.0536072,
+   "dec": 49.851511,
+   "mag": 16.3,
+   "magDate": "2026-10-02",
+   "stale": false,
+   "discovered": "2026-10-02",
+   "aka": [
+    "ASASSN-26fj"
+   ],
+   "z": 0.028088
+  },
+  {
+   "name": "SN 2026yly",
+   "kind": "supernova",
+   "type": "II",
+   "host": "NGC 2748",
+   "ra": 9.2272694,
+   "dec": 76.471694,
+   "mag": 16.3,
+   "magDate": "2026-10-04",
+   "stale": false,
+   "peak": 15.1,
+   "peakDate": "2026-08-11",
+   "discovered": "2026-08-09",
+   "discoverer": "Koichi Itagaki",
+   "aka": [
+    "PSN J09133817+7628181",
+    "DRSN135"
+   ],
+   "z": 0.004926
+  },
+  {
+   "name": "SN 2026yid",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "ESO 234-G13",
+   "ra": 20.3756761,
+   "dec": -50.753989,
+   "mag": 16.3,
+   "magDate": "2026-09-26",
+   "stale": false,
+   "peak": 14.9,
+   "peakDate": "2026-08-18",
+   "discovered": "2026-08-07",
+   "discoverer": "ATLAS",
+   "aka": [
+    "ATLAS26jsq",
+    "GOTO26inn"
+   ],
+   "z": 0.015963
+  },
+  {
+   "name": "SN 2026afqd",
+   "kind": "supernova",
+   "type": "IIP",
+   "host": "UGC 242",
+   "ra": 0.4244067,
+   "dec": 20.243714,
+   "mag": 16.4,
+   "magDate": "2026-11-12",
+   "stale": false,
+   "peak": 15.7,
+   "peakDate": "2026-11-01",
+   "discovered": "2026-10-17",
+   "discoverer": "ATLAS",
+   "aka": [
+    "GOTO26lfk",
+    "ATLAS26mss",
+    "PS26jot",
+    "ZTF26acbyldz"
+   ],
+   "z": 0.014657
+  },
+  {
+   "name": "SN 2026acjs",
+   "kind": "supernova",
+   "type": "II",
+   "host": "LEDA 93566",
+   "ra": 18.9089942,
+   "dec": -62.858692,
+   "mag": 16.4,
+   "magDate": "2026-09-25",
+   "stale": false,
+   "peak": 16.3,
+   "peakDate": "2026-09-22",
+   "discovered": "2026-09-20",
+   "discoverer": "ATLAS",
+   "aka": [
+    "GOTO26kdm",
+    "ATLAS26lux"
+   ],
+   "z": 0.0155
+  },
+  {
+   "name": "SN 2026aicg",
+   "kind": "supernova",
+   "type": "Ia-91T",
+   "host": "anonymous galaxy",
+   "ra": 10.3481683,
+   "dec": 65.686258,
+   "mag": 16.5,
+   "magDate": "2026-11-06",
+   "stale": false,
+   "discovered": "2026-11-04",
+   "aka": [
+    "ATLAS26nfo"
+   ],
+   "z": 0.04
+  },
+  {
+   "name": "SN 2026abem",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "anonymous galaxy",
+   "ra": 2.6422689,
+   "dec": 3.923161,
+   "mag": 16.5,
+   "magDate": "2026-09-14",
+   "stale": false,
+   "discovered": "2026-09-09",
+   "aka": [
+    "ATLAS26lgl"
+   ],
+   "z": 0.0785
+  },
+  {
+   "name": "SN 2026kid",
+   "kind": "supernova",
+   "type": "II",
+   "host": "NGC 5907",
+   "ra": 15.2658861,
+   "dec": 56.309083,
+   "mag": 16.5,
+   "magDate": "2026-08-02",
+   "stale": false,
+   "peak": 15.6,
+   "peakDate": "2026-04-24",
+   "discovered": "2026-04-22",
+   "discoverer": "Yasuo Sano",
+   "aka": [
+    "ATLAS26equ",
+    "ZTF26aatswhm"
+   ],
+   "z": 0.0017
+  },
+  {
+   "name": "AT 2026afvv",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 5.569725,
+   "dec": 28.758472,
+   "mag": 16.6,
+   "magDate": "2026-10-18",
+   "stale": false,
+   "discovered": "2026-10-18",
+   "aka": [
+    "GEOTS-Balaji-2026-015",
+    "TCP J05341101+2845305"
+   ]
+  },
+  {
+   "name": "SN 2026stl",
+   "kind": "supernova",
+   "type": "IIP",
+   "host": "CGCG 415-003",
+   "ra": 2.7334858,
+   "dec": 5.046489,
+   "mag": 16.6,
+   "magDate": "2026-07-06",
+   "stale": false,
+   "discovered": "2026-07-06",
+   "discoverer": "ATLAS",
+   "aka": [
+    "ATLAS26igy",
+    "GOTO25mzl"
+   ],
+   "z": 0.0139
+  },
+  {
+   "name": "SN 2026agsu",
+   "kind": "supernova",
+   "type": "Ia-91T",
+   "host": "LEDA 870417",
+   "ra": 21.4562242,
+   "dec": -18.261606,
+   "mag": 16.7,
+   "magDate": "2026-10-25",
+   "stale": false,
+   "discovered": "2026-10-24",
+   "aka": [
+    "ATLAS26myc"
+   ],
+   "z": 0.027
+  },
+  {
+   "name": "SN 2026afxj",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "LEDA 363151",
+   "ra": 5.2191167,
+   "dec": -60.464956,
+   "mag": 16.9,
+   "magDate": "2026-10-25",
+   "stale": false,
+   "discovered": "2026-10-20",
+   "aka": [
+    "ATLAS26mvi"
+   ],
+   "z": 0.053
+  },
+  {
+   "name": "SN 2026aexj",
+   "kind": "supernova",
+   "type": "IIn",
+   "ra": 9.0931764,
+   "dec": -15.886728,
+   "mag": 16.9,
+   "magDate": "2026-10-09",
+   "stale": false,
+   "discovered": "2026-10-08",
+   "aka": [
+    "ZTF26acaotvh"
+   ],
+   "z": 0.0403
+  },
+  {
+   "name": "SN 2026ziq",
+   "kind": "supernova",
+   "type": "Ic",
+   "host": "ESO 402-G26",
+   "ra": 21.3753253,
+   "dec": -36.681514,
+   "mag": 16.9,
+   "magDate": "2026-08-20",
+   "stale": false,
+   "discovered": "2026-08-20",
+   "aka": [
+    "GOTO26iic",
+    "PS26hkt",
+    "ATLAS26kpk"
+   ],
+   "z": 0.009
+  },
+  {
+   "name": "SN 2026yzg",
+   "kind": "supernova",
+   "type": "II",
+   "host": "2MFGC 10870",
+   "ra": 13.5164103,
+   "dec": -27.042942,
+   "mag": 16.9,
+   "magDate": "2026-08-15",
+   "stale": false,
+   "discovered": "2026-08-15",
+   "aka": [
+    "ATLAS26kbx"
+   ],
+   "z": 0.0159
+  },
+  {
+   "name": "SN 2026ahvd",
+   "kind": "supernova",
+   "type": "Ia",
+   "ra": 10.5309867,
+   "dec": -13.032325,
+   "mag": 17,
+   "magDate": "2026-11-02",
+   "stale": false,
+   "discovered": "2026-11-02",
+   "aka": [
+    "ATLAS26nce"
+   ],
+   "z": 0.035
+  },
+  {
+   "name": "SN 2026plb",
+   "kind": "supernova",
+   "type": "IIn",
+   "host": "LEDA 867136",
+   "ra": 20.9464611,
+   "dec": -18.517914,
+   "mag": 17,
+   "magDate": "2026-10-09",
+   "stale": false,
+   "peak": 16.5,
+   "peakDate": "2026-07-15",
+   "discovered": "2026-05-21",
+   "aka": [
+    "ZTF26abbwmoo"
+   ],
+   "z": 0.029297
+  },
+  {
+   "name": "SN 2026aied",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "CGCG 341-025",
+   "ra": 19.2806961,
+   "dec": 70.512206,
+   "mag": 17.1,
+   "magDate": "2026-11-06",
+   "stale": false,
+   "discovered": "2026-11-03",
+   "aka": [
+    "ZTF26acdzukf",
+    "ATLAS26nhi"
+   ],
+   "z": 0.018596
+  },
+  {
+   "name": "SN 2026ahvh",
+   "kind": "supernova",
+   "type": "Ic",
+   "host": "NGC 3453",
+   "ra": 10.8944858,
+   "dec": -21.7952,
+   "mag": 17.1,
+   "magDate": "2026-11-02",
+   "stale": false,
+   "discovered": "2026-11-02",
+   "discoverer": "ATLAS",
+   "aka": [
+    "ATLAS26nci"
+   ],
+   "z": 0.013329
+  },
+  {
+   "name": "SN 2026aeiq",
+   "kind": "supernova",
+   "type": "Ic",
+   "host": "LEDA 1016924",
+   "ra": 8.9231392,
+   "dec": -7.561261,
+   "mag": 17.1,
+   "magDate": "2026-10-09",
+   "stale": false,
+   "discovered": "2026-10-01",
+   "aka": [
+    "ZTF26abyovdz"
+   ],
+   "z": 0.019724
+  },
+  {
+   "name": "SN 2026zkk",
+   "kind": "supernova",
+   "type": "Ia-91T",
+   "host": "anonymous galaxy",
+   "ra": 22.7599556,
+   "dec": 38.562028,
+   "mag": 17.2,
+   "magDate": "2026-08-18",
+   "stale": false,
+   "discovered": "2026-08-18",
+   "aka": [
+    "PSP26P"
+   ],
+   "z": 0.065
+  },
+  {
+   "name": "SN 2026ahar",
+   "kind": "supernova",
+   "type": "II",
+   "ra": 22.0961447,
+   "dec": 37.005139,
+   "mag": 17.3,
+   "magDate": "2026-10-28",
+   "stale": false,
+   "discovered": "2026-10-28",
+   "aka": [
+    "GOTO26llo"
+   ],
+   "z": 0.019
+  },
+  {
+   "name": "SN 2026agzw",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "LEDA 3175308",
+   "ra": 1.2504378,
+   "dec": -33.937594,
+   "mag": 17.3,
+   "magDate": "2026-10-30",
+   "stale": false,
+   "discovered": "2026-10-28",
+   "aka": [
+    "GOTO26ljz"
+   ],
+   "z": 0.056022
+  },
+  {
+   "name": "SN 2026ahzo",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "MRK 1177",
+   "ra": 2.4502514,
+   "dec": -13.119719,
+   "mag": 17.4,
+   "magDate": "2026-11-01",
+   "stale": false,
+   "discovered": "2026-11-01",
+   "aka": [
+    "ATLAS26ncy"
+   ],
+   "z": 0.022
+  },
+  {
+   "name": "AT 2026ahqq",
+   "kind": "nova",
+   "type": "Nova?",
+   "ra": 18.9653778,
+   "dec": 8.629311,
+   "mag": 17.4,
+   "magDate": "2026-01-20",
+   "stale": false,
+   "discovered": "2026-01-20",
+   "aka": [
+    "ZTF26aadfszg"
+   ]
+  },
+  {
+   "name": "SN 2026aeiv",
+   "kind": "supernova",
+   "type": "Ia-91bg",
+   "host": "NGC 1184",
+   "ra": 3.2782856,
+   "dec": 80.802533,
+   "mag": 17.4,
+   "magDate": "2026-11-03",
+   "stale": false,
+   "peak": 15.3,
+   "peakDate": "2026-10-15",
+   "discovered": "2026-10-05",
+   "discoverer": "ATLAS",
+   "aka": [
+    "ATLAS26mci",
+    "ZTF26abzfswo"
+   ],
+   "z": 0.0077
+  },
+  {
+   "name": "SN 2026admb",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "ESO 339-G8",
+   "ra": 19.9427931,
+   "dec": -38.100636,
+   "mag": 17.4,
+   "magDate": "2026-09-29",
+   "stale": false,
+   "discovered": "2026-09-29",
+   "aka": [
+    "ATLAS26lxa"
+   ],
+   "z": 0.01854
+  },
+  {
+   "name": "SN 2026aaoq",
+   "kind": "supernova",
+   "type": "IIP",
+   "host": "anonymous galaxy",
+   "ra": 1.3591369,
+   "dec": -37.244289,
+   "mag": 17.4,
+   "magDate": "2026-09-04",
+   "stale": false,
+   "discovered": "2026-09-04",
+   "aka": [
+    "GOTO26itj"
+   ],
+   "z": 0.03145
+  },
+  {
+   "name": "SN 2026mho",
+   "kind": "supernova",
+   "type": "IIn",
+   "host": "ESO 595-G14",
+   "ra": 20.1273058,
+   "dec": -21.118444,
+   "mag": 17.4,
+   "magDate": "2026-09-04",
+   "stale": false,
+   "peak": 15.8,
+   "peakDate": "2026-06-09",
+   "discovered": "2026-05-12",
+   "aka": [
+    "ATLAS26flx",
+    "GOTO26ffc",
+    "ZTF26abaoktj"
+   ],
+   "z": 0.008
+  },
+  {
+   "name": "SN 2026ahxs",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "LEDA 1476146",
+   "ra": 2.10306,
+   "dec": 15.132686,
+   "mag": 17.5,
+   "magDate": "2026-10-28",
+   "stale": false,
+   "discovered": "2026-10-28",
+   "aka": [
+    "ZTF26acdhujr"
+   ],
+   "z": 0.044
+  },
+  {
+   "name": "SN 2026agzo",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "CGCG 094-046",
+   "ra": 10.4268994,
+   "dec": 17.080708,
+   "mag": 17.5,
+   "magDate": "2026-10-29",
+   "stale": false,
+   "discovered": "2026-10-24",
+   "aka": [
+    "ZTF26acdgffj"
+   ],
+   "z": 0.04449
+  },
+  {
+   "name": "SN 2026aesu",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "LEDA 1049318",
+   "ra": 10.0602522,
+   "dec": -5.098086,
+   "mag": 17.5,
+   "magDate": "2026-10-09",
+   "stale": false,
+   "discovered": "2026-10-01",
+   "aka": [
+    "ZTF26abyoxhz"
+   ],
+   "z": 0.055385
+  },
+  {
+   "name": "SN 2026acxb",
+   "kind": "supernova",
+   "type": "Ia",
+   "ra": 20.7940997,
+   "dec": 27.093253,
+   "mag": 17.5,
+   "magDate": "2026-09-16",
+   "stale": false,
+   "discovered": "2026-09-16",
+   "aka": [
+    "ZTF26abvhklx"
+   ],
+   "z": 0.052
+  },
+  {
+   "name": "SN 2026abyp",
+   "kind": "supernova",
+   "type": "II",
+   "host": "ESO 356-G22",
+   "ra": 2.9634742,
+   "dec": -36.712833,
+   "mag": 17.5,
+   "magDate": "2026-09-22",
+   "stale": false,
+   "discovered": "2026-09-17",
+   "aka": [
+    "ATLAS26lpu",
+    "PS26hqf",
+    "GOTO26jxb"
+   ],
+   "z": 0.02109
+  },
+  {
+   "name": "SN 2026yum",
+   "kind": "supernova",
+   "type": "II",
+   "host": "UGC 242",
+   "ra": 0.4242011,
+   "dec": 20.234956,
+   "mag": 17.5,
+   "magDate": "2026-11-12",
+   "stale": false,
+   "peak": 17.4,
+   "peakDate": "2026-09-09",
+   "discovered": "2026-08-13",
+   "discoverer": "ATLAS",
+   "aka": [
+    "GOTO26iei",
+    "ATLAS26jxg",
+    "ZTF26abnuyoi",
+    "PS26hpy"
+   ],
+   "z": 0.014657
+  },
+  {
+   "name": "SN 2026fvx",
+   "kind": "supernova",
+   "type": "Ia",
+   "host": "NGC 4205",
+   "ra": 12.2494814,
+   "dec": 63.787892,
+   "mag": 17.5,
+   "magDate": "2026-08-07",
+   "stale": false,
+   "peak": 12.3,
+   "peakDate": "2026-04-04",
+   "discovered": "2026-03-17",
+   "discoverer": "LAST",
+   "aka": [
+    "ZTF26aamqluf",
+    "ATLAS26dgt"
+   ],
+   "z": 0.004846
+  }
+ ],
+ "novae": [
+  {
+   "name": "V8056 Sgr",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 17.9052333,
+   "dec": -27.609944,
+   "stale": false,
+   "peak": 9.3,
+   "discovered": "2026-10-12",
+   "aka": [
+    "TCP J17541876-2736362"
+   ]
+  },
+  {
+   "name": "TCP J17520680-2343207",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 17.8685583,
+   "dec": -23.722361,
+   "stale": false,
+   "peak": 11.3,
+   "discovered": "2026-09-08",
+   "aka": [
+    "ASASSN-26fc",
+    "AT 2026abbx",
+    "Nova in Saggitarius"
+   ]
+  },
+  {
+   "name": "V488 Sge",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 19.7518028,
+   "dec": 18.378361,
+   "stale": false,
+   "peak": 7.1,
+   "discovered": "2026-08-25",
+   "aka": [
+    "Nova Sagittae 2026 PNV J19450648+1822422"
+   ]
+  },
+  {
+   "name": "V8055 Sgr",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 18.4202111,
+   "dec": -22.424806,
+   "stale": false,
+   "peak": 8.5,
+   "discovered": "2026-08-19",
+   "aka": [
+    "Nova Sagittarii 2026 No. 3",
+    "TCP J18251276-2225293"
+   ]
+  },
+  {
+   "name": "V1452 Tau",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 5.3521194,
+   "dec": 23.638889,
+   "stale": false,
+   "peak": 8.9,
+   "discovered": "2026-08-06",
+   "aka": [
+    "Nova Tauri 2026",
+    "TCP J05210763+2338194"
+   ]
+  },
+  {
+   "name": "AT 2026stb",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 18.5210056,
+   "dec": -5.575528,
+   "stale": false,
+   "peak": 16,
+   "discovered": "2026-07-08",
+   "aka": [
+    "Nova in Scutum"
+   ]
+  },
+  {
+   "name": "V2104 Aql",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 19.2420472,
+   "dec": 12.064889,
+   "stale": false,
+   "peak": 11,
+   "discovered": "2026-07-01",
+   "aka": [
+    "Nova Aquilae 2026",
+    "AT 2026rdg",
+    "ZTF26abemjfk"
+   ]
+  },
+  {
+   "name": "V419 Mus",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 11.7422944,
+   "dec": -68.807361,
+   "stale": false,
+   "peak": 7.9,
+   "discovered": "2026-05-11",
+   "aka": [
+    "Nova Muscae 2026",
+    "ASASSN-26no"
+   ]
+  },
+  {
+   "name": "AT 2026lck",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 18.7329333,
+   "dec": 1.880167,
+   "stale": false,
+   "peak": 13.8,
+   "discovered": "2026-04-23",
+   "aka": [
+    "ZTF26aatyimr",
+    "ASASSN-17cf",
+    "Recurrent Nova in Aquila"
+   ]
+  },
+  {
+   "name": "PRIME26aaabsh",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 17.7724167,
+   "dec": -29.071889,
+   "stale": false,
+   "peak": 11.4,
+   "discovered": "2026-03-10",
+   "aka": [
+    "Nova in Sagittarius"
+   ]
+  },
+  {
+   "name": "Fermi J1820-1648",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 18.3401833,
+   "dec": -16.893528,
+   "stale": false,
+   "peak": 13.12,
+   "discovered": "2026-02-18",
+   "aka": [
+    "Nova in Sagittarius"
+   ]
+  },
+  {
+   "name": "PNV J12312434-5907133",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 12.5234444,
+   "dec": -59.119028,
+   "stale": false,
+   "peak": 12.1,
+   "discovered": "2025-11-29",
+   "aka": [
+    "ASASSN-25fd",
+    "Nova in Crux"
+   ]
+  },
+  {
+   "name": "V1935 Cen",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 14.6227222,
+   "dec": -58.794667,
+   "stale": false,
+   "peak": 7.2,
+   "discovered": "2025-09-22",
+   "aka": [
+    "Nova Centauri 2025",
+    "PNV J14372177-5847400"
+   ]
+  },
+  {
+   "name": "V7994 Sgr",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 18.0646556,
+   "dec": -31.457389,
+   "stale": false,
+   "peak": 6.6,
+   "discovered": "2025-09-21",
+   "aka": [
+    "Nova Sagittarii 2025 No. 4",
+    "TCP J18035290-3127298"
+   ]
+  },
+  {
+   "name": "V4371 Oph",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 17.5034167,
+   "dec": -27.896889,
+   "stale": false,
+   "peak": 10.8,
+   "discovered": "2025-09-05",
+   "aka": [
+    "Nova Ophiuchi 2025",
+    "TCP J17301230-2753488"
+   ]
+  },
+  {
+   "name": "V691 Ser",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 18.649575,
+   "dec": -3.863722,
+   "stale": false,
+   "peak": 11.9,
+   "discovered": "2025-07-17",
+   "aka": [
+    "Nova Serpentis 2025",
+    "TCP J18385851-0351482"
+   ]
+  },
+  {
+   "name": "V572 Vel",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 10.4205222,
+   "dec": -53.522,
+   "stale": false,
+   "peak": 4.8,
+   "discovered": "2025-06-25",
+   "aka": [
+    "Nova Velorum 2025",
+    "PNV J10251200-5331109"
+   ]
+  },
+  {
+   "name": "V462 Lup",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 15.1342417,
+   "dec": -40.143111,
+   "stale": false,
+   "peak": 5.4,
+   "discovered": "2025-06-12",
+   "aka": [
+    "Nova Lupi 2025",
+    "ASASSN-25cm",
+    "AT 2025nlr"
+   ]
+  },
+  {
+   "name": "V7993 Sgr",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 18.0393444,
+   "dec": -33.175528,
+   "stale": false,
+   "peak": 10.3,
+   "discovered": "2025-03-24",
+   "aka": [
+    "Nova Sagittarii 2025 No. 3",
+    "TCP J18022164-3310319"
+   ]
+  },
+  {
+   "name": "PRIME25aaghjd",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 17.8040639,
+   "dec": -29.855264,
+   "stale": false,
+   "peak": 8.7,
+   "discovered": "2025-02-16",
+   "aka": [
+    "Nova in Sagittarius"
+   ]
+  },
+  {
+   "name": "V7992 Sgr",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 17.9845722,
+   "dec": -36.018806,
+   "stale": false,
+   "peak": 10.1,
+   "discovered": "2025-01-29",
+   "aka": [
+    "Nova Sagittarii 2025 No.2",
+    "TCP J17590439-3601111"
+   ]
+  },
+  {
+   "name": "V7991 Sgr",
+   "kind": "nova",
+   "type": "Nova",
+   "ra": 18.448475,
+   "dec": -27.320028,
+   "stale": false,
+   "peak": 9,
+   "discovered": "2025-01-26",
+   "aka": [
+    "Nova Sagittarii 2025 No.1",
+    "TCP J18265456-2719122"
+   ]
+  }
+ ]
+}

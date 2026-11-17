@@ -58,7 +58,7 @@ export default function Footer() {
           <a className="underline hover:text-accent-600" href="https://github.com/mattiaverga/OpenNGC" target="_blank" rel="noreferrer">
             OpenNGC
           </a>{' '}
-          (CC BY-SA 4.0). Satellites :{' '}
+          (CC BY-SA 4.0). Comètes et astéroïdes : MPC, COBS, JPL (CNEOS, Horizons). Novae et supernovae : David Bishop, Koji Mukai. Occultations : IOTA. Satellites :{' '}
           <a className="underline hover:text-accent-600" href="https://github.com/shashwatak/satellite-js" target="_blank" rel="noreferrer">
             satellite.js
           </a>{' '}

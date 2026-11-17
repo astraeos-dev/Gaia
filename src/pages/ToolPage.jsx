@@ -38,7 +38,7 @@ export default function ToolPage() {
         </Link>
       </nav>
 
-      <header className={`mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between ${item ? 'print:hidden' : ''}`}>
+      <header className={`mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between ${item || tool.printSheet ? 'print:hidden' : ''}`}>
         <div className="flex items-start gap-3">
           <span className="mt-1 hidden rounded-xl bg-accent-400/15 p-2.5 text-accent-700 dark:text-accent-300 sm:block">
             <Icon size={22} />

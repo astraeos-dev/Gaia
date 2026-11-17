@@ -28,6 +28,12 @@ import { SERIES } from '../../../kit/charte'
 import { cometPosition } from '../lib/comets'
 import { COMETS, cometNight, cometPath, nightSamples } from '../comets/sky'
 import { UNCERTAINTY_MIN, visibleMinima } from '../variables/algol'
+import { notableBetween } from '../neo/data'
+import { ldText, sizeText } from '../neo/format'
+import { chosen as chosenTransients } from '../transients/transients'
+import { OBJECTS as TRANSIENTS, bestTonight, kindText } from '../transients/sky'
+import { near as occultationsNear } from '../occultations/occultations'
+import { asteroidLabel, useOccultationEvents } from '../occultations/data'
 
 function Row({ label, value, sub }) {
   return (
@@ -95,10 +101,28 @@ export default function Tonight() {
     // Le minimum d'Algol de la nuit, s'il vaut d'être observé d'ici (variables/algol.js, comme Céleste)
     const algol = visibleMinima(start, end, observer)[0] ?? null
 
-    return { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end, comets, algol }
+    // Les astéroïdes remarquables qui passent au plus près de la Terre cette nuit-là (neo/data.js, comme Céleste)
+    const neo = notableBetween(start, end)
+
+    // Les novae et les supernovae plus brillantes que la magnitude 13 (les novae de notre galaxie des 45 derniers
+    // jours) hautes dans le noir cette nuit : trois au plus (transients/, comme Céleste)
+    const today = `${day.getFullYear()}-${String(day.getMonth() + 1).padStart(2, '0')}-${String(day.getDate()).padStart(2, '0')}`
+    const transients = chosenTransients(TRANSIENTS, today, { magLimit: 13, novaDays: 45 })
+      .map((o) => ({ o, best: bestTonight(o, samples) }))
+      .filter(({ best }) => best)
+      .slice(0, 3)
+
+    return { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end, comets, algol, neo, transients }
   }, [location, day, isToday])
 
-  const { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end, comets, algol } = data
+  const { sun, nextSun, moon, moonRts, moonPos, moonConstellation, quarters, planets, series, start, end, comets, algol, neo, transients } = data
+  // Les occultations de la nuit à moins de 100 km du lieu (occultations/, comme Céleste) : leurs prédictions se
+  // chargent à part, un fichier par mois
+  const predictions = useOccultationEvents(start, end)
+  const occultations = useMemo(
+    () => (predictions ? occultationsNear(predictions.events, location.lat, location.lon, location.elevation ?? 0, { start, end }) : []),
+    [predictions, location, start, end],
+  )
   const darkHours = sun.astronomicalDusk && nextSun.astronomicalDawn ? (nextSun.astronomicalDawn - sun.astronomicalDusk) / 3_600_000 : null
 
   return (
@@ -224,6 +248,70 @@ export default function Tonight() {
             {fmt(algol.alt, 0)}° de hauteur ({compass(algol.az)}) : elle tombe de la magnitude 2,1 à 3,4. Comparez-la à γ d’Andromède (2,3),
             puis à ε (2,9) et κ de Persée (3,8), dans les heures qui précèdent et qui suivent.
           </p>
+        </section>
+      )}
+
+      {occultations.length > 0 && (
+        <section className="card card-pad">
+          <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="font-semibold">Étoiles cachées par des astéroïdes</h2>
+            <Link to="/astronomie/occultations" className="text-sm font-medium text-accent-700 hover:underline dark:text-accent-400">
+              Toutes les occultations →
+            </Link>
+          </div>
+          <ul className="space-y-1 text-sm">
+            {occultations.map((s) => (
+              <li key={`${s.event.name}-${s.event.middle.getTime()}`}>
+                Occultation à {fmtTime(s.date, true)} : <strong>{asteroidLabel(s.event)}</strong> cache une étoile de magnitude {fmt(s.event.starMag, 1)},{' '}
+                {s.inside ? (
+                  <span className="font-semibold text-or">la bande passe sur le lieu ({fmt(s.duration, 1)} s)</span>
+                ) : (
+                  `la bande passe à ${fmt(s.edgeKm, 0)} km (${compass(s.direction)})`
+                )}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-night-500">Prédictions de l’IOTA : la bande peut encore se déplacer de plus que sa largeur.</p>
+        </section>
+      )}
+
+      {neo.length > 0 && (
+        <section className="card card-pad">
+          <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="font-semibold">Astéroïdes près de la Terre</h2>
+            <Link to="/astronomie/geocroiseurs" className="text-sm font-medium text-accent-700 hover:underline dark:text-accent-400">
+              Tous les passages →
+            </Link>
+          </div>
+          <ul className="space-y-1 text-sm">
+            {neo.map((a) => (
+              <li key={`${a.designation}-${a.date.getTime()}`}>
+                Astéroïde <strong>{a.name}</strong> au plus près à {fmtTime(a.date)}, à {ldText(a.distanceAu)} ({sizeText(a)})
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-night-500">
+            Ceux de 140 m et plus, ou qui passent plus près que la Lune (DL : distances lunaires, 384 400 km), d’après le CNEOS (NASA/JPL).
+          </p>
+        </section>
+      )}
+
+      {transients.length > 0 && (
+        <section className="card card-pad">
+          <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
+            <h2 className="font-semibold">Novae et supernovae</h2>
+            <Link to="/astronomie/novae-supernovae" className="text-sm font-medium text-accent-700 hover:underline dark:text-accent-400">
+              Toutes les étoiles nouvelles →
+            </Link>
+          </div>
+          <ul className="space-y-1 text-sm">
+            {transients.map(({ o, best }) => (
+              <li key={o.name}>
+                <strong>{o.name}</strong> ({kindText(o)}), magnitude {fmt(o.mag ?? o.peak, 1)}, au plus haut à {fmtTime(best.t)} à {fmt(best.alt, 0)}° ({compass(best.az)})
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs text-night-500">Plus brillantes que la magnitude 13 à leur dernière mesure, à plus de 20° quand le Soleil est sous −12°.</p>
         </section>
       )}
 

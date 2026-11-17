@@ -7,7 +7,9 @@ import Segmented from '../../../components/Segmented'
 import { fmt, fmtDate, fmtShortDate, fmtTime } from '../../../lib/format'
 import { addHours, makeObserver, moonInfo, riseTransitSet, sameDay, startOfDay, sunDay } from '../lib/astro'
 import MoonPhase from '../components/MoonPhase'
-import { EVENT_TYPES, dayKey, monthEvents } from './events'
+import { EVENT_TYPES, dayKey, monthEvents, monthRange, occultationEvents } from './events'
+import { near } from '../occultations/occultations'
+import { useOccultationEvents } from '../occultations/data'
 
 const WEEK_DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
 const MONTHS = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
@@ -85,7 +87,14 @@ export default function AstroCalendar() {
   const [mode, setMode] = useLocalStorage('calendar-mode', 'grid')
   const [hidden, setHidden] = useLocalStorage('calendar-hidden-types', [])
 
-  const byDay = useMemo(() => monthEvents(view.year, view.month, observer), [view, observer])
+  // Les occultations près du lieu : leurs prédictions se chargent à part, un fichier par mois
+  const range = useMemo(() => monthRange(view.year, view.month), [view])
+  const predictions = useOccultationEvents(range.start, range.end)
+  const occultations = useMemo(
+    () => (predictions ? occultationEvents(near(predictions.events, location.lat, location.lon, location.elevation ?? 0, range)) : []),
+    [predictions, location, range],
+  )
+  const byDay = useMemo(() => monthEvents(view.year, view.month, observer, occultations), [view, observer, occultations])
   const visible = (list) => (list ?? []).filter((e) => !hidden.includes(e.type))
 
   const first = new Date(view.year, view.month, 1)

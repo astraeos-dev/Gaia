@@ -158,6 +158,14 @@ Pour un domaine personnel, remplacer `base` dans `vite.config.js` par `'/'`.
   Warren 1991, domaine public) et le ciel profond d'[OpenNGC](https://github.com/mattiaverga/OpenNGC) (Mattia Verga,
   licence CC BY-SA 4.0 ; `data/deep-sky.json` est partagé sous la même licence), recopiés de Céleste par
   `scripts/sync-celeste-sky.mjs`.
+- Données du jour, téléchargées à chaque construction du site (`scripts/fetch-*.mjs`) : comètes du
+  [Minor Planet Center](https://www.minorplanetcenter.net) et de [COBS](https://cobs.si) ; astéroïdes, passages des
+  géocroiseurs ([CNEOS](https://cneos.jpl.nasa.gov/ca/)) et éphémérides ([Horizons](https://ssd.jpl.nasa.gov/horizons/))
+  du JPL (NASA) ; novae et supernovae de « [Latest Supernovae](https://www.rochesterastronomy.org/supernova.html) »
+  (David Bishop) et de la « [List of Recent Galactic Novae](https://asd.gsfc.nasa.gov/Koji.Mukai/novae/novae.html) »
+  (Koji Mukai, NASA Goddard) ; occultations d'étoiles par des astéroïdes, prédictions de l'[IOTA](https://asteroidoccultation.com)
+  (Steve Preston, avec Occult de David Herald), un fichier par mois dans `data/occultations/` ; lunes de Mars, Saturne,
+  Uranus, Neptune et Pluton, éphémérides de satellites de JPL Horizons (MAR097, SAT441, URA184, NEP097, PLU060).
 - Fond de carte du monde : [Natural Earth](https://www.naturalearthdata.com) (domaine public), via
   [world-atlas](https://github.com/topojson/world-atlas), converti en tracé SVG équirectangulaire.
 - Satellites : [satellite.js](https://github.com/shashwatak/satellite-js) (MIT), éléments orbitaux
