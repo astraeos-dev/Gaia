@@ -6,6 +6,9 @@
 import { Astronomy, BODY, DAY_MS, QUARTER_NAMES, unitVector } from '../lib/astro'
 import { SHOWERS, whenSolarLongitude } from '../meteors/showers'
 import { UNCERTAINTY_MIN, visibleMinima } from '../variables/algol'
+import { notableBetween } from '../neo/data'
+import { AU_KM } from '../neo/neo'
+import { kmText, ldText, sizeText } from '../neo/format'
 import { ALERTE, ENCRE, ENCRE_ATTENUEE, LUNE, LUNE_ALERTE, LUNE_OK, OK, OR, OR_ALERTE, OR_LUNE } from '../../../kit/charte'
 
 export const EVENT_TYPES = {
@@ -20,6 +23,7 @@ export const EVENT_TYPES = {
   meteor: { label: "Pluie d'étoiles filantes", color: OR_ALERTE },
   brightness: { label: 'Éclat maximal', color: LUNE_ALERTE },
   variable: { label: 'Minimum d’Algol', color: LUNE_OK },
+  neo: { label: 'Astéroïde près de la Terre', color: ENCRE_ATTENUEE },
 }
 
 const PLANETS = ['Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune']
@@ -234,6 +238,13 @@ export function findEvents(start, end, observer) {
   // (variables/algol.js, comme Céleste)
   for (const m of visibleMinima(start, end, observer)) {
     push(m.date, 'variable', 'Minimum d’Algol', `Algol à ${fmtDeg(m.alt, 0)} de hauteur, à ±${UNCERTAINTY_MIN} min près : de la magnitude 2,1 à 3,4 et retour en une dizaine d’heures`)
+  }
+
+  // Les astéroïdes remarquables qui passent près de la Terre : 140 m et plus, ou plus près que la Lune (neo/data.js,
+  // comme Céleste)
+  for (const a of notableBetween(start, end)) {
+    const speed = a.speed ? ` · ${a.speed.toFixed(1).replace('.', ',')} km/s` : ''
+    push(a.date, 'neo', `Astéroïde ${a.name} à ${ldText(a.distanceAu)}`, `${kmText(a.distanceAu * AU_KM)} de la Terre · ${sizeText(a)}${speed}`)
   }
 
   return events.sort((a, b) => a.time - b.time)

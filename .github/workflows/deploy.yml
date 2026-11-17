@@ -5,7 +5,7 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
-  # Chaque jour : les comètes (magnitudes observées et orbites) se mettent à jour
+  # Chaque jour : les comètes, les géocroiseurs, les novae et les supernovae se mettent à jour
   schedule:
     - cron: '23 5 * * *'
 
@@ -39,6 +39,12 @@ jobs:
 
       - name: Astéroïdes et planètes naines (JPL)
         run: node scripts/fetch-asteroids.mjs
+
+      - name: Géocroiseurs (CNEOS et JPL Horizons)
+        run: node scripts/fetch-neo.mjs
+
+      - name: Novae et supernovae (David Bishop, Koji Mukai)
+        run: node scripts/fetch-transients.mjs
 
       - name: Lint
         run: npm run lint

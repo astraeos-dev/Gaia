@@ -1,8 +1,10 @@
 /**
  * Échelles de temps et temps sidéral.
  * Références : Meeus, « Astronomical Algorithms » (chap. 7 et 12) ; IERS pour les secondes intercalaires.
+ *
+ * Seul Astronomy Engine est importé : les scripts qui préparent les données (scripts/fetch-neo.mjs) s'en servent aussi.
  */
-import { Astronomy } from './astro'
+import * as Astronomy from 'astronomy-engine'
 
 const DAY_MS = 86_400_000
 const JD_UNIX = 2_440_587.5
