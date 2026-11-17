@@ -204,7 +204,7 @@ export default function Planner() {
   // une nuit par jour (de midi à midi), la suivante une fois l'aube passée : le plan se refait quand la nuit, le lieu
   // ou les contraintes changent
   const noon = useMemo(() => {
-    const first = nightNoon(clock.date).getTime()
+    const first = nightNoon(clock.date, observer.longitude).getTime()
     const { end } = nightWindow(new Date(first + 9 * 3_600_000), observer)
     return end && end < clock.date ? first + 86_400_000 : first
   }, [clock.date, observer])

@@ -91,10 +91,14 @@ function sunAltitude(date, observer) {
   return Astronomy.Horizon(date, observer, eq.ra, eq.dec).altitude
 }
 
-/** Le midi local qui ouvre la nuit de `date` (la veille, le matin : la nuit en cours). */
-export function nightNoon(date) {
-  const local = new Date(date.getTime() - 12 * 3_600_000)
-  return new Date(local.getFullYear(), local.getMonth(), local.getDate(), 12)
+/**
+ * Le midi qui ouvre la nuit de `date` (la veille, le matin : la nuit en cours), au temps solaire moyen du lieu
+ * (longitude en degrés, est positive) : la nuit du lieu, quel que soit le fuseau du navigateur.
+ */
+export function nightNoon(date, longitude) {
+  const offset = (longitude / 15) * 3_600_000
+  const local = new Date(date.getTime() + offset - 12 * 3_600_000)
+  return new Date(Date.UTC(local.getUTCFullYear(), local.getUTCMonth(), local.getUTCDate(), 12) - offset)
 }
 
 /**
@@ -103,7 +107,7 @@ export function nightNoon(date) {
  * va de midi à midi.
  */
 export function nightWindow(date, observer, depths = [[-18, 'astro'], [-12, 'naut'], [-6, 'civil']]) {
-  const noon = nightNoon(date)
+  const noon = nightNoon(date, observer.longitude)
   const times = Array.from({ length: 721 }, (_, i) => new Date(noon.getTime() + i * 2 * MINUTE)) // toutes les 2 minutes
   const sun = times.map((t) => sunAltitude(t, observer))
   for (const [depth, kind] of depths) {

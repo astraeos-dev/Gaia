@@ -49,5 +49,5 @@ Ce qui est fait, et ce qui vient. La feuille de route complète du projet, versi
 
 - [x] Une section Céleste sur le site Gaïa, avec ses outils d'astronomie dans le navigateur
 - [x] Dans le navigateur, d'après Heavens-Above et In-The-Sky : les comètes, les astéroïdes brillants, les étoiles filantes, les satellites de Jupiter, les cartes des 88 constellations et les minima d'Algol
-- [x] Dans le navigateur, comme Céleste 4.20 et 4.21 : les astéroïdes qui passent près de la Terre (CNEOS, JPL Horizons), les étoiles qu'ils cachent près du lieu (IOTA), les novae et les supernovae du moment ; le planificateur de nuit (4.10), « Que voir cette nuit ? »
+- [x] Dans le navigateur, comme Céleste 4.20 et 4.21 : les astéroïdes qui passent près de la Terre (CNEOS, JPL Horizons), les étoiles qu'ils cachent près du lieu (IOTA), les novae et les supernovae du moment ; le planificateur de nuit (4.10), « Que voir cette nuit ? », et la fiche du mois à imprimer (4.19)
 - [ ] Céleste dans le navigateur : son moteur en Python dans la page, avec Pyodide, en commençant par « Ce soir » ([les pistes](#/celeste/documentation/web), en anglais)

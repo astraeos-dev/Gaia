@@ -20,7 +20,7 @@ function InBrowser() {
       <div className="prose-gaia">
         <p>
           Une partie de Céleste fonctionne déjà ici, sans rien installer : les outils d’astronomie du site calculent pour votre lieu
-          (choisi dans l’en-tête) le ciel de ce soir, ce qu’il y a de mieux à voir cette nuit selon vos contraintes, la carte du ciel et celles des 88 constellations, le calendrier, les éclipses, les
+          (choisi dans l’en-tête) le ciel de ce soir, ce qu’il y a de mieux à voir cette nuit selon vos contraintes, la fiche du mois à imprimer, la carte du ciel et celles des 88 constellations, le calendrier, les éclipses, les
           étoiles filantes, les minima d’Algol, les novae et les supernovae du moment, le Soleil, la Lune, les planètes et leurs satellites, les comètes, les astéroïdes, ceux qui passent près de la Terre et les étoiles qu’ils cachent, et les satellites artificiels. Ils s’appuient sur Astronomy Engine, un autre moteur que celui de Céleste, d’une précision de l’ordre de la
           minute d’arc : assez pour observer, pas pour naviguer.
         </p>
